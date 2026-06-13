@@ -8,72 +8,61 @@ export default function Industries() {
   const { data: industries, isLoading } = useListIndustries();
 
   return (
-    <div className="min-h-screen bg-background text-foreground relative overflow-hidden">
-      <div className="absolute inset-0 z-0 pointer-events-none">
-        <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-primary/10 rounded-full blur-[120px]" />
-      </div>
+    <div className="min-h-screen bg-white text-[#111827] font-sans">
       <Navbar />
-      <PageTransition className="container mx-auto px-6 py-20 relative z-10">
-        <div className="max-w-3xl mb-16">
-          <h1 className="text-5xl md:text-6xl font-display font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-primary to-cyan-400">
-            Transformed Industries
-          </h1>
-          <p className="text-xl text-muted-foreground">
-            See how AI-Solutions is revolutionizing the digital employee experience across global sectors.
-          </p>
-        </div>
+      <PageTransition>
+        <div className="container mx-auto px-6 py-24 max-w-5xl">
+          <div className="max-w-2xl mb-20">
+            <h1 className="text-[48px] md:text-[64px] font-bold text-[#111827] tracking-tight mb-6 leading-tight">
+              Industries We Serve
+            </h1>
+            <p className="text-lg text-[#6B7280] leading-relaxed">
+              See how AI-Solutions is revolutionizing the digital employee experience across global sectors.
+            </p>
+          </div>
 
-        {isLoading ? (
-          <div className="space-y-12">
-            {[...Array(3)].map((_, i) => (
-              <Skeleton key={i} className="h-[400px] rounded-2xl bg-muted/20 w-full" />
-            ))}
-          </div>
-        ) : (
-          <div className="space-y-16">
-            {industries?.map((industry, i) => (
-              <motion.div
-                key={industry.id}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6 }}
-                className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center bg-card/30 rounded-3xl border border-white/5 p-6 md:p-12"
-                data-testid={`card-industry-${industry.id}`}
-              >
-                <div className={`order-2 ${i % 2 === 0 ? "lg:order-1" : "lg:order-2"}`}>
-                  <div className="text-sm font-bold uppercase tracking-wider text-primary mb-4 flex items-center gap-4">
-                    {industry.sector}
-                    <span className="w-12 h-[1px] bg-primary/50"></span>
-                    <span className="text-muted-foreground">{industry.year}</span>
-                  </div>
-                  <h2 className="text-4xl font-display font-bold mb-6">{industry.name}</h2>
-                  <p className="text-lg text-muted-foreground mb-8">{industry.description}</p>
-                  <div className="bg-primary/5 border border-primary/20 rounded-xl p-6">
-                    <h4 className="text-sm font-bold uppercase text-foreground mb-2">The Outcome</h4>
-                    <p className="text-primary font-medium">{industry.outcome}</p>
-                  </div>
-                </div>
-                
-                <div className={`order-1 ${i % 2 === 0 ? "lg:order-2" : "lg:order-1"} relative h-[400px] rounded-2xl overflow-hidden`}>
-                  {industry.imageUrl ? (
-                    <img src={industry.imageUrl} alt={industry.name} className="w-full h-full object-cover" />
-                  ) : (
-                    <div className="w-full h-full bg-gradient-to-br from-muted to-background flex items-center justify-center border border-white/5">
-                      <span className="text-muted-foreground font-display text-2xl opacity-50">{industry.name}</span>
+          {isLoading ? (
+            <div className="space-y-8">
+              {[...Array(3)].map((_, i) => (
+                <Skeleton key={i} className="h-64 rounded-xl bg-gray-100 w-full" />
+              ))}
+            </div>
+          ) : (
+            <div className="space-y-8">
+              {industries?.map((industry, i) => (
+                <motion.div
+                  key={industry.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: i * 0.1 }}
+                  className="bg-white border border-[#E5E7EB] rounded-xl p-8 md:p-12 shadow-sm flex flex-col md:flex-row gap-8 items-start hover:shadow-md transition-shadow"
+                  data-testid={`card-industry-${industry.id}`}
+                >
+                  <div className="w-full md:w-1/3 shrink-0">
+                    <div className="inline-flex items-center gap-2 mb-4">
+                      <span className="text-sm font-medium text-[#4F46E5] bg-[#4F46E5]/10 px-2.5 py-1 rounded-md">
+                        {industry.sector}
+                      </span>
+                      <span className="text-sm text-[#6B7280] font-medium">{industry.year}</span>
                     </div>
-                  )}
-                  <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent" />
-                  {industry.logoUrl && (
-                    <div className="absolute bottom-6 left-6 bg-background/80 backdrop-blur-md p-4 rounded-xl border border-white/10">
-                      <img src={industry.logoUrl} alt="Logo" className="h-8 object-contain" />
+                    <h2 className="text-2xl font-bold text-[#111827]">{industry.name}</h2>
+                  </div>
+                  
+                  <div className="w-full md:w-2/3 flex flex-col gap-6">
+                    <p className="text-[17px] text-[#374151] leading-relaxed">
+                      {industry.description}
+                    </p>
+                    <div className="pt-6 border-t border-[#F3F4F6]">
+                      <div className="text-xs font-semibold text-[#6B7280] uppercase tracking-wider mb-2">The Outcome</div>
+                      <div className="text-[#111827] font-medium text-lg">{industry.outcome}</div>
                     </div>
-                  )}
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        )}
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          )}
+        </div>
       </PageTransition>
     </div>
   );

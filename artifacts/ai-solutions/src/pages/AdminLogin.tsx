@@ -11,6 +11,7 @@ import {
   FormField,
   FormItem,
   FormMessage,
+  FormLabel,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Lock } from "lucide-react";
@@ -51,52 +52,49 @@ export default function AdminLogin() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background text-foreground relative overflow-hidden">
-      <div className="absolute inset-0 z-0 pointer-events-none flex items-center justify-center">
-        <div className="w-[500px] h-[500px] bg-primary/10 rounded-full blur-[100px] animate-pulse" />
-      </div>
-      
+    <div className="min-h-screen flex items-center justify-center bg-[#F9FAFB] text-[#111827] font-sans px-6">
       <motion.div 
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
-        className="z-10 w-full max-w-md p-10 bg-card/40 backdrop-blur-xl border border-primary/20 rounded-2xl shadow-[0_0_50px_rgba(0,0,0,0.5)]"
+        className="w-full max-w-sm p-8 bg-white border border-[#E5E7EB] rounded-2xl shadow-sm"
       >
-        <div className="flex justify-center mb-8">
-          <div className="w-16 h-16 rounded-full bg-primary/10 border border-primary/30 flex items-center justify-center shadow-[0_0_15px_rgba(0,212,255,0.2)]">
-            <Lock className="w-8 h-8 text-primary" />
+        <div className="flex justify-center mb-6">
+          <div className="w-12 h-12 rounded-full bg-[#F3F4F6] flex items-center justify-center text-[#374151]">
+            <Lock className="w-5 h-5" />
           </div>
         </div>
         
-        <h1 className="text-3xl font-display font-bold text-center tracking-wide mb-2">SYSTEM ACCESS</h1>
-        <p className="text-muted-foreground text-center mb-10 uppercase tracking-widest text-xs">AI-Solutions Admin Portal</p>
+        <h1 className="text-2xl font-bold text-center mb-1">Admin Portal</h1>
+        <p className="text-[#6B7280] text-center text-sm mb-8">Sign in to manage AI-Solutions</p>
         
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8" data-testid="form-admin-login">
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6" data-testid="form-admin-login">
             <FormField
               control={form.control}
               name="password"
               render={({ field }) => (
                 <FormItem>
+                  <FormLabel className="text-[#374151] font-medium text-sm">Passphrase</FormLabel>
                   <FormControl>
                     <Input 
                       type="password" 
-                      placeholder="ENTER PASSPHRASE" 
-                      className="bg-black/50 border-primary/30 text-center tracking-widest uppercase focus-visible:ring-primary h-14 font-mono text-lg shadow-[inset_0_0_10px_rgba(0,0,0,0.5)]" 
+                      placeholder="••••••••" 
+                      className="bg-white border-[#E5E7EB] h-12" 
                       {...field} 
                       data-testid="input-password" 
                     />
                   </FormControl>
-                  <FormMessage className="text-center" />
+                  <FormMessage />
                 </FormItem>
               )}
             />
             <button
               type="submit"
               disabled={adminLogin.isPending}
-              className="w-full py-4 bg-primary text-background font-bold uppercase tracking-widest rounded hover:shadow-[0_0_20px_rgba(0,212,255,0.6)] transition-all disabled:opacity-50"
+              className="w-full py-3 bg-[#111827] text-white font-medium rounded-lg hover:bg-[#1f2937] transition-colors disabled:opacity-50"
               data-testid="button-submit-login"
             >
-              {adminLogin.isPending ? "AUTHENTICATING..." : "AUTHORIZE"}
+              {adminLogin.isPending ? "Authenticating..." : "Sign In"}
             </button>
           </form>
         </Form>

@@ -1,5 +1,6 @@
+import { useState } from "react";
 import { Link, useLocation } from "wouter";
-import { motion } from "framer-motion";
+import { Menu, X } from "lucide-react";
 
 const navLinks = [
   { name: "Solutions", href: "/solutions" },
@@ -11,16 +12,15 @@ const navLinks = [
 
 export function Navbar() {
   const [location] = useLocation();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-white/5">
-      <div className="container mx-auto px-6 h-20 flex items-center justify-between">
+    <nav className="sticky top-0 z-50 bg-white/90 backdrop-blur border-b border-[#F3F4F6]">
+      <div className="container mx-auto px-6 h-16 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2" data-testid="link-home">
-          <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center shadow-[0_0_15px_rgba(0,212,255,0.5)]">
-            <span className="font-bold text-background text-xl">AI</span>
-          </div>
-          <span className="font-display font-bold text-xl tracking-wide text-foreground">
-            AI-SOLUTIONS
+          <div className="w-4 h-4 bg-primary rounded-sm"></div>
+          <span className="font-bold text-[#111827] text-lg">
+            AI-Solutions
           </span>
         </Link>
 
@@ -29,8 +29,8 @@ export function Navbar() {
             <Link
               key={link.href}
               href={link.href}
-              className={`text-sm tracking-wider uppercase transition-colors hover:text-primary ${
-                location === link.href ? "text-primary font-medium" : "text-muted-foreground"
+              className={`text-sm font-medium transition-colors hover:text-[#111827] ${
+                location === link.href ? "text-[#111827]" : "text-[#374151]"
               }`}
               data-testid={`link-${link.name.toLowerCase()}`}
             >
@@ -39,14 +39,45 @@ export function Navbar() {
           ))}
         </div>
 
-        <Link
-          href="/contact"
-          className="px-6 py-2 bg-primary/10 text-primary border border-primary/20 rounded hover:bg-primary hover:text-background hover:shadow-[0_0_20px_rgba(0,212,255,0.4)] transition-all uppercase tracking-wider text-sm font-medium"
-          data-testid="button-contact"
+        <div className="hidden md:block">
+          <Link
+            href="/contact"
+            className="px-5 py-2.5 bg-[#111827] text-white rounded-lg hover:bg-[#1f2937] transition-colors text-sm font-medium"
+            data-testid="button-contact"
+          >
+            Contact Us
+          </Link>
+        </div>
+
+        <button 
+          className="md:hidden p-2 text-[#374151]"
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         >
-          Contact Us
-        </Link>
+          {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+        </button>
       </div>
+
+      {isMobileMenuOpen && (
+        <div className="md:hidden bg-white border-b border-[#F3F4F6] px-6 py-4 space-y-4 shadow-sm">
+          {navLinks.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className="block text-sm font-medium text-[#374151] py-2"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              {link.name}
+            </Link>
+          ))}
+          <Link
+            href="/contact"
+            className="block text-center mt-4 px-5 py-2.5 bg-[#111827] text-white rounded-lg text-sm font-medium"
+            onClick={() => setIsMobileMenuOpen(false)}
+          >
+            Contact Us
+          </Link>
+        </div>
+      )}
     </nav>
   );
 }

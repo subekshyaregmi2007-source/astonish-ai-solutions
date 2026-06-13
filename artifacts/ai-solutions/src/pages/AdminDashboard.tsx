@@ -22,85 +22,91 @@ export default function AdminDashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
-      <nav className="border-b border-white/5 bg-card/50 backdrop-blur-md sticky top-0 z-50">
+    <div className="min-h-screen bg-[#F9FAFB] text-[#111827] font-sans">
+      <nav className="bg-white border-b border-[#E5E7EB] sticky top-0 z-50">
         <div className="container mx-auto px-6 h-16 flex items-center justify-between">
-          <div className="font-display font-bold tracking-widest uppercase text-primary">Admin_Panel</div>
+          <div className="font-bold text-[#111827]">Admin Panel</div>
           <button 
             onClick={() => { localStorage.removeItem("admin_token"); setLocation("/admin"); }}
-            className="flex items-center gap-2 text-muted-foreground hover:text-foreground text-sm uppercase tracking-wider"
+            className="flex items-center gap-2 text-[#6B7280] hover:text-[#111827] text-sm font-medium transition-colors"
           >
-            <LogOut className="w-4 h-4" /> Disconnect
+            <LogOut className="w-4 h-4" /> Sign Out
           </button>
         </div>
       </nav>
 
-      <main className="container mx-auto px-6 py-12">
-        <h1 className="text-3xl font-display font-bold mb-8">System Overview</h1>
+      <main className="container mx-auto px-6 py-12 max-w-6xl">
+        <h1 className="text-3xl font-bold mb-8 text-[#111827]">Overview</h1>
 
         {statsLoading ? (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-            {[1,2,3].map(i => <Skeleton key={i} className="h-32 bg-muted/20 rounded-xl" />)}
+            {[1,2,3].map(i => <Skeleton key={i} className="h-32 bg-gray-200 rounded-xl" />)}
           </div>
         ) : stats ? (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-            <div className="bg-card border border-white/5 rounded-xl p-6 relative overflow-hidden">
-              <div className="absolute top-4 right-4 text-primary/20"><Users className="w-12 h-12" /></div>
-              <div className="text-sm uppercase tracking-wider text-muted-foreground mb-2">Total Inquiries</div>
-              <div className="text-5xl font-display font-bold text-foreground">{stats.totalInquiries}</div>
+            <div className="bg-white border border-[#E5E7EB] rounded-xl p-6 shadow-sm">
+              <div className="flex items-center gap-3 mb-4 text-[#6B7280]">
+                <Users className="w-5 h-5" />
+                <span className="text-sm font-medium">Total Inquiries</span>
+              </div>
+              <div className="text-[40px] font-bold text-[#111827] leading-none">{stats.totalInquiries}</div>
             </div>
-            <div className="bg-card border border-white/5 rounded-xl p-6 relative overflow-hidden">
-              <div className="absolute top-4 right-4 text-primary/20"><Globe className="w-12 h-12" /></div>
-              <div className="text-sm uppercase tracking-wider text-muted-foreground mb-2">Unique Countries</div>
-              <div className="text-5xl font-display font-bold text-foreground">{stats.inquiriesByCountry.length}</div>
+            <div className="bg-white border border-[#E5E7EB] rounded-xl p-6 shadow-sm">
+              <div className="flex items-center gap-3 mb-4 text-[#6B7280]">
+                <Globe className="w-5 h-5" />
+                <span className="text-sm font-medium">Unique Countries</span>
+              </div>
+              <div className="text-[40px] font-bold text-[#111827] leading-none">{stats.inquiriesByCountry.length}</div>
             </div>
-            <div className="bg-card border border-white/5 rounded-xl p-6 relative overflow-hidden">
-              <div className="absolute top-4 right-4 text-primary/20"><Briefcase className="w-12 h-12" /></div>
-              <div className="text-sm uppercase tracking-wider text-muted-foreground mb-2">Unique Roles</div>
-              <div className="text-5xl font-display font-bold text-foreground">{stats.inquiriesByJobTitle.length}</div>
+            <div className="bg-white border border-[#E5E7EB] rounded-xl p-6 shadow-sm">
+              <div className="flex items-center gap-3 mb-4 text-[#6B7280]">
+                <Briefcase className="w-5 h-5" />
+                <span className="text-sm font-medium">Unique Roles</span>
+              </div>
+              <div className="text-[40px] font-bold text-[#111827] leading-none">{stats.inquiriesByJobTitle.length}</div>
             </div>
           </div>
         ) : null}
 
-        <div className="bg-card border border-white/5 rounded-xl overflow-hidden">
-          <div className="p-6 border-b border-white/5">
-            <h2 className="text-xl font-display font-bold">Recent Inquiries</h2>
+        <div className="bg-white border border-[#E5E7EB] rounded-xl shadow-sm overflow-hidden">
+          <div className="px-6 py-5 border-b border-[#E5E7EB]">
+            <h2 className="text-lg font-bold text-[#111827]">Recent Inquiries</h2>
           </div>
           
           <div className="overflow-x-auto">
             <table className="w-full text-sm text-left">
-              <thead className="text-xs uppercase tracking-wider text-muted-foreground bg-muted/10 border-b border-white/5">
+              <thead className="text-xs font-semibold text-[#6B7280] bg-[#F9FAFB] border-b border-[#E5E7EB]">
                 <tr>
-                  <th className="px-6 py-4 font-medium">Date</th>
-                  <th className="px-6 py-4 font-medium">Name</th>
-                  <th className="px-6 py-4 font-medium">Company</th>
-                  <th className="px-6 py-4 font-medium">Role</th>
-                  <th className="px-6 py-4 font-medium">Country</th>
+                  <th className="px-6 py-4">Date</th>
+                  <th className="px-6 py-4">Name</th>
+                  <th className="px-6 py-4">Company</th>
+                  <th className="px-6 py-4">Role</th>
+                  <th className="px-6 py-4">Country</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody className="divide-y divide-[#E5E7EB]">
                 {inquiriesLoading ? (
                   [1,2,3,4,5].map(i => (
-                    <tr key={i} className="border-b border-white/5">
-                      <td className="px-6 py-4"><Skeleton className="h-4 w-24 bg-muted/20" /></td>
-                      <td className="px-6 py-4"><Skeleton className="h-4 w-32 bg-muted/20" /></td>
-                      <td className="px-6 py-4"><Skeleton className="h-4 w-32 bg-muted/20" /></td>
-                      <td className="px-6 py-4"><Skeleton className="h-4 w-24 bg-muted/20" /></td>
-                      <td className="px-6 py-4"><Skeleton className="h-4 w-20 bg-muted/20" /></td>
+                    <tr key={i}>
+                      <td className="px-6 py-4"><Skeleton className="h-4 w-24 bg-gray-100" /></td>
+                      <td className="px-6 py-4"><Skeleton className="h-4 w-32 bg-gray-100" /></td>
+                      <td className="px-6 py-4"><Skeleton className="h-4 w-32 bg-gray-100" /></td>
+                      <td className="px-6 py-4"><Skeleton className="h-4 w-24 bg-gray-100" /></td>
+                      <td className="px-6 py-4"><Skeleton className="h-4 w-20 bg-gray-100" /></td>
                     </tr>
                   ))
                 ) : inquiries && inquiries.length > 0 ? (
                   inquiries.map(inquiry => (
-                    <tr key={inquiry.id} className="border-b border-white/5 hover:bg-muted/5 transition-colors">
-                      <td className="px-6 py-4 text-muted-foreground whitespace-nowrap">{format(new Date(inquiry.createdAt), 'MMM dd, HH:mm')}</td>
-                      <td className="px-6 py-4 font-medium text-foreground">
-                        <div>{inquiry.name}</div>
-                        <div className="text-xs text-muted-foreground">{inquiry.email}</div>
-                      </td>
-                      <td className="px-6 py-4 text-muted-foreground">{inquiry.companyName}</td>
-                      <td className="px-6 py-4 text-muted-foreground">{inquiry.jobTitle}</td>
+                    <tr key={inquiry.id} className="hover:bg-[#F9FAFB] transition-colors">
+                      <td className="px-6 py-4 text-[#6B7280] whitespace-nowrap">{format(new Date(inquiry.createdAt), 'MMM dd, HH:mm')}</td>
                       <td className="px-6 py-4">
-                        <span className="px-2 py-1 bg-primary/10 text-primary text-xs rounded uppercase font-bold tracking-wider">
+                        <div className="font-medium text-[#111827]">{inquiry.name}</div>
+                        <div className="text-xs text-[#6B7280] mt-0.5">{inquiry.email}</div>
+                      </td>
+                      <td className="px-6 py-4 text-[#374151]">{inquiry.companyName}</td>
+                      <td className="px-6 py-4 text-[#374151]">{inquiry.jobTitle}</td>
+                      <td className="px-6 py-4">
+                        <span className="text-sm text-[#374151]">
                           {inquiry.country}
                         </span>
                       </td>
@@ -108,7 +114,7 @@ export default function AdminDashboard() {
                   ))
                 ) : (
                   <tr>
-                    <td colSpan={5} className="px-6 py-8 text-center text-muted-foreground">No inquiries found.</td>
+                    <td colSpan={5} className="px-6 py-8 text-center text-[#6B7280]">No inquiries found.</td>
                   </tr>
                 )}
               </tbody>

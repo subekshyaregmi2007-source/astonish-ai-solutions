@@ -5,65 +5,73 @@ import { motion } from "framer-motion";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Link } from "wouter";
 import { format } from "date-fns";
+import { ArrowRight } from "lucide-react";
 
 export default function Articles() {
   const { data: articles, isLoading } = useListArticles();
 
   return (
-    <div className="min-h-screen bg-background text-foreground relative overflow-hidden">
+    <div className="min-h-screen bg-[#F9FAFB] text-[#111827] font-sans">
       <Navbar />
-      <PageTransition className="container mx-auto px-6 py-20 relative z-10">
-        <div className="max-w-3xl mb-16">
-          <h1 className="text-5xl md:text-6xl font-display font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-primary to-cyan-400">
-            Insights & News
-          </h1>
-          <p className="text-xl text-muted-foreground">
-            The latest on AI, digital employee experience, and the future of work.
-          </p>
-        </div>
+      <PageTransition>
+        <div className="container mx-auto px-6 py-24 max-w-4xl">
+          <div className="max-w-2xl mb-16">
+            <h1 className="text-[48px] md:text-[64px] font-bold text-[#111827] tracking-tight mb-6 leading-tight">
+              Insights & News
+            </h1>
+            <p className="text-lg text-[#6B7280] leading-relaxed">
+              The latest on AI, digital employee experience, and the future of work.
+            </p>
+          </div>
 
-        {isLoading ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {[...Array(4)].map((_, i) => (
-              <Skeleton key={i} className="h-[500px] rounded-2xl bg-muted/20" />
-            ))}
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {articles?.map((article, i) => (
-              <motion.div
-                key={article.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.1 }}
-                className="group cursor-pointer"
-                data-testid={`card-article-${article.id}`}
-              >
-                <Link href={`/articles/${article.id}`} className="block">
-                  <div className="h-[300px] rounded-2xl overflow-hidden mb-6 relative bg-muted">
-                    {article.imageUrl && (
-                      <img src={article.imageUrl} alt={article.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
-                    )}
-                    <div className="absolute top-4 left-4 bg-background/90 backdrop-blur px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wider text-primary">
-                      {article.category}
+          {isLoading ? (
+            <div className="space-y-6">
+              {[...Array(4)].map((_, i) => (
+                <Skeleton key={i} className="h-48 rounded-xl bg-gray-200" />
+              ))}
+            </div>
+          ) : (
+            <div className="space-y-6">
+              {articles?.map((article, i) => (
+                <motion.div
+                  key={article.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: i * 0.1, duration: 0.5 }}
+                >
+                  <Link 
+                    href={`/articles/${article.id}`} 
+                    className="group block bg-white border border-[#E5E7EB] rounded-xl p-8 shadow-sm hover:shadow-md hover:border-[#D1D5DB] transition-all"
+                    data-testid={`card-article-${article.id}`}
+                  >
+                    <div className="flex flex-col md:flex-row md:items-center gap-8">
+                      <div className="w-full md:w-1/4 shrink-0">
+                        <div className="text-xs font-medium text-[#4F46E5] bg-[#4F46E5]/10 px-2.5 py-1 rounded-md inline-block mb-3">
+                          {article.category}
+                        </div>
+                        <div className="text-sm text-[#6B7280] font-medium">
+                          {format(new Date(article.publishedAt), 'MMMM dd, yyyy')}
+                        </div>
+                      </div>
+                      
+                      <div className="w-full md:w-3/4">
+                        <h3 className="text-2xl font-bold text-[#111827] mb-3 group-hover:text-[#4F46E5] transition-colors">
+                          {article.title}
+                        </h3>
+                        <p className="text-[#6B7280] text-[15px] line-clamp-2 leading-relaxed mb-4">
+                          {article.summary}
+                        </p>
+                        <div className="text-[#4F46E5] text-sm font-medium flex items-center gap-1.5">
+                          Read article <ArrowRight className="w-4 h-4" />
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                  <div className="flex items-center gap-4 text-sm text-muted-foreground mb-4">
-                    <span>{format(new Date(article.publishedAt), 'MMM dd, yyyy')}</span>
-                    <span className="w-1 h-1 rounded-full bg-white/20"></span>
-                    <span>{article.author}</span>
-                  </div>
-                  <h3 className="text-3xl font-display font-bold mb-4 group-hover:text-primary transition-colors">
-                    {article.title}
-                  </h3>
-                  <p className="text-muted-foreground text-lg line-clamp-3">
-                    {article.summary}
-                  </p>
-                </Link>
-              </motion.div>
-            ))}
-          </div>
-        )}
+                  </Link>
+                </motion.div>
+              ))}
+            </div>
+          )}
+        </div>
       </PageTransition>
     </div>
   );

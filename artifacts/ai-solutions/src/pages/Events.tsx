@@ -13,123 +13,97 @@ export default function Events() {
   const pastEvents = events?.filter(e => !e.isUpcoming) || [];
 
   return (
-    <div className="min-h-screen bg-background text-foreground relative overflow-hidden">
+    <div className="min-h-screen bg-white text-[#111827] font-sans">
       <Navbar />
-      <PageTransition className="container mx-auto px-6 py-20 relative z-10">
-        <div className="max-w-3xl mb-16">
-          <h1 className="text-5xl md:text-6xl font-display font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-primary to-cyan-400">
-            Global Events
-          </h1>
-          <p className="text-xl text-muted-foreground">
-            Connect with us at industry summits, webinars, and product launches worldwide.
-          </p>
-        </div>
-
-        {isLoading ? (
-          <div className="space-y-12">
-            <Skeleton className="h-[400px] rounded-2xl bg-muted/20 w-full" />
-            <Skeleton className="h-[400px] rounded-2xl bg-muted/20 w-full" />
+      <PageTransition>
+        <div className="container mx-auto px-6 py-24 max-w-5xl">
+          <div className="max-w-2xl mb-20">
+            <h1 className="text-[48px] md:text-[64px] font-bold text-[#111827] tracking-tight mb-6 leading-tight">
+              Global Events
+            </h1>
+            <p className="text-lg text-[#6B7280] leading-relaxed">
+              Connect with us at industry summits, webinars, and product launches worldwide.
+            </p>
           </div>
-        ) : (
-          <div className="space-y-24">
-            {upcomingEvents.length > 0 && (
-              <section>
-                <h2 className="text-3xl font-display font-bold mb-10 flex items-center gap-4">
-                  Upcoming <span className="px-3 py-1 bg-primary/20 text-primary text-sm rounded-full">Register Now</span>
-                </h2>
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                  {upcomingEvents.map(event => (
-                    <motion.div 
-                      key={event.id}
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      className="bg-card border border-primary/30 rounded-2xl overflow-hidden shadow-[0_0_30px_rgba(0,212,255,0.1)] group"
-                      data-testid={`card-event-${event.id}`}
-                    >
-                      <div className="h-64 relative overflow-hidden">
-                        {event.coverImageUrl ? (
-                          <img src={event.coverImageUrl} alt={event.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
-                        ) : (
-                          <div className="absolute inset-0 bg-gradient-to-br from-primary/30 to-background" />
-                        )}
-                        <div className="absolute top-4 left-4 bg-background/90 backdrop-blur px-4 py-2 rounded-lg text-sm font-bold uppercase tracking-wider">
-                          {event.type}
+
+          {isLoading ? (
+            <div className="space-y-8">
+              <Skeleton className="h-48 rounded-xl bg-gray-100 w-full" />
+              <Skeleton className="h-48 rounded-xl bg-gray-100 w-full" />
+            </div>
+          ) : (
+            <div className="space-y-24">
+              {upcomingEvents.length > 0 && (
+                <section>
+                  <h2 className="text-3xl font-bold mb-10 text-[#111827]">Upcoming Events</h2>
+                  <div className="space-y-6">
+                    {upcomingEvents.map((event, i) => (
+                      <motion.div 
+                        key={event.id}
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: i * 0.1, duration: 0.5 }}
+                        className="bg-white border border-[#E5E7EB] border-l-4 border-l-[#4F46E5] rounded-xl p-8 shadow-sm flex flex-col md:flex-row gap-8 items-start md:items-center"
+                        data-testid={`card-event-${event.id}`}
+                      >
+                        <div className="w-24 h-24 shrink-0 bg-[#F9FAFB] border border-[#E5E7EB] rounded-xl flex flex-col items-center justify-center text-[#111827]">
+                          <span className="text-xs font-bold uppercase text-[#6B7280]">{format(new Date(event.date), 'MMM')}</span>
+                          <span className="text-3xl font-bold leading-none">{format(new Date(event.date), 'dd')}</span>
                         </div>
-                      </div>
-                      <div className="p-8">
-                        <h3 className="text-3xl font-display font-bold mb-4">{event.title}</h3>
-                        <p className="text-muted-foreground mb-8">{event.description}</p>
                         
-                        <div className="flex flex-col sm:flex-row gap-4 sm:items-center text-sm font-medium mb-8">
-                          <div className="flex items-center gap-2 text-foreground/80">
-                            <Calendar className="w-5 h-5 text-primary" />
-                            {format(new Date(event.date), 'MMMM dd, yyyy')}
+                        <div className="flex-grow">
+                          <div className="text-xs font-semibold text-[#4F46E5] bg-[#4F46E5]/10 px-2.5 py-1 rounded-md inline-block mb-3">
+                            {event.type}
                           </div>
-                          <div className="flex items-center gap-2 text-foreground/80">
-                            <MapPin className="w-5 h-5 text-primary" />
-                            {event.location}
+                          <h3 className="text-2xl font-bold text-[#111827] mb-2">{event.title}</h3>
+                          <p className="text-[#6B7280] text-[15px] mb-4">{event.description}</p>
+                          <div className="flex items-center gap-6 text-sm text-[#374151] font-medium">
+                            <div className="flex items-center gap-1.5">
+                              <MapPin className="w-4 h-4 text-[#6B7280]" />
+                              {event.location}
+                            </div>
                           </div>
                         </div>
 
-                        <button className="w-full py-4 bg-primary text-background font-bold uppercase tracking-wider rounded hover:bg-primary/90 transition-colors">
-                          Reserve Seat
-                        </button>
-                      </div>
-                    </motion.div>
-                  ))}
-                </div>
-              </section>
-            )}
+                        <div className="shrink-0 w-full md:w-auto">
+                          <button className="w-full md:w-auto px-6 py-3 bg-[#111827] text-white font-medium rounded-lg hover:bg-[#1f2937] transition-colors">
+                            Register
+                          </button>
+                        </div>
+                      </motion.div>
+                    ))}
+                  </div>
+                </section>
+              )}
 
-            {pastEvents.length > 0 && (
-              <section>
-                <h2 className="text-3xl font-display font-bold mb-10">Past Events</h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                  {pastEvents.map(event => (
-                    <motion.div 
-                      key={event.id}
-                      initial={{ opacity: 0, scale: 0.95 }}
-                      whileInView={{ opacity: 1, scale: 1 }}
-                      viewport={{ once: true }}
-                      className="bg-card border border-white/5 rounded-2xl overflow-hidden"
-                      data-testid={`card-event-past-${event.id}`}
-                    >
-                      <div className="h-48 relative">
-                        {event.coverImageUrl ? (
-                          <img src={event.coverImageUrl} alt={event.title} className="w-full h-full object-cover opacity-80" />
-                        ) : (
-                          <div className="w-full h-full bg-muted" />
-                        )}
-                      </div>
-                      <div className="p-6">
-                        <div className="text-xs text-primary font-bold uppercase tracking-wider mb-2">
+              {pastEvents.length > 0 && (
+                <section>
+                  <h2 className="text-3xl font-bold mb-10 text-[#111827]">Past Events</h2>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {pastEvents.map((event, i) => (
+                      <motion.div 
+                        key={event.id}
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: i * 0.1, duration: 0.5 }}
+                        className="bg-white border border-[#E5E7EB] rounded-xl p-6 shadow-sm"
+                        data-testid={`card-event-past-${event.id}`}
+                      >
+                        <div className="text-xs font-semibold text-[#6B7280] uppercase tracking-wider mb-2">
                           {format(new Date(event.date), 'MMM yyyy')} • {event.location}
                         </div>
-                        <h3 className="text-xl font-display font-bold mb-4">{event.title}</h3>
-                        
-                        {event.photos && event.photos.length > 0 && (
-                          <div className="mt-6 flex items-center gap-2">
-                            {event.photos.slice(0, 3).map((photo, i) => (
-                              <div key={i} className="w-12 h-12 rounded-lg overflow-hidden border border-white/10">
-                                <img src={photo} alt="Gallery thumb" className="w-full h-full object-cover" />
-                              </div>
-                            ))}
-                            {event.photos.length > 3 && (
-                              <div className="w-12 h-12 rounded-lg bg-muted flex items-center justify-center text-xs font-bold border border-white/10">
-                                +{event.photos.length - 3}
-                              </div>
-                            )}
-                          </div>
-                        )}
-                      </div>
-                    </motion.div>
-                  ))}
-                </div>
-              </section>
-            )}
-          </div>
-        )}
+                        <h3 className="text-xl font-bold text-[#111827] mb-3">{event.title}</h3>
+                        <p className="text-[#6B7280] text-sm line-clamp-2">{event.description}</p>
+                      </motion.div>
+                    ))}
+                  </div>
+                </section>
+              )}
+            </div>
+          )}
+        </div>
       </PageTransition>
     </div>
   );

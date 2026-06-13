@@ -9,72 +9,65 @@ export default function Solutions() {
   const { data: solutions, isLoading } = useListSolutions();
 
   return (
-    <div className="min-h-screen bg-background text-foreground relative overflow-hidden">
-      <div className="absolute inset-0 z-0 pointer-events-none">
-        <div className="absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[100px]" />
-        <div className="absolute bottom-1/4 right-1/4 w-[800px] h-[800px] bg-cyan-900/10 rounded-full blur-[120px]" />
-      </div>
+    <div className="min-h-screen bg-white text-[#111827] font-sans">
       <Navbar />
-      <PageTransition className="container mx-auto px-6 py-20 relative z-10">
-        <div className="max-w-3xl mb-16">
-          <h1 className="text-5xl md:text-6xl font-display font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-primary to-cyan-400">
-            Intelligent Solutions
-          </h1>
-          <p className="text-xl text-muted-foreground">
-            Proactive digital employee experience software designed to anticipate and resolve issues before they impact your workforce.
-          </p>
-        </div>
-
-        {isLoading ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[...Array(6)].map((_, i) => (
-              <Skeleton key={i} className="h-[400px] rounded-xl bg-muted/20" />
-            ))}
+      <PageTransition>
+        <div className="container mx-auto px-6 py-24 max-w-6xl">
+          <div className="max-w-2xl mb-20">
+            <h1 className="text-[48px] md:text-[64px] font-bold text-[#111827] tracking-tight mb-6 leading-tight">
+              Software Solutions
+            </h1>
+            <p className="text-lg text-[#6B7280] leading-relaxed">
+              Proactive digital employee experience software designed to anticipate and resolve issues before they impact your workforce.
+            </p>
           </div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {solutions?.map((solution, i) => {
-              const Icon = (Icons as any)[solution.icon] || Icons.Box;
-              
-              return (
-                <motion.div
-                  key={solution.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.1 }}
-                  className="bg-card/50 backdrop-blur-sm border border-white/5 rounded-xl overflow-hidden hover:border-primary/30 transition-all group"
-                  data-testid={`card-solution-${solution.id}`}
-                >
-                  <div className="h-48 bg-muted relative overflow-hidden">
-                    {solution.imageUrl ? (
-                      <img src={solution.imageUrl} alt={solution.title} className="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity" />
-                    ) : (
-                      <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent" />
-                    )}
-                    <div className="absolute top-4 left-4 w-12 h-12 bg-background/80 backdrop-blur-md rounded-lg flex items-center justify-center border border-white/10">
-                      <Icon className="w-6 h-6 text-primary" />
+
+          {isLoading ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {[...Array(6)].map((_, i) => (
+                <Skeleton key={i} className="h-80 rounded-xl bg-gray-100" />
+              ))}
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {solutions?.map((solution, i) => {
+                const Icon = (Icons as any)[solution.icon] || Icons.Box;
+                
+                return (
+                  <motion.div
+                    key={solution.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: i * 0.1, duration: 0.5 }}
+                    className="bg-white border border-[#E5E7EB] rounded-xl p-8 shadow-sm hover:shadow-md hover:border-[#D1D5DB] transition-all"
+                    data-testid={`card-solution-${solution.id}`}
+                  >
+                    <div className="mb-6 flex items-center justify-between">
+                      <Icon className="w-8 h-8 text-[#4F46E5]" />
+                      <span className="text-xs font-medium text-[#4F46E5] bg-[#4F46E5]/10 px-2.5 py-1 rounded-md">
+                        {solution.category}
+                      </span>
                     </div>
-                  </div>
-                  <div className="p-8">
-                    <div className="text-xs font-bold uppercase tracking-wider text-primary mb-2">
-                      {solution.category}
-                    </div>
-                    <h3 className="text-2xl font-display font-bold mb-4">{solution.title}</h3>
-                    <p className="text-muted-foreground mb-6 line-clamp-2">{solution.description}</p>
+                    
+                    <h3 className="text-xl font-bold text-[#111827] mb-3">{solution.title}</h3>
+                    <p className="text-[#6B7280] text-[15px] mb-8 leading-relaxed">
+                      {solution.description}
+                    </p>
+                    
                     <ul className="space-y-3">
-                      {solution.features.slice(0, 3).map((feature, idx) => (
-                        <li key={idx} className="flex items-start gap-3 text-sm">
-                          <Icons.CheckCircle2 className="w-5 h-5 text-primary shrink-0" />
-                          <span className="text-foreground/80">{feature}</span>
+                      {solution.features.map((feature, idx) => (
+                        <li key={idx} className="flex items-start gap-3 text-sm text-[#374151]">
+                          <Icons.Check className="w-4 h-4 text-[#4F46E5] shrink-0 mt-0.5" />
+                          <span>{feature}</span>
                         </li>
                       ))}
                     </ul>
-                  </div>
-                </motion.div>
-              );
-            })}
-          </div>
-        )}
+                  </motion.div>
+                );
+              })}
+            </div>
+          )}
+        </div>
       </PageTransition>
     </div>
   );

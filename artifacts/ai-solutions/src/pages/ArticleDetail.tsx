@@ -13,62 +13,55 @@ export default function ArticleDetail() {
   const { data: article, isLoading } = useGetArticle(id, { query: { enabled: !!id, queryKey: getGetArticleQueryKey(id) } });
 
   return (
-    <div className="min-h-screen bg-background text-foreground relative">
+    <div className="min-h-screen bg-white text-[#111827] font-sans">
       <Navbar />
-      <PageTransition className="container mx-auto px-6 py-20 relative z-10">
-        <Link href="/articles" className="inline-flex items-center gap-2 text-primary hover:text-primary/80 mb-12 uppercase tracking-wider text-sm font-bold" data-testid="link-back-articles">
-          <ArrowLeft className="w-4 h-4" /> Back to Articles
-        </Link>
-        
-        {isLoading || !article ? (
-          <div className="max-w-4xl mx-auto">
-            <Skeleton className="h-8 w-32 mb-6 bg-muted/20" />
-            <Skeleton className="h-16 w-full mb-6 bg-muted/20" />
-            <Skeleton className="h-[400px] w-full rounded-2xl mb-12 bg-muted/20" />
-            <div className="space-y-4">
-              <Skeleton className="h-6 w-full bg-muted/20" />
-              <Skeleton className="h-6 w-full bg-muted/20" />
-              <Skeleton className="h-6 w-3/4 bg-muted/20" />
-            </div>
-          </div>
-        ) : (
-          <article className="max-w-4xl mx-auto" data-testid="article-detail">
-            <div className="flex items-center gap-4 text-sm text-primary font-bold uppercase tracking-wider mb-6">
-              <span>{article.category}</span>
-              <span className="w-1 h-1 rounded-full bg-primary/50"></span>
-              <span className="text-muted-foreground">{format(new Date(article.publishedAt), 'MMMM dd, yyyy')}</span>
-            </div>
-            
-            <h1 className="text-4xl md:text-6xl font-display font-bold mb-8 leading-tight">
-              {article.title}
-            </h1>
-            
-            <div className="flex items-center gap-4 mb-12">
-              <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold text-lg">
-                {article.author.charAt(0)}
-              </div>
-              <div>
-                <div className="font-bold">{article.author}</div>
-                <div className="text-sm text-muted-foreground">AI-Solutions Team</div>
+      <PageTransition>
+        <div className="container mx-auto px-6 py-20 max-w-3xl">
+          <Link href="/articles" className="inline-flex items-center gap-2 text-[#6B7280] hover:text-[#111827] transition-colors mb-12 text-sm font-medium" data-testid="link-back-articles">
+            <ArrowLeft className="w-4 h-4" /> Back to Articles
+          </Link>
+          
+          {isLoading || !article ? (
+            <div>
+              <Skeleton className="h-6 w-32 mb-6 bg-gray-100 rounded-md" />
+              <Skeleton className="h-16 w-full mb-8 bg-gray-100 rounded-md" />
+              <div className="space-y-4">
+                <Skeleton className="h-4 w-full bg-gray-100" />
+                <Skeleton className="h-4 w-full bg-gray-100" />
+                <Skeleton className="h-4 w-3/4 bg-gray-100" />
               </div>
             </div>
-
-            {article.imageUrl && (
-              <div className="w-full h-[300px] md:h-[500px] rounded-3xl overflow-hidden mb-16 border border-white/5">
-                <img src={article.imageUrl} alt={article.title} className="w-full h-full object-cover" />
+          ) : (
+            <article data-testid="article-detail">
+              <div className="flex items-center gap-3 mb-6">
+                <span className="text-sm font-medium text-[#4F46E5] bg-[#4F46E5]/10 px-2.5 py-1 rounded-md">
+                  {article.category}
+                </span>
               </div>
-            )}
-
-            <div className="prose prose-invert prose-lg prose-p:text-muted-foreground prose-headings:font-display prose-headings:text-foreground prose-a:text-primary max-w-none">
-              <p className="text-2xl text-foreground mb-8 font-medium leading-relaxed">{article.summary}</p>
               
-              {/* Very simple content rendering since it's just a string in this mockup API */}
-              <div className="whitespace-pre-line leading-loose">
-                {article.content}
+              <h1 className="text-[40px] md:text-[56px] font-bold mb-8 leading-[1.1] text-[#111827] tracking-tight">
+                {article.title}
+              </h1>
+              
+              <div className="flex items-center gap-4 mb-16 pb-8 border-b border-[#F3F4F6]">
+                <div>
+                  <div className="font-semibold text-[#111827]">{article.author}</div>
+                  <div className="text-sm text-[#6B7280]">{format(new Date(article.publishedAt), 'MMMM dd, yyyy')}</div>
+                </div>
               </div>
-            </div>
-          </article>
-        )}
+
+              <div className="prose prose-lg max-w-none text-[#374151] prose-headings:text-[#111827] prose-headings:font-bold prose-a:text-[#4F46E5] prose-p:leading-relaxed">
+                <p className="text-xl text-[#111827] font-medium mb-8 leading-relaxed">
+                  {article.summary}
+                </p>
+                
+                <div className="whitespace-pre-line">
+                  {article.content}
+                </div>
+              </div>
+            </article>
+          )}
+        </div>
       </PageTransition>
     </div>
   );
