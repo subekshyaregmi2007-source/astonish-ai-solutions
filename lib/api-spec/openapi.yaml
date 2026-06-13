@@ -3,13 +3,27 @@ info:
   # Do not change the title, if the title changes, the import paths will be broken
   title: Api
   version: 0.1.0
-  description: API specification
+  description: AI-Solutions API specification
 servers:
   - url: /api
     description: Base API path
 tags:
   - name: health
     description: Health operations
+  - name: solutions
+    description: Software solutions
+  - name: industries
+    description: Industry highlights / past solutions
+  - name: testimonials
+    description: Customer testimonials and ratings
+  - name: articles
+    description: Company articles and news
+  - name: events
+    description: Promotional events and photo galleries
+  - name: inquiries
+    description: Contact Us form submissions
+  - name: admin
+    description: Admin dashboard and analytics
 paths:
   /healthz:
     get:
@@ -24,7 +38,230 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+
+  /solutions:
+    get:
+      operationId: listSolutions
+      tags: [solutions]
+      summary: List all software solutions
+      responses:
+        "200":
+          description: List of solutions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Solution"
+
+  /solutions/{id}:
+    get:
+      operationId: getSolution
+      tags: [solutions]
+      summary: Get a single solution
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Solution found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Solution"
+        "404":
+          description: Not found
+
+  /industries:
+    get:
+      operationId: listIndustries
+      tags: [industries]
+      summary: List industry highlights / past solutions
+      responses:
+        "200":
+          description: List of industry highlights
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Industry"
+
+  /testimonials:
+    get:
+      operationId: listTestimonials
+      tags: [testimonials]
+      summary: List customer testimonials
+      responses:
+        "200":
+          description: List of testimonials
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Testimonial"
+
+  /articles:
+    get:
+      operationId: listArticles
+      tags: [articles]
+      summary: List company articles and news
+      responses:
+        "200":
+          description: List of articles
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Article"
+
+  /articles/{id}:
+    get:
+      operationId: getArticle
+      tags: [articles]
+      summary: Get a single article
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Article found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Article"
+        "404":
+          description: Not found
+
+  /events:
+    get:
+      operationId: listEvents
+      tags: [events]
+      summary: List promotional events
+      responses:
+        "200":
+          description: List of events
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Event"
+
+  /events/{id}:
+    get:
+      operationId: getEvent
+      tags: [events]
+      summary: Get a single event with photos
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Event found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Event"
+        "404":
+          description: Not found
+
+  /inquiries:
+    post:
+      operationId: createInquiry
+      tags: [inquiries]
+      summary: Submit a Contact Us inquiry
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/InquiryInput"
+      responses:
+        "201":
+          description: Inquiry submitted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Inquiry"
+        "400":
+          description: Validation error
+
+  /admin/login:
+    post:
+      operationId: adminLogin
+      tags: [admin]
+      summary: Admin login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AdminLoginInput"
+      responses:
+        "200":
+          description: Login successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AdminToken"
+        "401":
+          description: Invalid credentials
+
+  /admin/inquiries:
+    get:
+      operationId: listInquiries
+      tags: [admin]
+      summary: List all inquiries (admin)
+      security:
+        - adminToken: []
+      responses:
+        "200":
+          description: List of inquiries
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Inquiry"
+        "401":
+          description: Unauthorized
+
+  /admin/stats:
+    get:
+      operationId: getAdminStats
+      tags: [admin]
+      summary: Get admin dashboard statistics
+      security:
+        - adminToken: []
+      responses:
+        "200":
+          description: Dashboard stats
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AdminStats"
+        "401":
+          description: Unauthorized
+
 components:
+  securitySchemes:
+    adminToken:
+      type: apiKey
+      in: header
+      name: x-admin-token
+
   schemas:
     HealthStatus:
       type: object
@@ -34,3 +271,195 @@ components:
       required:
         - status
 
+    Solution:
+      type: object
+      required: [id, title, description, category, icon, features]
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        description:
+          type: string
+        category:
+          type: string
+        icon:
+          type: string
+        features:
+          type: array
+          items:
+            type: string
+        imageUrl:
+          type: ["string", "null"]
+
+    Industry:
+      type: object
+      required: [id, name, sector, description, outcome, year]
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        sector:
+          type: string
+        description:
+          type: string
+        outcome:
+          type: string
+        year:
+          type: integer
+        logoUrl:
+          type: ["string", "null"]
+        imageUrl:
+          type: ["string", "null"]
+
+    Testimonial:
+      type: object
+      required: [id, clientName, company, role, rating, message, avatarUrl]
+      properties:
+        id:
+          type: integer
+        clientName:
+          type: string
+        company:
+          type: string
+        role:
+          type: string
+        rating:
+          type: integer
+        message:
+          type: string
+        avatarUrl:
+          type: ["string", "null"]
+
+    Article:
+      type: object
+      required: [id, title, summary, content, author, publishedAt, category, imageUrl]
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        summary:
+          type: string
+        content:
+          type: string
+        author:
+          type: string
+        publishedAt:
+          type: string
+        category:
+          type: string
+        imageUrl:
+          type: ["string", "null"]
+
+    Event:
+      type: object
+      required: [id, title, description, date, location, type, photos]
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        description:
+          type: string
+        date:
+          type: string
+        location:
+          type: string
+        type:
+          type: string
+        isUpcoming:
+          type: boolean
+        photos:
+          type: array
+          items:
+            type: string
+        coverImageUrl:
+          type: ["string", "null"]
+
+    InquiryInput:
+      type: object
+      required: [name, email, phone, companyName, country, jobTitle, jobDetails]
+      properties:
+        name:
+          type: string
+          minLength: 1
+        email:
+          type: string
+          format: email
+        phone:
+          type: string
+        companyName:
+          type: string
+        country:
+          type: string
+        jobTitle:
+          type: string
+        jobDetails:
+          type: string
+
+    Inquiry:
+      type: object
+      required: [id, name, email, phone, companyName, country, jobTitle, jobDetails, createdAt]
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+        companyName:
+          type: string
+        country:
+          type: string
+        jobTitle:
+          type: string
+        jobDetails:
+          type: string
+        createdAt:
+          type: string
+
+    AdminLoginInput:
+      type: object
+      required: [password]
+      properties:
+        password:
+          type: string
+
+    AdminToken:
+      type: object
+      required: [token]
+      properties:
+        token:
+          type: string
+
+    AdminStats:
+      type: object
+      required: [totalInquiries, inquiriesByCountry, inquiriesByJobTitle, recentInquiries]
+      properties:
+        totalInquiries:
+          type: integer
+        inquiriesByCountry:
+          type: array
+          items:
+            $ref: "#/components/schemas/CountGroup"
+        inquiriesByJobTitle:
+          type: array
+          items:
+            $ref: "#/components/schemas/CountGroup"
+        recentInquiries:
+          type: array
+          items:
+            $ref: "#/components/schemas/Inquiry"
+
+    CountGroup:
+      type: object
+      required: [label, count]
+      properties:
+        label:
+          type: string
+        count:
+          type: integer
