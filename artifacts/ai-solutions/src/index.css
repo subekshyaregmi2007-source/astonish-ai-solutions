@@ -9,41 +9,32 @@
   --color-border: hsl(var(--border));
   --color-input: hsl(var(--input));
   --color-ring: hsl(var(--ring));
-
   --color-card: hsl(var(--card));
   --color-card-foreground: hsl(var(--card-foreground));
   --color-card-border: hsl(var(--card-border));
-
   --color-popover: hsl(var(--popover));
   --color-popover-foreground: hsl(var(--popover-foreground));
   --color-popover-border: hsl(var(--popover-border));
-
   --color-primary: hsl(var(--primary));
   --color-primary-foreground: hsl(var(--primary-foreground));
   --color-primary-border: var(--primary-border);
-
   --color-secondary: hsl(var(--secondary));
   --color-secondary-foreground: hsl(var(--secondary-foreground));
   --color-secondary-border: var(--secondary-border);
-
   --color-muted: hsl(var(--muted));
   --color-muted-foreground: hsl(var(--muted-foreground));
   --color-muted-border: var(--muted-border);
-
   --color-accent: hsl(var(--accent));
   --color-accent-foreground: hsl(var(--accent-foreground));
   --color-accent-border: var(--accent-border);
-
   --color-destructive: hsl(var(--destructive));
   --color-destructive-foreground: hsl(var(--destructive-foreground));
   --color-destructive-border: var(--destructive-border);
-
   --color-chart-1: hsl(var(--chart-1));
   --color-chart-2: hsl(var(--chart-2));
   --color-chart-3: hsl(var(--chart-3));
   --color-chart-4: hsl(var(--chart-4));
   --color-chart-5: hsl(var(--chart-5));
-
   --color-sidebar: hsl(var(--sidebar));
   --color-sidebar-foreground: hsl(var(--sidebar-foreground));
   --color-sidebar-border: hsl(var(--sidebar-border));
@@ -54,12 +45,10 @@
   --color-sidebar-accent-foreground: hsl(var(--sidebar-accent-foreground));
   --color-sidebar-accent-border: var(--sidebar-accent-border);
   --color-sidebar-ring: hsl(var(--sidebar-ring));
-
   --font-sans: var(--app-font-sans);
   --font-serif: var(--app-font-serif);
   --font-mono: var(--app-font-mono);
   --font-display: var(--app-font-display);
-
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -67,25 +56,25 @@
 }
 
 :root {
-  --background: 0 0% 2%;               /* #050505 */
-  --foreground: 20 4% 89%;             /* #e5e2e1 */
-  --card: 0 0% 7%;                     /* #131313 */
+  --background: 0 0% 2%;
+  --foreground: 20 4% 89%;
+  --card: 0 0% 7%;
   --card-foreground: 20 4% 89%;
-  --card-border: 0 0% 15%;             /* #262626 */
+  --card-border: 0 0% 15%;
   --popover: 0 0% 7%;
   --popover-foreground: 20 4% 89%;
   --popover-border: 0 0% 15%;
-  --primary: 262 87% 64%;              /* #8B5CF6 violet */
+  --primary: 262 87% 64%;
   --primary-foreground: 0 0% 100%;
   --secondary: 0 0% 10%;
   --secondary-foreground: 20 4% 89%;
   --muted: 0 0% 10%;
-  --muted-foreground: 271 15% 80%;     /* #cbc3d7 */
+  --muted-foreground: 271 15% 80%;
   --accent: 262 87% 64%;
   --accent-foreground: 0 0% 100%;
   --destructive: 0 84% 60%;
   --destructive-foreground: 0 0% 100%;
-  --border: 0 0% 15%;                  /* #262626 */
+  --border: 0 0% 15%;
   --input: 0 0% 15%;
   --ring: 262 87% 64%;
   --radius: 0rem;
@@ -96,9 +85,7 @@
 }
 
 @layer base {
-  * {
-    @apply border-border;
-  }
+  * { @apply border-border; }
   body {
     @apply bg-background text-foreground;
     -webkit-font-smoothing: antialiased;
@@ -112,7 +99,98 @@
   width: 100%;
 }
 
-.text-outline-ghost {
-  -webkit-text-stroke: 1px rgba(229, 226, 225, 0.08);
-  color: transparent;
+/* Ambient orb animations */
+@keyframes orb-drift-1 {
+  0%   { transform: translate(0%, 0%) scale(1); }
+  33%  { transform: translate(8%, -12%) scale(1.08); }
+  66%  { transform: translate(-6%, 8%) scale(0.95); }
+  100% { transform: translate(0%, 0%) scale(1); }
+}
+@keyframes orb-drift-2 {
+  0%   { transform: translate(0%, 0%) scale(1); }
+  33%  { transform: translate(-10%, 8%) scale(1.05); }
+  66%  { transform: translate(7%, -10%) scale(1.1); }
+  100% { transform: translate(0%, 0%) scale(1); }
+}
+@keyframes orb-drift-3 {
+  0%   { transform: translate(0%, 0%) scale(1); }
+  50%  { transform: translate(5%, 12%) scale(1.06); }
+  100% { transform: translate(0%, 0%) scale(1); }
+}
+
+.hero-orb-1 {
+  animation: orb-drift-1 18s ease-in-out infinite;
+}
+.hero-orb-2 {
+  animation: orb-drift-2 24s ease-in-out infinite;
+}
+.hero-orb-3 {
+  animation: orb-drift-3 20s ease-in-out infinite;
+}
+
+/* Grain overlay */
+@keyframes grain {
+  0%, 100% { transform: translate(0, 0); }
+  10%  { transform: translate(-2%, -3%); }
+  20%  { transform: translate(1%, 2%); }
+  30%  { transform: translate(-1%, 1%); }
+  40%  { transform: translate(2%, -2%); }
+  50%  { transform: translate(-2%, 3%); }
+  60%  { transform: translate(3%, 1%); }
+  70%  { transform: translate(-1%, -2%); }
+  80%  { transform: translate(1%, 3%); }
+  90%  { transform: translate(-3%, 1%); }
+}
+
+.grain-overlay::before {
+  content: '';
+  position: absolute;
+  inset: -50%;
+  width: 200%;
+  height: 200%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  opacity: 0.04;
+  animation: grain 0.4s steps(1) infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Scanning line */
+@keyframes scan {
+  0%   { top: -4px; }
+  100% { top: 100%; }
+}
+.scan-line::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(139,92,246,0.15), transparent);
+  animation: scan 8s linear infinite;
+  pointer-events: none;
+}
+
+/* Word reveal clip */
+.word-clip {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+}
+.word-clip span {
+  display: inline-block;
+}
+
+/* Shimmer on violet elements */
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+.violet-shimmer {
+  background: linear-gradient(90deg, #8B5CF6 0%, #a78bfa 40%, #8B5CF6 60%, #7C3AED 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 4s linear infinite;
 }

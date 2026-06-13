@@ -4,11 +4,11 @@ import { ReactNode } from "react";
 export function PageTransition({ children, className = "" }: { children: ReactNode; className?: string }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 24 }}
       animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -20 }}
-      transition={{ duration: 0.5, ease: "easeOut" }}
-      className={`min-h-[100dvh] pt-20 ${className}`}
+      exit={{ opacity: 0, y: -16 }}
+      transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+      className={`min-h-[100dvh] ${className}`}
     >
       {children}
     </motion.div>
