@@ -13,51 +13,54 @@ export default function ArticleDetail() {
   const { data: article, isLoading } = useGetArticle(id, { query: { enabled: !!id, queryKey: getGetArticleQueryKey(id) } });
 
   return (
-    <div className="min-h-screen bg-white text-[#111827] font-sans">
+    <div className="min-h-screen bg-[#050505] text-[#e5e2e1]" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
       <Navbar />
       <PageTransition>
-        <div className="container mx-auto px-6 py-20 max-w-3xl">
-          <Link href="/articles" className="inline-flex items-center gap-2 text-[#6B7280] hover:text-[#111827] transition-colors mb-12 text-sm font-medium" data-testid="link-back-articles">
-            <ArrowLeft className="w-4 h-4" /> Back to Articles
+        <div className="pt-36 pb-32 px-6 md:px-16 max-w-3xl mx-auto">
+          <Link
+            href="/articles"
+            className="inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#cbc3d7] hover:text-[#8B5CF6] transition-colors mb-16"
+            data-testid="link-back-articles"
+          >
+            <ArrowLeft className="w-3.5 h-3.5" /> Back to Articles
           </Link>
-          
+
           {isLoading || !article ? (
             <div>
-              <Skeleton className="h-6 w-32 mb-6 bg-gray-100 rounded-md" />
-              <Skeleton className="h-16 w-full mb-8 bg-gray-100 rounded-md" />
+              <Skeleton className="h-4 w-32 mb-8 bg-[#131313]" />
+              <Skeleton className="h-20 w-full mb-8 bg-[#131313]" />
               <div className="space-y-4">
-                <Skeleton className="h-4 w-full bg-gray-100" />
-                <Skeleton className="h-4 w-full bg-gray-100" />
-                <Skeleton className="h-4 w-3/4 bg-gray-100" />
+                <Skeleton className="h-4 w-full bg-[#131313]" />
+                <Skeleton className="h-4 w-full bg-[#131313]" />
+                <Skeleton className="h-4 w-3/4 bg-[#131313]" />
               </div>
             </div>
           ) : (
             <article data-testid="article-detail">
-              <div className="flex items-center gap-3 mb-6">
-                <span className="text-sm font-medium text-[#4F46E5] bg-[#4F46E5]/10 px-2.5 py-1 rounded-md">
+              <div className="editorial-line mb-10" />
+              <div className="flex items-center gap-4 mb-8">
+                <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#8B5CF6] border border-[#8B5CF6]/30 px-3 py-1">
                   {article.category}
                 </span>
               </div>
-              
-              <h1 className="text-[40px] md:text-[56px] font-bold mb-8 leading-[1.1] text-[#111827] tracking-tight">
+
+              <h1 className="text-[36px] md:text-[52px] font-extralight leading-[1.1] tracking-[-0.02em] text-[#e5e2e1] mb-10">
                 {article.title}
               </h1>
-              
-              <div className="flex items-center gap-4 mb-16 pb-8 border-b border-[#F3F4F6]">
+
+              <div className="flex items-center gap-6 mb-16 pb-10 border-b border-[#262626]">
                 <div>
-                  <div className="font-semibold text-[#111827]">{article.author}</div>
-                  <div className="text-sm text-[#6B7280]">{format(new Date(article.publishedAt), 'MMMM dd, yyyy')}</div>
+                  <div className="font-semibold text-[#e5e2e1] text-sm">{article.author}</div>
+                  <div className="text-xs text-[#cbc3d7] mt-0.5">{format(new Date(article.publishedAt), 'MMMM dd, yyyy')}</div>
                 </div>
               </div>
 
-              <div className="prose prose-lg max-w-none text-[#374151] prose-headings:text-[#111827] prose-headings:font-bold prose-a:text-[#4F46E5] prose-p:leading-relaxed">
-                <p className="text-xl text-[#111827] font-medium mb-8 leading-relaxed">
-                  {article.summary}
-                </p>
-                
-                <div className="whitespace-pre-line">
-                  {article.content}
-                </div>
+              <div className="text-xl text-[#e5e2e1] font-light mb-10 leading-relaxed">
+                {article.summary}
+              </div>
+
+              <div className="text-[#cbc3d7] text-[17px] leading-relaxed whitespace-pre-line">
+                {article.content}
               </div>
             </article>
           )}

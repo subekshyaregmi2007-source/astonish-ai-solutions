@@ -15,22 +15,21 @@ export function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
-    <nav className="sticky top-0 z-50 bg-white/90 backdrop-blur border-b border-[#F3F4F6]">
-      <div className="container mx-auto px-6 h-16 flex items-center justify-between">
-        <Link href="/" className="flex items-center gap-2" data-testid="link-home">
-          <div className="w-4 h-4 bg-primary rounded-sm"></div>
-          <span className="font-bold text-[#111827] text-lg">
-            AI-Solutions
-          </span>
+    <nav className="fixed top-0 w-full z-50 backdrop-blur-md border-b border-[#262626]/60">
+      <div className="mx-auto px-6 md:px-16 h-18 flex items-center justify-between max-w-[1440px] py-5">
+        <Link href="/" className="font-bold text-[#e5e2e1] text-xl uppercase tracking-tight" data-testid="link-home">
+          AI-Solutions
         </Link>
 
-        <div className="hidden md:flex items-center gap-8">
+        <div className="hidden md:flex items-center gap-10">
           {navLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              className={`text-sm font-medium transition-colors hover:text-[#111827] ${
-                location === link.href ? "text-[#111827]" : "text-[#374151]"
+              className={`text-[11px] font-semibold uppercase tracking-[0.2em] transition-colors ${
+                location === link.href
+                  ? "text-[#8B5CF6] border-b border-[#8B5CF6] pb-0.5"
+                  : "text-[#cbc3d7] hover:text-[#e5e2e1]"
               }`}
               data-testid={`link-${link.name.toLowerCase()}`}
             >
@@ -42,28 +41,28 @@ export function Navbar() {
         <div className="hidden md:block">
           <Link
             href="/contact"
-            className="px-5 py-2.5 bg-[#111827] text-white rounded-lg hover:bg-[#1f2937] transition-colors text-sm font-medium"
+            className="px-8 py-3 bg-[#8B5CF6] text-white text-[11px] font-semibold uppercase tracking-[0.2em] hover:bg-[#7C3AED] transition-colors"
             data-testid="button-contact"
           >
-            Contact Us
+            Get Started
           </Link>
         </div>
 
-        <button 
-          className="md:hidden p-2 text-[#374151]"
+        <button
+          className="md:hidden p-2 text-[#cbc3d7]"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         >
-          {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
         </button>
       </div>
 
       {isMobileMenuOpen && (
-        <div className="md:hidden bg-white border-b border-[#F3F4F6] px-6 py-4 space-y-4 shadow-sm">
+        <div className="md:hidden bg-[#0a0a0a] border-b border-[#262626] px-6 py-6 space-y-5">
           {navLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              className="block text-sm font-medium text-[#374151] py-2"
+              className="block text-[11px] font-semibold uppercase tracking-[0.2em] text-[#cbc3d7] py-1.5"
               onClick={() => setIsMobileMenuOpen(false)}
             >
               {link.name}
@@ -71,10 +70,10 @@ export function Navbar() {
           ))}
           <Link
             href="/contact"
-            className="block text-center mt-4 px-5 py-2.5 bg-[#111827] text-white rounded-lg text-sm font-medium"
+            className="block text-center mt-4 px-8 py-3 bg-[#8B5CF6] text-white text-[11px] font-semibold uppercase tracking-[0.2em]"
             onClick={() => setIsMobileMenuOpen(false)}
           >
-            Contact Us
+            Get Started
           </Link>
         </div>
       )}

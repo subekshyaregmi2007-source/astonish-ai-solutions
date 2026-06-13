@@ -16,105 +16,87 @@ export default function AdminDashboard() {
     }
   }, [setLocation]);
 
-  if (statsError) {
-    // handled by admin-client redirecting to /admin if 401
-    return null;
-  }
+  if (statsError) return null;
 
   return (
-    <div className="min-h-screen bg-[#F9FAFB] text-[#111827] font-sans">
-      <nav className="bg-white border-b border-[#E5E7EB] sticky top-0 z-50">
-        <div className="container mx-auto px-6 h-16 flex items-center justify-between">
-          <div className="font-bold text-[#111827]">Admin Panel</div>
-          <button 
+    <div className="min-h-screen bg-[#050505] text-[#e5e2e1]" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+      <nav className="border-b border-[#262626] sticky top-0 z-50 bg-[#050505]/90 backdrop-blur-md">
+        <div className="max-w-[1440px] mx-auto px-6 md:px-16 h-16 flex items-center justify-between">
+          <div className="text-[11px] font-semibold uppercase tracking-[0.3em] text-[#e5e2e1]">Admin Panel</div>
+          <button
             onClick={() => { localStorage.removeItem("admin_token"); setLocation("/admin"); }}
-            className="flex items-center gap-2 text-[#6B7280] hover:text-[#111827] text-sm font-medium transition-colors"
+            className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#cbc3d7] hover:text-[#8B5CF6] transition-colors"
           >
-            <LogOut className="w-4 h-4" /> Sign Out
+            <LogOut className="w-3.5 h-3.5" /> Sign Out
           </button>
         </div>
       </nav>
 
-      <main className="container mx-auto px-6 py-12 max-w-6xl">
-        <h1 className="text-3xl font-bold mb-8 text-[#111827]">Overview</h1>
+      <main className="max-w-[1440px] mx-auto px-6 md:px-16 py-16">
+        <div className="editorial-line mb-10" />
+        <h1 className="text-[40px] font-extralight tracking-[-0.02em] text-[#e5e2e1] mb-16">Overview</h1>
 
         {statsLoading ? (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-            {[1,2,3].map(i => <Skeleton key={i} className="h-32 bg-gray-200 rounded-xl" />)}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-0 border-l border-t border-[#262626] mb-16">
+            {[1,2,3].map(i => <Skeleton key={i} className="h-36 bg-[#131313] border-r border-b border-[#262626]" />)}
           </div>
         ) : stats ? (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-            <div className="bg-white border border-[#E5E7EB] rounded-xl p-6 shadow-sm">
-              <div className="flex items-center gap-3 mb-4 text-[#6B7280]">
-                <Users className="w-5 h-5" />
-                <span className="text-sm font-medium">Total Inquiries</span>
+          <div className="grid grid-cols-1 md:grid-cols-3 border-l border-t border-[#262626] mb-16">
+            {[
+              { icon: Users, label: "Total Inquiries", value: stats.totalInquiries },
+              { icon: Globe, label: "Unique Countries", value: stats.inquiriesByCountry.length },
+              { icon: Briefcase, label: "Unique Roles", value: stats.inquiriesByJobTitle.length },
+            ].map(({ icon: Icon, label, value }) => (
+              <div key={label} className="border-r border-b border-[#262626] p-10">
+                <div className="flex items-center gap-2 mb-6 text-[#cbc3d7]">
+                  <Icon className="w-4 h-4" />
+                  <span className="text-[10px] font-semibold uppercase tracking-[0.2em]">{label}</span>
+                </div>
+                <div className="text-[48px] font-thin text-[#8B5CF6] leading-none">{value}</div>
               </div>
-              <div className="text-[40px] font-bold text-[#111827] leading-none">{stats.totalInquiries}</div>
-            </div>
-            <div className="bg-white border border-[#E5E7EB] rounded-xl p-6 shadow-sm">
-              <div className="flex items-center gap-3 mb-4 text-[#6B7280]">
-                <Globe className="w-5 h-5" />
-                <span className="text-sm font-medium">Unique Countries</span>
-              </div>
-              <div className="text-[40px] font-bold text-[#111827] leading-none">{stats.inquiriesByCountry.length}</div>
-            </div>
-            <div className="bg-white border border-[#E5E7EB] rounded-xl p-6 shadow-sm">
-              <div className="flex items-center gap-3 mb-4 text-[#6B7280]">
-                <Briefcase className="w-5 h-5" />
-                <span className="text-sm font-medium">Unique Roles</span>
-              </div>
-              <div className="text-[40px] font-bold text-[#111827] leading-none">{stats.inquiriesByJobTitle.length}</div>
-            </div>
+            ))}
           </div>
         ) : null}
 
-        <div className="bg-white border border-[#E5E7EB] rounded-xl shadow-sm overflow-hidden">
-          <div className="px-6 py-5 border-b border-[#E5E7EB]">
-            <h2 className="text-lg font-bold text-[#111827]">Recent Inquiries</h2>
+        <div className="border border-[#262626]">
+          <div className="px-8 py-5 border-b border-[#262626]">
+            <h2 className="text-[11px] font-semibold uppercase tracking-[0.3em] text-[#e5e2e1]">Recent Inquiries</h2>
           </div>
-          
+
           <div className="overflow-x-auto">
             <table className="w-full text-sm text-left">
-              <thead className="text-xs font-semibold text-[#6B7280] bg-[#F9FAFB] border-b border-[#E5E7EB]">
+              <thead className="border-b border-[#262626]">
                 <tr>
-                  <th className="px-6 py-4">Date</th>
-                  <th className="px-6 py-4">Name</th>
-                  <th className="px-6 py-4">Company</th>
-                  <th className="px-6 py-4">Role</th>
-                  <th className="px-6 py-4">Country</th>
+                  {["Date", "Name", "Company", "Role", "Country"].map(h => (
+                    <th key={h} className="px-6 py-4 text-[10px] font-semibold uppercase tracking-[0.2em] text-[#cbc3d7]">{h}</th>
+                  ))}
                 </tr>
               </thead>
-              <tbody className="divide-y divide-[#E5E7EB]">
+              <tbody>
                 {inquiriesLoading ? (
                   [1,2,3,4,5].map(i => (
-                    <tr key={i}>
-                      <td className="px-6 py-4"><Skeleton className="h-4 w-24 bg-gray-100" /></td>
-                      <td className="px-6 py-4"><Skeleton className="h-4 w-32 bg-gray-100" /></td>
-                      <td className="px-6 py-4"><Skeleton className="h-4 w-32 bg-gray-100" /></td>
-                      <td className="px-6 py-4"><Skeleton className="h-4 w-24 bg-gray-100" /></td>
-                      <td className="px-6 py-4"><Skeleton className="h-4 w-20 bg-gray-100" /></td>
+                    <tr key={i} className="border-b border-[#262626]">
+                      {[1,2,3,4,5].map(j => (
+                        <td key={j} className="px-6 py-4"><Skeleton className="h-4 w-24 bg-[#131313]" /></td>
+                      ))}
                     </tr>
                   ))
                 ) : inquiries && inquiries.length > 0 ? (
                   inquiries.map(inquiry => (
-                    <tr key={inquiry.id} className="hover:bg-[#F9FAFB] transition-colors">
-                      <td className="px-6 py-4 text-[#6B7280] whitespace-nowrap">{format(new Date(inquiry.createdAt), 'MMM dd, HH:mm')}</td>
+                    <tr key={inquiry.id} className="border-b border-[#262626] hover:bg-[#0a0a0a] transition-colors">
+                      <td className="px-6 py-4 text-[#cbc3d7] whitespace-nowrap text-xs">{format(new Date(inquiry.createdAt), 'MMM dd, HH:mm')}</td>
                       <td className="px-6 py-4">
-                        <div className="font-medium text-[#111827]">{inquiry.name}</div>
-                        <div className="text-xs text-[#6B7280] mt-0.5">{inquiry.email}</div>
+                        <div className="font-medium text-[#e5e2e1]">{inquiry.name}</div>
+                        <div className="text-xs text-[#cbc3d7] mt-0.5">{inquiry.email}</div>
                       </td>
-                      <td className="px-6 py-4 text-[#374151]">{inquiry.companyName}</td>
-                      <td className="px-6 py-4 text-[#374151]">{inquiry.jobTitle}</td>
-                      <td className="px-6 py-4">
-                        <span className="text-sm text-[#374151]">
-                          {inquiry.country}
-                        </span>
-                      </td>
+                      <td className="px-6 py-4 text-[#cbc3d7]">{inquiry.companyName}</td>
+                      <td className="px-6 py-4 text-[#cbc3d7]">{inquiry.jobTitle}</td>
+                      <td className="px-6 py-4 text-[#cbc3d7]">{inquiry.country}</td>
                     </tr>
                   ))
                 ) : (
                   <tr>
-                    <td colSpan={5} className="px-6 py-8 text-center text-[#6B7280]">No inquiries found.</td>
+                    <td colSpan={5} className="px-6 py-12 text-center text-[#cbc3d7] text-sm">No inquiries found.</td>
                   </tr>
                 )}
               </tbody>

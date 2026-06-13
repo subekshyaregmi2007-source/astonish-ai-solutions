@@ -13,8 +13,6 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 
 const contactSchema = z.object({
   name: z.string().min(2, "Name is required"),
@@ -27,6 +25,12 @@ const contactSchema = z.object({
 });
 
 type ContactFormValues = z.infer<typeof contactSchema>;
+
+const inputClass =
+  "w-full bg-[#0d0d0d] border border-[#262626] text-[#e5e2e1] placeholder-[#6b7280] h-12 px-4 text-[15px] focus:outline-none focus:border-[#8B5CF6] transition-colors";
+
+const textareaClass =
+  "w-full bg-[#0d0d0d] border border-[#262626] text-[#e5e2e1] placeholder-[#6b7280] px-4 py-3 text-[15px] focus:outline-none focus:border-[#8B5CF6] transition-colors resize-y min-h-[140px]";
 
 export default function Contact() {
   const { toast } = useToast();
@@ -50,157 +54,127 @@ export default function Contact() {
       { data },
       {
         onSuccess: () => {
-          toast({
-            title: "Inquiry Submitted",
-            description: "We will get back to you shortly.",
-          });
+          toast({ title: "Inquiry Submitted", description: "We will get back to you shortly." });
           form.reset();
         },
         onError: () => {
-          toast({
-            variant: "destructive",
-            title: "Error",
-            description: "Something went wrong. Please try again.",
-          });
+          toast({ variant: "destructive", title: "Error", description: "Something went wrong. Please try again." });
         },
       }
     );
   }
 
   return (
-    <div className="min-h-screen bg-[#F9FAFB] text-[#111827] font-sans">
+    <div className="min-h-screen bg-[#050505] text-[#e5e2e1]" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
       <Navbar />
       <PageTransition>
-        <div className="container mx-auto px-6 py-24 max-w-6xl">
+        <div className="pt-36 pb-32 px-6 md:px-16 max-w-[1440px] mx-auto">
+          <div className="editorial-line mb-12" />
+
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
-            <div className="max-w-md">
-              <h1 className="text-[48px] md:text-[56px] font-bold text-[#111827] tracking-tight mb-6 leading-tight">
+            {/* Left */}
+            <div>
+              <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-[#8B5CF6] mb-6">Contact</p>
+              <h1 className="text-[48px] md:text-[64px] font-extralight tracking-[-0.03em] text-[#e5e2e1] leading-none mb-8">
                 Let's Talk Future.
               </h1>
-              <p className="text-lg text-[#6B7280] leading-relaxed mb-12">
+              <p className="text-[#cbc3d7] text-lg leading-relaxed mb-16">
                 Ready to transform your digital employee experience? Reach out to our global team of experts.
               </p>
-              
-              <div className="space-y-8">
-                <div>
-                  <h4 className="text-sm font-semibold text-[#111827] mb-2">Global Headquarters</h4>
-                  <p className="text-[#6B7280]">Sunderland, UK</p>
+
+              <div className="border-t border-[#262626] space-y-0">
+                <div className="border-b border-[#262626] py-8">
+                  <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#cbc3d7] mb-2">Global Headquarters</div>
+                  <div className="text-[#e5e2e1]">Sunderland, UK</div>
                 </div>
-                <div>
-                  <h4 className="text-sm font-semibold text-[#111827] mb-2">Email</h4>
-                  <p className="text-[#6B7280]">future@ai-solutions.com</p>
+                <div className="border-b border-[#262626] py-8">
+                  <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#cbc3d7] mb-2">Email</div>
+                  <div className="text-[#e5e2e1]">future@ai-solutions.com</div>
                 </div>
               </div>
             </div>
 
-            <div className="bg-white border border-[#E5E7EB] rounded-2xl p-8 md:p-10 shadow-sm">
+            {/* Right — Form */}
+            <div className="border border-[#262626] p-8 md:p-12">
               <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6" data-testid="form-contact">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <FormField
-                      control={form.control}
-                      name="name"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel className="text-[#374151] font-medium text-sm">Full Name</FormLabel>
-                          <FormControl>
-                            <Input placeholder="Jane Doe" className="bg-white border-[#E5E7EB] h-12 text-[15px]" {...field} data-testid="input-name" />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    <FormField
-                      control={form.control}
-                      name="email"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel className="text-[#374151] font-medium text-sm">Work Email</FormLabel>
-                          <FormControl>
-                            <Input placeholder="jane@company.com" className="bg-white border-[#E5E7EB] h-12 text-[15px]" {...field} data-testid="input-email" />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                  </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <FormField
-                      control={form.control}
-                      name="phone"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel className="text-[#374151] font-medium text-sm">Phone</FormLabel>
-                          <FormControl>
-                            <Input placeholder="+44 ..." className="bg-white border-[#E5E7EB] h-12 text-[15px]" {...field} data-testid="input-phone" />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    <FormField
-                      control={form.control}
-                      name="companyName"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel className="text-[#374151] font-medium text-sm">Company</FormLabel>
-                          <FormControl>
-                            <Input placeholder="Acme Corp" className="bg-white border-[#E5E7EB] h-12 text-[15px]" {...field} data-testid="input-company" />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                  </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <FormField
-                      control={form.control}
-                      name="country"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel className="text-[#374151] font-medium text-sm">Country</FormLabel>
-                          <FormControl>
-                            <Input placeholder="UK" className="bg-white border-[#E5E7EB] h-12 text-[15px]" {...field} data-testid="input-country" />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    <FormField
-                      control={form.control}
-                      name="jobTitle"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel className="text-[#374151] font-medium text-sm">Job Title</FormLabel>
-                          <FormControl>
-                            <Input placeholder="CTO" className="bg-white border-[#E5E7EB] h-12 text-[15px]" {...field} data-testid="input-jobtitle" />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                  </div>
-
-                  <FormField
-                    control={form.control}
-                    name="jobDetails"
-                    render={({ field }) => (
+                    <FormField control={form.control} name="name" render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-[#374151] font-medium text-sm">How can we help?</FormLabel>
+                        <FormLabel className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#cbc3d7]">Full Name</FormLabel>
                         <FormControl>
-                          <Textarea placeholder="Tell us about your challenges..." className="bg-white border-[#E5E7EB] min-h-[120px] text-[15px] resize-y" {...field} data-testid="input-jobdetails" />
+                          <input placeholder="Jane Doe" className={inputClass} {...field} data-testid="input-name" />
                         </FormControl>
-                        <FormMessage />
+                        <FormMessage className="text-xs text-red-400" />
                       </FormItem>
-                    )}
-                  />
+                    )} />
+                    <FormField control={form.control} name="email" render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#cbc3d7]">Work Email</FormLabel>
+                        <FormControl>
+                          <input placeholder="jane@company.com" className={inputClass} {...field} data-testid="input-email" />
+                        </FormControl>
+                        <FormMessage className="text-xs text-red-400" />
+                      </FormItem>
+                    )} />
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <FormField control={form.control} name="phone" render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#cbc3d7]">Phone</FormLabel>
+                        <FormControl>
+                          <input placeholder="+44 ..." className={inputClass} {...field} data-testid="input-phone" />
+                        </FormControl>
+                        <FormMessage className="text-xs text-red-400" />
+                      </FormItem>
+                    )} />
+                    <FormField control={form.control} name="companyName" render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#cbc3d7]">Company</FormLabel>
+                        <FormControl>
+                          <input placeholder="Acme Corp" className={inputClass} {...field} data-testid="input-company" />
+                        </FormControl>
+                        <FormMessage className="text-xs text-red-400" />
+                      </FormItem>
+                    )} />
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <FormField control={form.control} name="country" render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#cbc3d7]">Country</FormLabel>
+                        <FormControl>
+                          <input placeholder="UK" className={inputClass} {...field} data-testid="input-country" />
+                        </FormControl>
+                        <FormMessage className="text-xs text-red-400" />
+                      </FormItem>
+                    )} />
+                    <FormField control={form.control} name="jobTitle" render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#cbc3d7]">Job Title</FormLabel>
+                        <FormControl>
+                          <input placeholder="CTO" className={inputClass} {...field} data-testid="input-jobtitle" />
+                        </FormControl>
+                        <FormMessage className="text-xs text-red-400" />
+                      </FormItem>
+                    )} />
+                  </div>
+
+                  <FormField control={form.control} name="jobDetails" render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#cbc3d7]">How can we help?</FormLabel>
+                      <FormControl>
+                        <textarea placeholder="Tell us about your challenges..." className={textareaClass} {...field} data-testid="input-jobdetails" />
+                      </FormControl>
+                      <FormMessage className="text-xs text-red-400" />
+                    </FormItem>
+                  )} />
 
                   <button
                     type="submit"
                     disabled={createInquiry.isPending}
-                    className="w-full py-4 bg-[#111827] text-white font-medium rounded-lg hover:bg-[#1f2937] transition-colors disabled:opacity-50 mt-4"
+                    className="w-full py-4 bg-[#8B5CF6] text-white text-[11px] font-semibold uppercase tracking-[0.2em] hover:bg-[#7C3AED] disabled:opacity-50 transition-colors mt-2"
                     data-testid="button-submit-contact"
                   >
                     {createInquiry.isPending ? "Submitting..." : "Send Message"}

@@ -13,7 +13,6 @@ import {
   FormMessage,
   FormLabel,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
 import { Lock } from "lucide-react";
 
 const loginSchema = z.object({
@@ -27,9 +26,7 @@ export default function AdminLogin() {
 
   const form = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
-    defaultValues: {
-      password: "",
-    },
+    defaultValues: { password: "" },
   });
 
   function onSubmit(data: z.infer<typeof loginSchema>) {
@@ -41,57 +38,49 @@ export default function AdminLogin() {
           setLocation("/admin/dashboard");
         },
         onError: () => {
-          toast({
-            variant: "destructive",
-            title: "Access Denied",
-            description: "Invalid credentials.",
-          });
+          toast({ variant: "destructive", title: "Access Denied", description: "Invalid credentials." });
         },
       }
     );
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#F9FAFB] text-[#111827] font-sans px-6">
-      <motion.div 
-        initial={{ opacity: 0, y: 10 }}
+    <div className="min-h-screen flex items-center justify-center bg-[#050505] text-[#e5e2e1] px-6" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+      <motion.div
+        initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
-        className="w-full max-w-sm p-8 bg-white border border-[#E5E7EB] rounded-2xl shadow-sm"
+        className="w-full max-w-sm border border-[#262626] p-10"
       >
-        <div className="flex justify-center mb-6">
-          <div className="w-12 h-12 rounded-full bg-[#F3F4F6] flex items-center justify-center text-[#374151]">
+        <div className="flex justify-center mb-8">
+          <div className="w-12 h-12 border border-[#262626] flex items-center justify-center text-[#8B5CF6]">
             <Lock className="w-5 h-5" />
           </div>
         </div>
-        
-        <h1 className="text-2xl font-bold text-center mb-1">Admin Portal</h1>
-        <p className="text-[#6B7280] text-center text-sm mb-8">Sign in to manage AI-Solutions</p>
-        
+
+        <h1 className="text-2xl font-light tracking-tight text-center text-[#e5e2e1] mb-1">Admin Portal</h1>
+        <p className="text-[#cbc3d7] text-center text-sm mb-10">Sign in to manage AI-Solutions</p>
+
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6" data-testid="form-admin-login">
-            <FormField
-              control={form.control}
-              name="password"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="text-[#374151] font-medium text-sm">Passphrase</FormLabel>
-                  <FormControl>
-                    <Input 
-                      type="password" 
-                      placeholder="••••••••" 
-                      className="bg-white border-[#E5E7EB] h-12" 
-                      {...field} 
-                      data-testid="input-password" 
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            <FormField control={form.control} name="password" render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#cbc3d7]">Passphrase</FormLabel>
+                <FormControl>
+                  <input
+                    type="password"
+                    placeholder="••••••••"
+                    className="w-full bg-[#0d0d0d] border border-[#262626] text-[#e5e2e1] placeholder-[#6b7280] h-12 px-4 text-[15px] focus:outline-none focus:border-[#8B5CF6] transition-colors"
+                    {...field}
+                    data-testid="input-password"
+                  />
+                </FormControl>
+                <FormMessage className="text-xs text-red-400" />
+              </FormItem>
+            )} />
             <button
               type="submit"
               disabled={adminLogin.isPending}
-              className="w-full py-3 bg-[#111827] text-white font-medium rounded-lg hover:bg-[#1f2937] transition-colors disabled:opacity-50"
+              className="w-full py-3.5 bg-[#8B5CF6] text-white text-[11px] font-semibold uppercase tracking-[0.2em] hover:bg-[#7C3AED] disabled:opacity-50 transition-colors"
               data-testid="button-submit-login"
             >
               {adminLogin.isPending ? "Authenticating..." : "Sign In"}

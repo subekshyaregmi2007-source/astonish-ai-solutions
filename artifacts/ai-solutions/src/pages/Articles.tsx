@@ -11,59 +11,56 @@ export default function Articles() {
   const { data: articles, isLoading } = useListArticles();
 
   return (
-    <div className="min-h-screen bg-[#F9FAFB] text-[#111827] font-sans">
+    <div className="min-h-screen bg-[#050505] text-[#e5e2e1]" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
       <Navbar />
       <PageTransition>
-        <div className="container mx-auto px-6 py-24 max-w-4xl">
-          <div className="max-w-2xl mb-16">
-            <h1 className="text-[48px] md:text-[64px] font-bold text-[#111827] tracking-tight mb-6 leading-tight">
+        <div className="pt-36 pb-32 px-6 md:px-16 max-w-[1440px] mx-auto">
+          <div className="editorial-line mb-12" />
+          <div className="mb-24">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-[#8B5CF6] mb-6">Insights & News</p>
+            <h1 className="text-[48px] md:text-[72px] font-extralight tracking-[-0.03em] text-[#e5e2e1] leading-none mb-8">
               Insights & News
             </h1>
-            <p className="text-lg text-[#6B7280] leading-relaxed">
+            <p className="text-[#cbc3d7] text-lg max-w-2xl leading-relaxed">
               The latest on AI, digital employee experience, and the future of work.
             </p>
           </div>
 
           {isLoading ? (
-            <div className="space-y-6">
+            <div className="border-t border-[#262626] space-y-0">
               {[...Array(4)].map((_, i) => (
-                <Skeleton key={i} className="h-48 rounded-xl bg-gray-200" />
+                <Skeleton key={i} className="h-32 bg-[#131313] border-b border-[#262626] w-full" />
               ))}
             </div>
           ) : (
-            <div className="space-y-6">
+            <div className="border-t border-[#262626]">
               {articles?.map((article, i) => (
                 <motion.div
                   key={article.id}
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 16 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.1, duration: 0.5 }}
+                  transition={{ delay: i * 0.08, duration: 0.5 }}
                 >
-                  <Link 
-                    href={`/articles/${article.id}`} 
-                    className="group block bg-white border border-[#E5E7EB] rounded-xl p-8 shadow-sm hover:shadow-md hover:border-[#D1D5DB] transition-all"
+                  <Link
+                    href={`/articles/${article.id}`}
+                    className="group flex flex-col md:flex-row md:items-center gap-6 md:gap-12 border-b border-[#262626] py-10 hover:bg-[#0a0a0a] transition-colors"
                     data-testid={`card-article-${article.id}`}
                   >
-                    <div className="flex flex-col md:flex-row md:items-center gap-8">
-                      <div className="w-full md:w-1/4 shrink-0">
-                        <div className="text-xs font-medium text-[#4F46E5] bg-[#4F46E5]/10 px-2.5 py-1 rounded-md inline-block mb-3">
-                          {article.category}
-                        </div>
-                        <div className="text-sm text-[#6B7280] font-medium">
-                          {format(new Date(article.publishedAt), 'MMMM dd, yyyy')}
-                        </div>
-                      </div>
-                      
-                      <div className="w-full md:w-3/4">
-                        <h3 className="text-2xl font-bold text-[#111827] mb-3 group-hover:text-[#4F46E5] transition-colors">
-                          {article.title}
-                        </h3>
-                        <p className="text-[#6B7280] text-[15px] line-clamp-2 leading-relaxed mb-4">
-                          {article.summary}
-                        </p>
-                        <div className="text-[#4F46E5] text-sm font-medium flex items-center gap-1.5">
-                          Read article <ArrowRight className="w-4 h-4" />
-                        </div>
+                    <div className="md:w-[160px] shrink-0">
+                      <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#8B5CF6] mb-2">{article.category}</div>
+                      <div className="text-xs text-[#cbc3d7]">{format(new Date(article.publishedAt), 'MMM dd, yyyy')}</div>
+                    </div>
+
+                    <div className="flex-grow">
+                      <h3 className="text-xl font-semibold text-[#e5e2e1] mb-2 group-hover:text-[#8B5CF6] transition-colors">
+                        {article.title}
+                      </h3>
+                      <p className="text-[#cbc3d7] text-[15px] line-clamp-2 leading-relaxed">{article.summary}</p>
+                    </div>
+
+                    <div className="shrink-0">
+                      <div className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#cbc3d7] group-hover:text-[#8B5CF6] transition-colors">
+                        Read <ArrowRight className="w-3.5 h-3.5" />
                       </div>
                     </div>
                   </Link>

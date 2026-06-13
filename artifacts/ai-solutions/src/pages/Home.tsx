@@ -5,49 +5,53 @@ import { Link } from "wouter";
 import { useListSolutions, useListTestimonials, useListEvents, useListArticles } from "@workspace/api-client-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import * as Icons from "lucide-react";
-import { Star, ArrowRight, MapPin } from "lucide-react";
+import { ArrowRight, MapPin } from "lucide-react";
 import { format } from "date-fns";
 
 export default function Home() {
-  const { data: solutions, isLoading: solutionsLoading } = useListSolutions();
-  const { data: testimonials, isLoading: testimonialsLoading } = useListTestimonials();
-  const { data: events, isLoading: eventsLoading } = useListEvents();
-  const { data: articles, isLoading: articlesLoading } = useListArticles();
+  const { data: solutions } = useListSolutions();
+  const { data: testimonials } = useListTestimonials();
+  const { data: events } = useListEvents();
+  const { data: articles } = useListArticles();
 
   const previewSolutions = solutions?.slice(0, 3);
-  const previewTestimonials = testimonials?.slice(0, 3);
+  const featuredTestimonial = testimonials?.[0];
   const previewEvents = events?.filter(e => e.isUpcoming).slice(0, 2);
   const previewArticles = articles?.slice(0, 2);
 
   return (
-    <div className="min-h-screen bg-white text-[#111827] font-sans">
+    <div className="min-h-screen bg-[#050505] text-[#e5e2e1]" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
       <Navbar />
       <PageTransition>
-        {/* HERO SECTION */}
-        <section className="relative bg-white pt-24 pb-32 px-6">
-          <div className="container mx-auto max-w-5xl">
+
+        {/* HERO */}
+        <section className="relative min-h-screen flex flex-col items-center justify-center text-center px-6 md:px-16 pt-24">
+          <div className="relative z-10 max-w-5xl">
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, ease: "easeOut" }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
             >
-              <h1 className="text-[64px] md:text-[80px] font-bold leading-[1.05] text-[#111827] tracking-tight mb-8">
-                The Intelligence Behind Better Work.
+              <div className="inline-flex items-center gap-2 mb-8 border border-[#262626] px-6 py-2">
+                <span className="text-[11px] font-semibold uppercase tracking-[0.3em] text-[#cbc3d7]">Intelligent Workplace Solutions</span>
+              </div>
+              <h1 className="text-[64px] md:text-[100px] lg:text-[110px] font-extralight leading-[0.95] tracking-[-0.04em] text-[#e5e2e1] mb-12">
+                The Intelligence<br />Behind Better Work.
               </h1>
-              <p className="text-lg md:text-xl text-[#6B7280] mb-12 max-w-2xl leading-relaxed">
+              <p className="text-lg text-[#cbc3d7] max-w-2xl mx-auto leading-relaxed mb-16">
                 We deliver proactive software that anticipates issues before they happen, empowering your team with a considered digital employee experience.
               </p>
-              <div className="flex flex-col sm:flex-row items-center gap-4">
+              <div className="flex flex-col sm:flex-row gap-6 justify-center">
                 <Link
                   href="/solutions"
-                  className="w-full sm:w-auto px-6 py-3 bg-[#111827] text-white font-medium rounded-lg hover:bg-[#1f2937] transition-colors text-center"
+                  className="px-12 py-4 bg-[#8B5CF6] text-white text-[11px] font-semibold uppercase tracking-[0.2em] hover:bg-[#7C3AED] transition-colors"
                   data-testid="button-explore-solutions"
                 >
                   Explore Solutions
                 </Link>
                 <Link
                   href="/contact"
-                  className="w-full sm:w-auto px-6 py-3 border border-[#E5E7EB] bg-white text-[#374151] font-medium rounded-lg hover:bg-gray-50 transition-colors text-center"
+                  className="px-12 py-4 border border-[#262626] text-[#e5e2e1] text-[11px] font-semibold uppercase tracking-[0.2em] hover:bg-white/5 transition-colors"
                   data-testid="button-contact-hero"
                 >
                   Get Started
@@ -55,222 +59,203 @@ export default function Home() {
               </div>
             </motion.div>
           </div>
-        </section>
 
-        {/* STATS SECTION */}
-        <section className="bg-[#F9FAFB] py-24">
-          <div className="container mx-auto px-6 max-w-6xl">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-12">
-              <div className="flex flex-col gap-2">
-                <span className="text-[48px] font-bold text-[#111827] leading-none">99.9%</span>
-                <span className="text-sm font-medium text-[#6B7280]">System Uptime</span>
-              </div>
-              <div className="flex flex-col gap-2">
-                <span className="text-[48px] font-bold text-[#111827] leading-none">50+</span>
-                <span className="text-sm font-medium text-[#6B7280]">Enterprise Partners</span>
-              </div>
-              <div className="flex flex-col gap-2">
-                <span className="text-[48px] font-bold text-[#111827] leading-none">24/7</span>
-                <span className="text-sm font-medium text-[#6B7280]">Proactive Support</span>
-              </div>
-              <div className="flex flex-col gap-2">
-                <span className="text-[48px] font-bold text-[#111827] leading-none">10x</span>
-                <span className="text-sm font-medium text-[#6B7280]">Faster Resolution</span>
-              </div>
+          {/* Stats */}
+          <div className="absolute bottom-0 left-0 right-0 border-t border-[#262626]">
+            <div className="max-w-[1440px] mx-auto px-6 md:px-16 py-8 hidden lg:grid grid-cols-4 gap-6">
+              {[
+                { val: "99.9%", label: "System Uptime" },
+                { val: "50+", label: "Enterprise Partners" },
+                { val: "24/7", label: "Proactive Support" },
+                { val: "10x", label: "Faster Resolution" },
+              ].map((stat) => (
+                <div key={stat.label} className="text-left">
+                  <span className="block text-3xl font-thin text-[#8B5CF6] mb-1">{stat.val}</span>
+                  <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#cbc3d7]">{stat.label}</span>
+                </div>
+              ))}
             </div>
           </div>
         </section>
 
-        {/* SOLUTIONS PREVIEW */}
-        <section className="bg-white py-32">
-          <div className="container mx-auto px-6 max-w-6xl">
-            <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
-              <h2 className="text-[40px] md:text-[48px] font-bold text-[#111827] tracking-tight">Our Solutions</h2>
-              <Link href="/solutions" className="inline-flex items-center gap-2 text-[#4F46E5] font-medium hover:text-[#4338CA] transition-colors">
-                View all solutions <ArrowRight className="w-4 h-4" />
-              </Link>
+        {/* SOLUTIONS */}
+        <section className="py-32 px-6 md:px-16 max-w-[1440px] mx-auto">
+          <div className="editorial-line mb-12" />
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-20 gap-6">
+            <div>
+              <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-[#8B5CF6] mb-4">Our Solutions</p>
+              <h2 className="text-[32px] md:text-[40px] font-light tracking-[-0.02em] text-[#e5e2e1] max-w-lg leading-tight">
+                Specialized AI systems designed to modernize your enterprise workflow.
+              </h2>
+            </div>
+            <Link href="/solutions" className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#cbc3d7] hover:text-[#8B5CF6] transition-colors shrink-0">
+              View all <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-0 border-l border-[#262626]">
+            {previewSolutions ? previewSolutions.map((solution, i) => {
+              const Icon = (Icons as any)[solution.icon] || Icons.Box;
+              return (
+                <motion.div
+                  key={solution.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.1, duration: 0.5 }}
+                  className="group border-r border-b border-[#262626] p-10 flex flex-col"
+                >
+                  <span className="text-[80px] font-thin text-[#262626] leading-none mb-6 group-hover:text-[#8B5CF6] transition-colors duration-700">
+                    {String(i + 1).padStart(2, '0')}
+                  </span>
+                  <h3 className="text-xl font-semibold text-[#8B5CF6] mb-4">{solution.title}</h3>
+                  <p className="text-[#cbc3d7] text-[15px] leading-relaxed mb-8 flex-grow">{solution.description}</p>
+                  <Link href="/solutions" className="inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#e5e2e1] hover:gap-4 transition-all">
+                    Learn more <ArrowRight className="w-3.5 h-3.5" />
+                  </Link>
+                </motion.div>
+              );
+            }) : (
+              [1,2,3].map(i => <Skeleton key={i} className="h-80 bg-[#131313]" />)
+            )}
+          </div>
+        </section>
+
+        {/* FEATURED TESTIMONIAL */}
+        <section className="py-32 px-6 md:px-16 bg-[#0a0a0a]">
+          <div className="max-w-5xl mx-auto">
+            <div className="editorial-line mb-20 opacity-40" />
+            {featuredTestimonial ? (
+              <div className="text-center">
+                <blockquote className="text-[28px] md:text-[40px] lg:text-[52px] font-extralight leading-[1.15] tracking-tight text-[#e5e2e1] italic mb-12">
+                  "{featuredTestimonial.message}"
+                </blockquote>
+                <div className="flex flex-col items-center gap-2">
+                  <span className="text-[11px] font-semibold uppercase tracking-[0.3em] text-[#8B5CF6]">— {featuredTestimonial.clientName}</span>
+                  <span className="text-[#cbc3d7] text-sm">{featuredTestimonial.role}, {featuredTestimonial.company}</span>
+                </div>
+              </div>
+            ) : (
+              <Skeleton className="h-48 bg-[#131313]" />
+            )}
+          </div>
+        </section>
+
+        {/* EVENTS & ARTICLES */}
+        <section className="py-32 px-6 md:px-16 max-w-[1440px] mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-x-16 gap-y-24">
+            {/* Events */}
+            <div className="lg:col-span-5">
+              <div className="editorial-line mb-10" />
+              <div className="flex justify-between items-center mb-12">
+                <h2 className="text-[28px] font-light tracking-tight text-[#e5e2e1] uppercase">Upcoming</h2>
+                <Link href="/events" className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#cbc3d7] hover:text-[#8B5CF6] transition-colors flex items-center gap-1">
+                  All events <ArrowRight className="w-3 h-3" />
+                </Link>
+              </div>
+              {previewEvents ? (
+                <div className="space-y-0 border-t border-[#262626]">
+                  {previewEvents.map((event) => (
+                    <div key={event.id} className="border-b border-[#262626] py-8 flex items-start gap-8">
+                      <div className="w-14 shrink-0 text-center">
+                        <span className="block text-[10px] font-semibold uppercase tracking-[0.2em] text-[#cbc3d7]">{format(new Date(event.date), 'MMM')}</span>
+                        <span className="block text-3xl font-thin text-[#8B5CF6] leading-none mt-1">{format(new Date(event.date), 'dd')}</span>
+                      </div>
+                      <div>
+                        <h3 className="font-semibold text-[#e5e2e1] mb-1">{event.title}</h3>
+                        <div className="flex items-center gap-1 text-xs text-[#cbc3d7]">
+                          <MapPin className="w-3 h-3" /> {event.location}
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="space-y-4">
+                  {[1,2].map(i => <Skeleton key={i} className="h-24 bg-[#131313]" />)}
+                </div>
+              )}
             </div>
 
-            {solutionsLoading ? (
-               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                 {[1,2,3].map(i => <Skeleton key={i} className="h-64 rounded-xl bg-gray-100" />)}
-               </div>
-            ) : (
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                {previewSolutions?.map((solution, i) => {
-                  const Icon = (Icons as any)[solution.icon] || Icons.Box;
-                  return (
-                    <motion.div 
-                      key={solution.id}
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: i * 0.1, duration: 0.5 }}
-                      className="bg-white border border-[#E5E7EB] p-8 rounded-xl shadow-sm hover:shadow-md hover:border-[#D1D5DB] transition-all"
+            {/* Articles */}
+            <div className="lg:col-span-7">
+              <div className="editorial-line mb-10" />
+              <div className="flex justify-between items-center mb-12">
+                <h2 className="text-[28px] font-light tracking-tight text-[#e5e2e1] uppercase">Latest Writing</h2>
+                <Link href="/articles" className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#cbc3d7] hover:text-[#8B5CF6] transition-colors flex items-center gap-1">
+                  All articles <ArrowRight className="w-3 h-3" />
+                </Link>
+              </div>
+              {previewArticles ? (
+                <div className="space-y-0 border-t border-[#262626]">
+                  {previewArticles.map((article) => (
+                    <Link
+                      key={article.id}
+                      href={`/articles/${article.id}`}
+                      className="group block border-b border-[#262626] py-8"
                     >
-                      <div className="mb-6">
-                        <Icon className="w-8 h-8 text-[#4F46E5]" />
-                      </div>
-                      <h3 className="text-xl font-bold text-[#111827] mb-3">{solution.title}</h3>
-                      <p className="text-[#6B7280] text-[15px] mb-6 leading-relaxed line-clamp-3">{solution.description}</p>
-                      <Link href="/solutions" className="text-[#4F46E5] font-medium text-sm flex items-center gap-1.5 hover:text-[#4338CA]">
-                        Learn more <ArrowRight className="w-4 h-4" />
-                      </Link>
-                    </motion.div>
-                  );
-                })}
-              </div>
-            )}
-          </div>
-        </section>
-
-        {/* TESTIMONIALS PREVIEW */}
-        <section className="bg-[#F9FAFB] py-32">
-          <div className="container mx-auto px-6 max-w-6xl">
-            <h2 className="text-[40px] md:text-[48px] font-bold text-[#111827] tracking-tight mb-16">Trusted by leaders</h2>
-            
-            {testimonialsLoading ? (
-               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                 {[1,2,3].map(i => <Skeleton key={i} className="h-48 rounded-xl bg-gray-200" />)}
-               </div>
-            ) : (
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                {previewTestimonials?.map((testimonial, i) => (
-                  <motion.div
-                    key={testimonial.id}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: i * 0.1, duration: 0.5 }}
-                    className="bg-white border border-[#E5E7EB] rounded-xl p-8 shadow-sm flex flex-col"
-                  >
-                    <div className="flex items-center gap-1 mb-6">
-                      {[...Array(5)].map((_, starIndex) => (
-                        <Star 
-                          key={starIndex} 
-                          className={`w-4 h-4 ${starIndex < testimonial.rating ? "text-amber-400 fill-amber-400" : "text-gray-200 fill-gray-200"}`} 
-                        />
-                      ))}
-                    </div>
-                    <p className="text-[#374151] text-[15px] leading-relaxed mb-8 flex-grow">"{testimonial.message}"</p>
-                    <div className="mt-auto">
-                      <div className="font-semibold text-[#111827] text-sm">{testimonial.clientName}</div>
-                      <div className="text-xs text-[#6B7280]">{testimonial.role}, {testimonial.company}</div>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            )}
-          </div>
-        </section>
-
-        {/* EVENTS & ARTICLES COMPOSITE */}
-        <section className="bg-white py-32">
-          <div className="container mx-auto px-6 max-w-6xl">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
-              {/* EVENTS */}
-              <div>
-                <div className="flex items-center justify-between mb-8">
-                  <h2 className="text-2xl font-bold text-[#111827]">Upcoming Events</h2>
-                  <Link href="/events" className="text-[#4F46E5] font-medium text-sm hover:text-[#4338CA]">View All</Link>
-                </div>
-                
-                {eventsLoading ? (
-                  <div className="space-y-4">
-                    {[1,2].map(i => <Skeleton key={i} className="h-24 rounded-xl bg-gray-100" />)}
-                  </div>
-                ) : (
-                  <div className="space-y-4">
-                    {previewEvents?.map((event) => (
-                      <div key={event.id} className="bg-white border border-[#E5E7EB] rounded-xl p-5 flex items-center gap-6 shadow-sm hover:shadow-md transition-all">
-                        <div className="w-16 h-16 shrink-0 bg-[#4F46E5] rounded-lg flex flex-col items-center justify-center text-white">
-                          <span className="text-[10px] font-bold uppercase">{format(new Date(event.date), 'MMM')}</span>
-                          <span className="text-xl font-bold leading-none">{format(new Date(event.date), 'dd')}</span>
+                      <div className="flex flex-col md:flex-row md:items-center gap-6">
+                        <div className="md:w-1/4 shrink-0">
+                          <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#8B5CF6]">{article.category}</span>
                         </div>
-                        <div>
-                          <h3 className="text-lg font-bold text-[#111827] mb-1">{event.title}</h3>
-                          <div className="flex items-center gap-3 text-xs text-[#6B7280]">
-                            <span className="flex items-center gap-1"><MapPin className="w-3 h-3" /> {event.location}</span>
-                          </div>
+                        <div className="md:w-3/4">
+                          <h3 className="text-lg font-semibold text-[#e5e2e1] mb-2 group-hover:text-[#8B5CF6] transition-colors">{article.title}</h3>
+                          <p className="text-[#cbc3d7] text-sm line-clamp-2">{article.summary}</p>
                         </div>
+                        <ArrowRight className="w-4 h-4 text-[#cbc3d7] shrink-0 group-hover:text-[#8B5CF6] transition-colors hidden md:block" />
                       </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-
-              {/* ARTICLES */}
-              <div>
-                <div className="flex items-center justify-between mb-8">
-                  <h2 className="text-2xl font-bold text-[#111827]">Latest Writing</h2>
-                  <Link href="/articles" className="text-[#4F46E5] font-medium text-sm hover:text-[#4338CA]">View All</Link>
+                    </Link>
+                  ))}
                 </div>
-
-                {articlesLoading ? (
-                  <div className="space-y-4">
-                    {[1,2].map(i => <Skeleton key={i} className="h-24 rounded-xl bg-gray-100" />)}
-                  </div>
-                ) : (
-                  <div className="space-y-4">
-                    {previewArticles?.map((article) => (
-                      <Link key={article.id} href={`/articles/${article.id}`} className="block bg-white border border-[#E5E7EB] rounded-xl p-6 shadow-sm hover:shadow-md transition-all">
-                        <h3 className="text-lg font-bold text-[#111827] mb-2">{article.title}</h3>
-                        <p className="text-[#6B7280] text-sm line-clamp-2">{article.summary}</p>
-                      </Link>
-                    ))}
-                  </div>
-                )}
-              </div>
+              ) : (
+                <div className="space-y-4">
+                  {[1,2].map(i => <Skeleton key={i} className="h-24 bg-[#131313]" />)}
+                </div>
+              )}
             </div>
           </div>
         </section>
 
         {/* FOOTER */}
-        <footer className="bg-[#111827] text-white py-20">
-          <div className="container mx-auto px-6 max-w-6xl">
+        <footer className="border-t border-[#262626] py-20 px-6 md:px-16">
+          <div className="max-w-[1440px] mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
               <div className="md:col-span-1">
-                <div className="flex items-center gap-2 mb-6">
-                  <div className="w-4 h-4 bg-[#4F46E5] rounded-sm"></div>
-                  <span className="font-bold text-white text-lg">AI-Solutions</span>
-                </div>
-                <p className="text-[#9CA3AF] text-sm leading-relaxed">
-                  Building the intelligence behind better work.
+                <div className="font-bold text-[#e5e2e1] text-xl uppercase tracking-tight mb-6">AI-Solutions</div>
+                <p className="text-[#cbc3d7] text-sm leading-relaxed">
+                  Building the intelligence behind better work. Sunderland, UK.
                 </p>
               </div>
-              
               <div>
-                <h4 className="text-white font-semibold mb-6">Solutions</h4>
+                <h4 className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#cbc3d7] mb-6">Solutions</h4>
                 <ul className="space-y-4">
-                  <li><Link href="/solutions" className="text-[#9CA3AF] hover:text-white text-sm transition-colors">Platform</Link></li>
-                  <li><Link href="/industries" className="text-[#9CA3AF] hover:text-white text-sm transition-colors">Industries</Link></li>
-                  <li><Link href="/testimonials" className="text-[#9CA3AF] hover:text-white text-sm transition-colors">Case Studies</Link></li>
+                  <li><Link href="/solutions" className="text-[#cbc3d7] hover:text-[#8B5CF6] text-sm transition-colors">Platform</Link></li>
+                  <li><Link href="/industries" className="text-[#cbc3d7] hover:text-[#8B5CF6] text-sm transition-colors">Industries</Link></li>
+                  <li><Link href="/testimonials" className="text-[#cbc3d7] hover:text-[#8B5CF6] text-sm transition-colors">Case Studies</Link></li>
                 </ul>
               </div>
-
               <div>
-                <h4 className="text-white font-semibold mb-6">Company</h4>
+                <h4 className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#cbc3d7] mb-6">Company</h4>
                 <ul className="space-y-4">
-                  <li><Link href="/articles" className="text-[#9CA3AF] hover:text-white text-sm transition-colors">Blog</Link></li>
-                  <li><Link href="/events" className="text-[#9CA3AF] hover:text-white text-sm transition-colors">Events</Link></li>
-                  <li><Link href="/contact" className="text-[#9CA3AF] hover:text-white text-sm transition-colors">Contact</Link></li>
+                  <li><Link href="/articles" className="text-[#cbc3d7] hover:text-[#8B5CF6] text-sm transition-colors">Articles</Link></li>
+                  <li><Link href="/events" className="text-[#cbc3d7] hover:text-[#8B5CF6] text-sm transition-colors">Events</Link></li>
+                  <li><Link href="/contact" className="text-[#cbc3d7] hover:text-[#8B5CF6] text-sm transition-colors">Contact</Link></li>
                 </ul>
               </div>
-
               <div>
-                <h4 className="text-white font-semibold mb-6">Contact</h4>
-                <ul className="space-y-4 text-[#9CA3AF] text-sm">
+                <h4 className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#cbc3d7] mb-6">Contact</h4>
+                <ul className="space-y-4 text-sm text-[#cbc3d7]">
                   <li>Sunderland, UK</li>
                   <li>hello@ai-solutions.com</li>
                 </ul>
               </div>
             </div>
-            
-            <div className="pt-8 border-t border-[#374151] text-sm text-[#9CA3AF] flex flex-col md:flex-row justify-between items-center gap-4">
-              <div>© {new Date().getFullYear()} AI-Solutions. All rights reserved.</div>
+            <div className="pt-8 border-t border-[#262626] flex flex-col md:flex-row justify-between items-center gap-4">
+              <div className="text-[11px] text-[#cbc3d7] uppercase tracking-[0.1em]">© {new Date().getFullYear()} AI-Solutions. All rights reserved.</div>
             </div>
           </div>
         </footer>
+
       </PageTransition>
     </div>
   );

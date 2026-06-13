@@ -3,64 +3,74 @@ import { Navbar } from "@/components/layout/Navbar";
 import { useListTestimonials } from "@workspace/api-client-react";
 import { motion } from "framer-motion";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Star, Quote } from "lucide-react";
 
 export default function Testimonials() {
   const { data: testimonials, isLoading } = useListTestimonials();
 
+  const featured = testimonials?.[0];
+  const rest = testimonials?.slice(1);
+
   return (
-    <div className="min-h-screen bg-white text-[#111827] font-sans">
+    <div className="min-h-screen bg-[#050505] text-[#e5e2e1]" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
       <Navbar />
       <PageTransition>
-        <div className="container mx-auto px-6 py-24 max-w-6xl">
-          <div className="max-w-2xl mb-20">
-            <h1 className="text-[48px] md:text-[64px] font-bold text-[#111827] tracking-tight mb-6 leading-tight">
-              Client Stories
+        <div className="pt-36 pb-32 px-6 md:px-16 max-w-[1440px] mx-auto">
+          <div className="editorial-line mb-12" />
+          <div className="mb-24">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-[#8B5CF6] mb-6">Client Stories</p>
+            <h1 className="text-[48px] md:text-[72px] font-extralight tracking-[-0.03em] text-[#e5e2e1] leading-none">
+              Trusted by Leaders
             </h1>
-            <p className="text-lg text-[#6B7280] leading-relaxed">
-              Hear from leaders who have transformed their digital employee experience with AI-Solutions.
-            </p>
           </div>
 
           {isLoading ? (
-            <div className="columns-1 md:columns-2 lg:columns-3 gap-8 space-y-8">
-              {[...Array(6)].map((_, i) => (
-                <Skeleton key={i} className="h-64 rounded-xl bg-gray-100 break-inside-avoid" />
-              ))}
+            <div className="space-y-8">
+              {[...Array(4)].map((_, i) => <Skeleton key={i} className="h-48 bg-[#131313]" />)}
             </div>
           ) : (
-            <div className="columns-1 md:columns-2 lg:columns-3 gap-8 space-y-8">
-              {testimonials?.map((testimonial, i) => (
+            <>
+              {/* Featured quote */}
+              {featured && (
                 <motion.div
-                  key={testimonial.id}
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 24 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.1, duration: 0.5 }}
-                  className="bg-white border border-[#E5E7EB] rounded-xl p-8 shadow-sm hover:shadow-md transition-shadow break-inside-avoid"
-                  data-testid={`card-testimonial-${testimonial.id}`}
+                  className="bg-[#0a0a0a] border border-[#262626] p-12 md:p-20 mb-4"
+                  data-testid={`card-testimonial-${featured.id}`}
                 >
-                  <Quote className="w-8 h-8 text-[#4F46E5] mb-6 opacity-80" />
-                  
-                  <div className="flex items-center gap-1 mb-6">
-                    {[...Array(5)].map((_, starIndex) => (
-                      <Star 
-                        key={starIndex} 
-                        className={`w-4 h-4 ${starIndex < testimonial.rating ? "text-amber-400 fill-amber-400" : "text-gray-200 fill-gray-200"}`} 
-                      />
-                    ))}
-                  </div>
-                  
-                  <p className="text-[16px] text-[#374151] leading-relaxed mb-8">
-                    "{testimonial.message}"
-                  </p>
-                  
-                  <div>
-                    <div className="font-semibold text-[#111827]">{testimonial.clientName}</div>
-                    <div className="text-sm text-[#6B7280]">{testimonial.role}, {testimonial.company}</div>
+                  <blockquote className="text-[24px] md:text-[36px] font-extralight leading-[1.2] tracking-tight text-[#e5e2e1] italic mb-12">
+                    "{featured.message}"
+                  </blockquote>
+                  <div className="flex flex-col gap-1">
+                    <span className="text-[11px] font-semibold uppercase tracking-[0.3em] text-[#8B5CF6]">— {featured.clientName}</span>
+                    <span className="text-[#cbc3d7] text-sm">{featured.role}, {featured.company}</span>
                   </div>
                 </motion.div>
-              ))}
-            </div>
+              )}
+
+              {/* Rest in editorial list */}
+              <div className="border-t border-[#262626]">
+                {rest?.map((testimonial, i) => (
+                  <motion.div
+                    key={testimonial.id}
+                    initial={{ opacity: 0, y: 16 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: i * 0.08, duration: 0.5 }}
+                    className="border-b border-[#262626] py-10 grid grid-cols-1 md:grid-cols-12 gap-6 hover:bg-[#0a0a0a] transition-colors"
+                    data-testid={`card-testimonial-${testimonial.id}`}
+                  >
+                    <div className="md:col-span-3">
+                      <div className="font-semibold text-[#e5e2e1] mb-1">{testimonial.clientName}</div>
+                      <div className="text-[11px] text-[#8B5CF6] uppercase tracking-[0.15em]">{testimonial.company}</div>
+                      <div className="text-xs text-[#cbc3d7] mt-1">{testimonial.role}</div>
+                    </div>
+                    <div className="md:col-span-9">
+                      <p className="text-[#cbc3d7] text-[16px] leading-relaxed italic">"{testimonial.message}"</p>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </>
           )}
         </div>
       </PageTransition>

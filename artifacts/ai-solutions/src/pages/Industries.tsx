@@ -8,54 +8,60 @@ export default function Industries() {
   const { data: industries, isLoading } = useListIndustries();
 
   return (
-    <div className="min-h-screen bg-white text-[#111827] font-sans">
+    <div className="min-h-screen bg-[#050505] text-[#e5e2e1]" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
       <Navbar />
       <PageTransition>
-        <div className="container mx-auto px-6 py-24 max-w-5xl">
-          <div className="max-w-2xl mb-20">
-            <h1 className="text-[48px] md:text-[64px] font-bold text-[#111827] tracking-tight mb-6 leading-tight">
+        <div className="pt-36 pb-32 px-6 md:px-16 max-w-[1440px] mx-auto">
+          <div className="editorial-line mb-12" />
+          <div className="mb-24">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-[#8B5CF6] mb-6">Sectors</p>
+            <h1 className="text-[48px] md:text-[72px] font-extralight tracking-[-0.03em] text-[#e5e2e1] leading-none mb-8">
               Industries We Serve
             </h1>
-            <p className="text-lg text-[#6B7280] leading-relaxed">
+            <p className="text-[#cbc3d7] text-lg max-w-2xl leading-relaxed">
               See how AI-Solutions is revolutionizing the digital employee experience across global sectors.
             </p>
           </div>
 
           {isLoading ? (
-            <div className="space-y-8">
-              {[...Array(3)].map((_, i) => (
-                <Skeleton key={i} className="h-64 rounded-xl bg-gray-100 w-full" />
+            <div className="space-y-0 border-t border-[#262626]">
+              {[...Array(5)].map((_, i) => (
+                <Skeleton key={i} className="h-48 bg-[#131313] border-b border-[#262626] w-full" />
               ))}
             </div>
           ) : (
-            <div className="space-y-8">
+            <div className="border-t border-[#262626]">
               {industries?.map((industry, i) => (
                 <motion.div
                   key={industry.id}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: i * 0.1 }}
-                  className="bg-white border border-[#E5E7EB] rounded-xl p-8 md:p-12 shadow-sm flex flex-col md:flex-row gap-8 items-start hover:shadow-md transition-shadow"
+                  transition={{ duration: 0.5, delay: i * 0.08 }}
+                  className="border-b border-[#262626] py-16 grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-16 group hover:bg-[#0a0a0a] transition-colors px-2"
                   data-testid={`card-industry-${industry.id}`}
                 >
-                  <div className="w-full md:w-1/3 shrink-0">
-                    <div className="inline-flex items-center gap-2 mb-4">
-                      <span className="text-sm font-medium text-[#4F46E5] bg-[#4F46E5]/10 px-2.5 py-1 rounded-md">
+                  <div className="md:col-span-1 flex items-start">
+                    <span className="text-5xl font-thin text-[#262626] group-hover:text-[#8B5CF6] transition-colors duration-700 leading-none">
+                      {String(i + 1).padStart(2, '0')}
+                    </span>
+                  </div>
+
+                  <div className="md:col-span-3">
+                    <div className="flex items-center gap-3 mb-4">
+                      <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#8B5CF6] border border-[#8B5CF6]/30 px-3 py-1">
                         {industry.sector}
                       </span>
-                      <span className="text-sm text-[#6B7280] font-medium">{industry.year}</span>
+                      <span className="text-[10px] text-[#cbc3d7] uppercase tracking-wider">{industry.year}</span>
                     </div>
-                    <h2 className="text-2xl font-bold text-[#111827]">{industry.name}</h2>
+                    <h2 className="text-2xl font-semibold text-[#e5e2e1]">{industry.name}</h2>
                   </div>
-                  
-                  <div className="w-full md:w-2/3 flex flex-col gap-6">
-                    <p className="text-[17px] text-[#374151] leading-relaxed">
-                      {industry.description}
-                    </p>
-                    <div className="pt-6 border-t border-[#F3F4F6]">
-                      <div className="text-xs font-semibold text-[#6B7280] uppercase tracking-wider mb-2">The Outcome</div>
-                      <div className="text-[#111827] font-medium text-lg">{industry.outcome}</div>
+
+                  <div className="md:col-span-8 flex flex-col gap-8">
+                    <p className="text-[17px] text-[#cbc3d7] leading-relaxed">{industry.description}</p>
+                    <div className="border-t border-[#262626] pt-6">
+                      <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#cbc3d7] mb-2">The Outcome</div>
+                      <div className="text-[#e5e2e1] font-medium text-lg">{industry.outcome}</div>
                     </div>
                   </div>
                 </motion.div>
