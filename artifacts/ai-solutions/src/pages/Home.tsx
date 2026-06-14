@@ -136,7 +136,7 @@ export default function Home() {
       <PageTransition>
 
         {/* ── HERO ─────────────────────────────────────────── */}
-        <section className="relative flex flex-col justify-center min-h-screen px-6 md:px-16 overflow-hidden grain-overlay scan-line">
+        <section className="relative flex flex-col justify-center min-h-screen px-6 md:px-16 overflow-hidden grain-overlay">
 
           {/* WebGL-style particle mesh */}
           <ParticleMesh />
