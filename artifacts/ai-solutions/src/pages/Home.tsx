@@ -66,47 +66,50 @@ function FadeIn({ children, delay = 0, className = "" }: { children: React.React
   );
 }
 
-/* ── Cursor spotlight ──────────────────────────────────────── */
+/* ── Cursor spotlight — DOM-direct, zero re-renders ────────── */
 function CursorSpotlight() {
-  const ref = useRef<HTMLDivElement>(null);
-  const [pos, setPos] = useState({ x: -999, y: -999 });
-  const [visible, setVisible] = useState(false);
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const bloopRef = useRef<HTMLDivElement>(null);
+  const dotRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const el = ref.current?.parentElement;
-    if (!el) return;
+    const wrap = wrapRef.current;
+    const bloop = bloopRef.current;
+    const dot = dotRef.current;
+    const hero = wrap?.parentElement;
+    if (!wrap || !bloop || !dot || !hero) return;
+
     const onMove = (e: MouseEvent) => {
-      const rect = el.getBoundingClientRect();
-      setPos({ x: e.clientX - rect.left, y: e.clientY - rect.top });
-      setVisible(true);
+      const rect = hero.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      bloop.style.transform = `translate(${x - 300}px, ${y - 300}px)`;
+      dot.style.transform = `translate(${x - 60}px, ${y - 60}px)`;
+      wrap.style.opacity = "1";
     };
-    const onLeave = () => setVisible(false);
-    el.addEventListener("mousemove", onMove);
-    el.addEventListener("mouseleave", onLeave);
-    return () => { el.removeEventListener("mousemove", onMove); el.removeEventListener("mouseleave", onLeave); };
+    const onLeave = () => { wrap.style.opacity = "0"; };
+
+    hero.addEventListener("mousemove", onMove, { passive: true });
+    hero.addEventListener("mouseleave", onLeave, { passive: true });
+    return () => {
+      hero.removeEventListener("mousemove", onMove);
+      hero.removeEventListener("mouseleave", onLeave);
+    };
   }, []);
 
   return (
-    <div ref={ref} className="absolute inset-0 pointer-events-none overflow-hidden"
-      style={{ transition: "opacity 0.3s", opacity: visible ? 1 : 0 }}>
-      <div
-        className="absolute rounded-full"
+    <div ref={wrapRef} className="absolute inset-0 pointer-events-none overflow-hidden"
+      style={{ opacity: 0, transition: "opacity 0.4s" }}>
+      <div ref={bloopRef} className="absolute rounded-full will-change-transform"
         style={{
-          width: 600, height: 600,
-          left: pos.x - 300, top: pos.y - 300,
-          background: "radial-gradient(circle, rgba(139,92,246,0.12) 0%, rgba(139,92,246,0.04) 40%, transparent 70%)",
-          transition: "left 0.08s linear, top 0.08s linear",
-          pointerEvents: "none",
+          width: 600, height: 600, top: 0, left: 0,
+          background: "radial-gradient(circle, rgba(139,92,246,0.13) 0%, rgba(139,92,246,0.04) 45%, transparent 70%)",
         }}
       />
-      <div
-        className="absolute rounded-full"
+      <div ref={dotRef} className="absolute rounded-full will-change-transform"
         style={{
-          width: 120, height: 120,
-          left: pos.x - 60, top: pos.y - 60,
-          background: "radial-gradient(circle, rgba(167,139,250,0.18) 0%, transparent 70%)",
-          transition: "left 0.04s linear, top 0.04s linear",
-          pointerEvents: "none",
+          width: 120, height: 120, top: 0, left: 0,
+          background: "radial-gradient(circle, rgba(167,139,250,0.2) 0%, transparent 70%)",
         }}
       />
     </div>
