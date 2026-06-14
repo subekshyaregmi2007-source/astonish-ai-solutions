@@ -17,103 +17,175 @@ export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const handler = () => setScrolled(window.scrollY > 40);
+    const handler = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handler, { passive: true });
+    handler();
     return () => window.removeEventListener("scroll", handler);
   }, []);
 
   return (
-    <motion.nav
-      initial={{ y: -20, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
-      className="fixed top-0 w-full z-50 transition-all duration-500"
-      style={{
-        background: scrolled ? "rgba(5,5,5,0.92)" : "transparent",
-        backdropFilter: scrolled ? "blur(16px)" : "none",
-        borderBottom: scrolled ? "1px solid rgba(38,38,38,0.8)" : "1px solid transparent",
-      }}
-    >
-      <div className="mx-auto px-6 md:px-16 flex items-center justify-between max-w-[1440px] py-5">
-        <Link href="/" className="font-bold text-[#e5e2e1] text-xl uppercase tracking-tight" data-testid="link-home">
-          AI-Solutions
-        </Link>
+    <>
+      <motion.nav
+        initial={{ y: -20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+        className="fixed top-0 left-0 right-0 z-50 flex justify-center px-4 pt-4"
+      >
+        <motion.div
+          className="relative w-full max-w-[1200px] overflow-hidden"
+          animate={{
+            borderRadius: scrolled ? "9999px" : "0px",
+          }}
+          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+          style={{
+            background: scrolled
+              ? "rgba(8, 6, 14, 0.55)"
+              : "transparent",
+            backdropFilter: scrolled ? "blur(28px) saturate(180%) brightness(0.9)" : "none",
+            WebkitBackdropFilter: scrolled ? "blur(28px) saturate(180%) brightness(0.9)" : "none",
+            boxShadow: scrolled
+              ? "0 0 0 1px rgba(255,255,255,0.06), 0 8px 32px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.08), inset 0 -1px 0 rgba(139,92,246,0.08)"
+              : "none",
+          }}
+        >
+          {/* Iridescent top shimmer line — only when scrolled */}
+          <AnimatePresence>
+            {scrolled && (
+              <motion.div
+                initial={{ opacity: 0, scaleX: 0.6 }}
+                animate={{ opacity: 1, scaleX: 1 }}
+                exit={{ opacity: 0, scaleX: 0.6 }}
+                transition={{ duration: 0.4 }}
+                className="absolute top-0 left-[10%] right-[10%] h-px pointer-events-none"
+                style={{
+                  background:
+                    "linear-gradient(90deg, transparent 0%, rgba(139,92,246,0.5) 20%, rgba(200,160,255,0.9) 40%, rgba(139,92,246,0.7) 55%, rgba(100,200,255,0.4) 75%, transparent 100%)",
+                  filter: "blur(0.5px)",
+                }}
+              />
+            )}
+          </AnimatePresence>
 
-        <div className="hidden md:flex items-center gap-10">
-          {navLinks.map((link, i) => (
+          {/* Nav content */}
+          <div className="flex items-center justify-between px-6 py-4 md:px-8">
+            <Link
+              href="/"
+              className="font-bold text-[#e5e2e1] text-[15px] uppercase tracking-widest shrink-0"
+              data-testid="link-home"
+            >
+              AI-Solutions
+            </Link>
+
+            {/* Desktop links */}
+            <div className="hidden md:flex items-center gap-8">
+              {navLinks.map((link, i) => (
+                <motion.div
+                  key={link.href}
+                  initial={{ opacity: 0, y: -6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.12 + i * 0.06, duration: 0.4 }}
+                >
+                  <Link
+                    href={link.href}
+                    className={`relative text-[11px] font-semibold uppercase tracking-[0.2em] transition-colors duration-200 ${
+                      location === link.href
+                        ? "text-[#c4b5fd]"
+                        : "text-[#cbc3d7] hover:text-[#e5e2e1]"
+                    }`}
+                    data-testid={`link-${link.name.toLowerCase()}`}
+                  >
+                    {link.name}
+                    {location === link.href && (
+                      <motion.span
+                        layoutId="nav-indicator"
+                        className="absolute -bottom-1 left-0 right-0 h-px"
+                        style={{
+                          background: "linear-gradient(90deg, transparent, #a78bfa, transparent)",
+                        }}
+                      />
+                    )}
+                  </Link>
+                </motion.div>
+              ))}
+            </div>
+
+            {/* CTA */}
             <motion.div
-              key={link.href}
-              initial={{ opacity: 0, y: -8 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 + i * 0.06, duration: 0.4 }}
+              className="hidden md:block shrink-0"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.45, duration: 0.4 }}
             >
               <Link
-                href={link.href}
-                className={`text-[11px] font-semibold uppercase tracking-[0.2em] transition-colors duration-200 ${
-                  location === link.href
-                    ? "text-[#8B5CF6] border-b border-[#8B5CF6] pb-0.5"
-                    : "text-[#cbc3d7] hover:text-[#e5e2e1]"
-                }`}
-                data-testid={`link-${link.name.toLowerCase()}`}
+                href="/contact"
+                className="relative px-6 py-2.5 text-[11px] font-semibold uppercase tracking-[0.2em] text-white overflow-hidden inline-flex items-center"
+                style={{
+                  background: scrolled
+                    ? "rgba(139, 92, 246, 0.75)"
+                    : "rgba(139, 92, 246, 1)",
+                  backdropFilter: "blur(12px)",
+                  borderRadius: "9999px",
+                  boxShadow: "0 0 0 1px rgba(167,139,250,0.3), inset 0 1px 0 rgba(255,255,255,0.15), 0 4px 16px rgba(139,92,246,0.25)",
+                }}
+                data-testid="button-contact"
               >
-                {link.name}
+                <span className="relative z-10">Get Started</span>
               </Link>
             </motion.div>
-          ))}
-        </div>
 
-        <motion.div
-          className="hidden md:block"
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.4, duration: 0.4 }}
-        >
-          <Link
-            href="/contact"
-            className="px-8 py-3 bg-[#8B5CF6] text-white text-[11px] font-semibold uppercase tracking-[0.2em] hover:bg-[#7C3AED] transition-colors duration-200 inline-block"
-            data-testid="button-contact"
-          >
-            Get Started
-          </Link>
+            {/* Mobile toggle */}
+            <button
+              className="md:hidden p-2 text-[#cbc3d7]"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            >
+              {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            </button>
+          </div>
         </motion.div>
+      </motion.nav>
 
-        <button
-          className="md:hidden p-2 text-[#cbc3d7]"
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-        >
-          {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-        </button>
-      </div>
-
+      {/* Mobile menu — full-width sheet below */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="md:hidden bg-[#0a0a0a] border-b border-[#262626] px-6 py-6 space-y-5 overflow-hidden"
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.25 }}
+            className="fixed top-20 left-4 right-4 z-40 rounded-2xl overflow-hidden"
+            style={{
+              background: "rgba(8,6,14,0.82)",
+              backdropFilter: "blur(28px) saturate(160%)",
+              WebkitBackdropFilter: "blur(28px) saturate(160%)",
+              boxShadow: "0 0 0 1px rgba(255,255,255,0.07), 0 16px 48px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.07)",
+            }}
           >
-            {navLinks.map((link) => (
+            <div className="px-6 py-6 space-y-4">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="block text-[11px] font-semibold uppercase tracking-[0.2em] text-[#cbc3d7] py-2 hover:text-[#a78bfa] transition-colors"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  {link.name}
+                </Link>
+              ))}
               <Link
-                key={link.href}
-                href={link.href}
-                className="block text-[11px] font-semibold uppercase tracking-[0.2em] text-[#cbc3d7] py-1.5"
+                href="/contact"
+                className="block text-center mt-4 px-8 py-3 text-white text-[11px] font-semibold uppercase tracking-[0.2em] rounded-full"
+                style={{
+                  background: "rgba(139, 92, 246, 0.85)",
+                  boxShadow: "0 0 0 1px rgba(167,139,250,0.3), inset 0 1px 0 rgba(255,255,255,0.12)",
+                }}
                 onClick={() => setIsMobileMenuOpen(false)}
               >
-                {link.name}
+                Get Started
               </Link>
-            ))}
-            <Link
-              href="/contact"
-              className="block text-center mt-4 px-8 py-3 bg-[#8B5CF6] text-white text-[11px] font-semibold uppercase tracking-[0.2em]"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              Get Started
-            </Link>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
-    </motion.nav>
+    </>
   );
 }
