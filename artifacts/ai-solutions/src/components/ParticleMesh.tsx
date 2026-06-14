@@ -26,9 +26,9 @@ export function ParticleMesh({ className = "" }: Props) {
 
     let W = 0, H = 0;
     const particles: Particle[] = [];
-    const COUNT = 80;
-    const MAX_DIST = 140;
-    const MOUSE_RADIUS = 120;
+    const COUNT = 160;
+    const MAX_DIST = 180;
+    const MOUSE_RADIUS = 160;
 
     function resize() {
       W = canvas!.width = canvas!.offsetWidth;
@@ -42,8 +42,8 @@ export function ParticleMesh({ className = "" }: Props) {
         y: Math.random() * H,
         vx: (Math.random() - 0.5) * 0.35,
         vy: (Math.random() - 0.5) * 0.35,
-        size: Math.random() * 1.5 + 0.5,
-        opacity: Math.random() * 0.5 + 0.15,
+        size: Math.random() * 2 + 0.8,
+        opacity: Math.random() * 0.55 + 0.25,
       };
     }
 
@@ -91,7 +91,7 @@ export function ParticleMesh({ className = "" }: Props) {
           const dy = a.y - b.y;
           const d = Math.sqrt(dx * dx + dy * dy);
           if (d < MAX_DIST) {
-            const alpha = (1 - d / MAX_DIST) * 0.18;
+            const alpha = (1 - d / MAX_DIST) * 0.28;
             ctx!.beginPath();
             ctx!.moveTo(a.x, a.y);
             ctx!.lineTo(b.x, b.y);
