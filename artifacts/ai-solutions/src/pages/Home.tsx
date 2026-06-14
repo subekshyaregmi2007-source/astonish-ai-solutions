@@ -1,5 +1,6 @@
 import { PageTransition } from "@/components/layout/PageTransition";
 import { Navbar } from "@/components/layout/Navbar";
+import { ParticleMesh } from "@/components/ParticleMesh";
 import { motion, useInView, useMotionValue, useSpring } from "framer-motion";
 import { Link } from "wouter";
 import { useListSolutions, useListTestimonials, useListEvents, useListArticles } from "@workspace/api-client-react";
@@ -9,20 +10,15 @@ import { ArrowRight, MapPin } from "lucide-react";
 import { format } from "date-fns";
 import { useEffect, useRef, useState } from "react";
 
-/* ── Count-up hook ─────────────────────────────────────────── */
+/* ── Count-up ──────────────────────────────────────────────── */
 function useCountUp(target: number, duration = 1600) {
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
   const motionVal = useMotionValue(0);
   const spring = useSpring(motionVal, { duration, bounce: 0 });
   const [display, setDisplay] = useState("0");
-
   useEffect(() => { if (inView) motionVal.set(target); }, [inView, target, motionVal]);
-  useEffect(
-    () => spring.on("change", (v) => { setDisplay(Math.round(v).toString()); }),
-    [spring]
-  );
-
+  useEffect(() => spring.on("change", (v) => setDisplay(Math.round(v).toString())), [spring]);
   return { ref, display };
 }
 
@@ -31,55 +27,95 @@ function AnimatedStat({ value, label }: { value: string; label: string }) {
   const suffix = value.replace(/[0-9.]/g, "");
   const { ref, display } = useCountUp(num);
   return (
-    <div className="text-left">
-      <span ref={ref} className="block text-2xl font-thin text-[#8B5CF6] mb-1">
-        {display}{suffix}
-      </span>
+    <div>
+      <span ref={ref} className="block text-2xl font-thin text-[#8B5CF6] mb-1">{display}{suffix}</span>
       <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#cbc3d7]">{label}</span>
     </div>
   );
 }
 
 /* ── Word-split headline ───────────────────────────────────── */
-const containerVariants = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.07, delayChildren: 0.2 } },
-};
-const wordVariants = {
-  hidden: { y: "110%", opacity: 0 },
-  visible: { y: "0%", opacity: 1, transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1] } },
-};
+const containerV = { hidden: {}, visible: { transition: { staggerChildren: 0.07, delayChildren: 0.3 } } };
+const wordV = { hidden: { y: "110%", opacity: 0 }, visible: { y: "0%", opacity: 1, transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1] } } };
 
 function SplitHeadline({ text }: { text: string }) {
-  const words = text.split(" ");
   return (
     <motion.h1
       className="text-[44px] sm:text-[56px] md:text-[72px] lg:text-[88px] font-extralight leading-[0.95] tracking-[-0.04em] text-[#e5e2e1] mb-8"
-      variants={containerVariants}
-      initial="hidden"
-      animate="visible"
+      variants={containerV} initial="hidden" animate="visible"
     >
-      {words.map((word, i) => (
+      {text.split(" ").map((word, i) => (
         <span key={i} className="word-clip mr-[0.22em] last:mr-0">
-          <motion.span variants={wordVariants}>{word}</motion.span>
+          <motion.span variants={wordV}>{word}</motion.span>
         </span>
       ))}
     </motion.h1>
   );
 }
 
-/* ── Scroll reveal ─────────────────────────────────────────── */
+/* ── Scroll fade-in ────────────────────────────────────────── */
 function FadeIn({ children, delay = 0, className = "" }: { children: React.ReactNode; delay?: number; className?: string }) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
   return (
     <motion.div ref={ref} className={className}
       initial={{ opacity: 0, y: 28 }} animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay }}
-    >{children}</motion.div>
+      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay }}>
+      {children}
+    </motion.div>
   );
 }
 
+/* ── Cursor spotlight ──────────────────────────────────────── */
+function CursorSpotlight() {
+  const ref = useRef<HTMLDivElement>(null);
+  const [pos, setPos] = useState({ x: -999, y: -999 });
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current?.parentElement;
+    if (!el) return;
+    const onMove = (e: MouseEvent) => {
+      const rect = el.getBoundingClientRect();
+      setPos({ x: e.clientX - rect.left, y: e.clientY - rect.top });
+      setVisible(true);
+    };
+    const onLeave = () => setVisible(false);
+    el.addEventListener("mousemove", onMove);
+    el.addEventListener("mouseleave", onLeave);
+    return () => { el.removeEventListener("mousemove", onMove); el.removeEventListener("mouseleave", onLeave); };
+  }, []);
+
+  return (
+    <div ref={ref} className="absolute inset-0 pointer-events-none overflow-hidden"
+      style={{ transition: "opacity 0.3s", opacity: visible ? 1 : 0 }}>
+      <div
+        className="absolute rounded-full"
+        style={{
+          width: 600, height: 600,
+          left: pos.x - 300, top: pos.y - 300,
+          background: "radial-gradient(circle, rgba(139,92,246,0.12) 0%, rgba(139,92,246,0.04) 40%, transparent 70%)",
+          transition: "left 0.08s linear, top 0.08s linear",
+          pointerEvents: "none",
+        }}
+      />
+      <div
+        className="absolute rounded-full"
+        style={{
+          width: 120, height: 120,
+          left: pos.x - 60, top: pos.y - 60,
+          background: "radial-gradient(circle, rgba(167,139,250,0.18) 0%, transparent 70%)",
+          transition: "left 0.04s linear, top 0.04s linear",
+          pointerEvents: "none",
+        }}
+      />
+    </div>
+  );
+}
+
+/* ══════════════════════════════════════════════════════════════
+   HOME PAGE
+══════════════════════════════════════════════════════════════ */
 export default function Home() {
   const { data: solutions } = useListSolutions();
   const { data: testimonials } = useListTestimonials();
@@ -99,17 +135,23 @@ export default function Home() {
         {/* ── HERO ─────────────────────────────────────────── */}
         <section className="relative flex flex-col justify-center min-h-screen px-6 md:px-16 overflow-hidden grain-overlay scan-line">
 
+          {/* WebGL-style particle mesh */}
+          <ParticleMesh />
+
+          {/* Cursor spotlight */}
+          <CursorSpotlight />
+
           {/* Ambient orbs */}
           <div className="absolute inset-0 pointer-events-none overflow-hidden">
-            <div className="hero-orb-1 absolute w-[600px] h-[600px] rounded-full opacity-[0.07]"
-              style={{ top: "-10%", left: "-8%", background: "radial-gradient(circle, #8B5CF6 0%, transparent 70%)", filter: "blur(60px)" }} />
-            <div className="hero-orb-2 absolute w-[500px] h-[500px] rounded-full opacity-[0.06]"
+            <div className="hero-orb-1 absolute w-[600px] h-[600px] rounded-full opacity-[0.06]"
+              style={{ top: "-10%", left: "-8%", background: "radial-gradient(circle, #8B5CF6 0%, transparent 70%)", filter: "blur(70px)" }} />
+            <div className="hero-orb-2 absolute w-[500px] h-[500px] rounded-full opacity-[0.05]"
               style={{ bottom: "-8%", right: "-4%", background: "radial-gradient(circle, #7C3AED 0%, transparent 70%)", filter: "blur(80px)" }} />
             <div className="hero-orb-3 absolute w-[300px] h-[300px] rounded-full opacity-[0.04]"
               style={{ top: "35%", right: "22%", background: "radial-gradient(circle, #a78bfa 0%, transparent 70%)", filter: "blur(80px)" }} />
           </div>
 
-          {/* Content — centred vertically, padded away from stats bar */}
+          {/* Content */}
           <div className="relative z-10 max-w-5xl w-full mx-auto pt-24 pb-24">
             <motion.div
               initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }}
@@ -128,7 +170,7 @@ export default function Home() {
             <motion.p
               className="text-base md:text-lg text-[#cbc3d7] max-w-xl leading-relaxed mb-10"
               initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.65 }}
+              transition={{ duration: 0.6, delay: 0.7 }}
             >
               We deliver proactive software that anticipates issues before they happen,
               empowering your team with a considered digital employee experience.
@@ -136,34 +178,28 @@ export default function Home() {
 
             <motion.div className="flex flex-col sm:flex-row gap-4"
               initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.8 }}
-            >
+              transition={{ duration: 0.6, delay: 0.85 }}>
               <Link href="/solutions"
                 className="px-10 py-3.5 bg-[#8B5CF6] text-white text-[11px] font-semibold uppercase tracking-[0.2em] hover:bg-[#7C3AED] transition-colors duration-200 relative overflow-hidden group"
-                data-testid="button-explore-solutions"
-              >
+                data-testid="button-explore-solutions">
                 <span className="relative z-10">Explore Solutions</span>
-                <motion.span className="absolute inset-0 bg-white/10"
-                  initial={{ x: "-100%" }} whileHover={{ x: "100%" }} transition={{ duration: 0.4 }} />
               </Link>
               <Link href="/contact"
                 className="px-10 py-3.5 border border-[#262626] text-[#e5e2e1] text-[11px] font-semibold uppercase tracking-[0.2em] hover:border-[#8B5CF6] hover:text-[#8B5CF6] transition-colors duration-200"
-                data-testid="button-contact-hero"
-              >
+                data-testid="button-contact-hero">
                 Get Started
               </Link>
             </motion.div>
           </div>
 
-          {/* Stats bar — anchored to bottom */}
+          {/* Stats bar */}
           <motion.div className="absolute bottom-0 left-0 right-0 border-t border-[#262626]"
-            initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.1, duration: 0.6 }}
-          >
+            initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.1, duration: 0.6 }}>
             <div className="max-w-[1440px] mx-auto px-6 md:px-16 py-5 hidden lg:grid grid-cols-4 gap-6">
               <AnimatedStat value="99%" label="System Uptime" />
               <AnimatedStat value="50+" label="Enterprise Partners" />
-              <AnimatedStat value="24+" label="Proactive Support" />
-              <AnimatedStat value="10+" label="Faster Resolution" />
+              <AnimatedStat value="24+" label="Support Hours" />
+              <AnimatedStat value="10x" label="Faster Resolution" />
             </div>
           </motion.div>
         </section>
@@ -189,14 +225,12 @@ export default function Home() {
             {previewSolutions ? previewSolutions.map((solution, i) => {
               const Icon = (Icons as any)[solution.icon] || Icons.Box;
               return (
-                <motion.div
-                  key={solution.id}
+                <motion.div key={solution.id}
                   initial={{ opacity: 0, y: 24 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-40px" }}
                   transition={{ delay: i * 0.1, duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-                  className="group border-r border-b border-[#262626] p-8 flex flex-col"
-                >
+                  className="group border-r border-b border-[#262626] p-8 flex flex-col">
                   <span className="text-[64px] font-thin text-[#262626] leading-none mb-5 group-hover:text-[#8B5CF6] transition-colors duration-700">
                     {String(i + 1).padStart(2, "0")}
                   </span>
@@ -225,24 +259,16 @@ export default function Home() {
             <FadeIn><div className="editorial-line mb-14 opacity-40" /></FadeIn>
             {featuredTestimonial ? (
               <motion.div
-                initial={{ opacity: 0, y: 32 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-60px" }}
-                transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
-                className="text-center"
-              >
+                initial={{ opacity: 0, y: 32 }} whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-60px" }} transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
+                className="text-center">
                 <blockquote className="text-[22px] md:text-[32px] lg:text-[40px] font-extralight leading-[1.2] tracking-tight text-[#e5e2e1] italic mb-10">
                   "{featuredTestimonial.message}"
                 </blockquote>
-                <motion.div className="flex flex-col items-center gap-1.5"
-                  initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
-                  transition={{ delay: 0.3, duration: 0.5 }}
-                >
-                  <span className="text-[11px] font-semibold uppercase tracking-[0.3em] text-[#8B5CF6]">
-                    — {featuredTestimonial.clientName}
-                  </span>
+                <div className="flex flex-col items-center gap-1.5">
+                  <span className="text-[11px] font-semibold uppercase tracking-[0.3em] text-[#8B5CF6]">— {featuredTestimonial.clientName}</span>
                   <span className="text-[#cbc3d7] text-sm">{featuredTestimonial.role}, {featuredTestimonial.company}</span>
-                </motion.div>
+                </div>
               </motion.div>
             ) : <Skeleton className="h-40 bg-[#131313]" />}
           </div>
@@ -251,7 +277,6 @@ export default function Home() {
         {/* ── EVENTS & ARTICLES ────────────────────────────── */}
         <section className="py-16 md:py-24 px-6 md:px-16 max-w-[1440px] mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-x-14 gap-y-16">
-            {/* Events */}
             <div className="lg:col-span-5">
               <FadeIn>
                 <div className="editorial-line mb-8" />
@@ -266,31 +291,24 @@ export default function Home() {
                 <div className="border-t border-[#262626]">
                   {previewEvents.map((event, i) => (
                     <motion.div key={event.id}
-                      initial={{ opacity: 0, x: -16 }}
-                      whileInView={{ opacity: 1, x: 0 }}
+                      initial={{ opacity: 0, x: -16 }} whileInView={{ opacity: 1, x: 0 }}
                       viewport={{ once: true, margin: "-30px" }}
                       transition={{ delay: i * 0.1, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                      className="border-b border-[#262626] py-6 flex items-start gap-6 group hover:bg-[#0a0a0a] transition-colors"
-                    >
+                      className="border-b border-[#262626] py-6 flex items-start gap-6 group hover:bg-[#0a0a0a] transition-colors">
                       <div className="w-12 shrink-0 text-center">
                         <span className="block text-[10px] font-semibold uppercase tracking-[0.2em] text-[#cbc3d7]">{format(new Date(event.date), "MMM")}</span>
                         <span className="block text-2xl font-thin text-[#8B5CF6] leading-none mt-0.5">{format(new Date(event.date), "dd")}</span>
                       </div>
                       <div>
                         <h3 className="font-semibold text-[#e5e2e1] text-sm mb-1 group-hover:text-[#8B5CF6] transition-colors">{event.title}</h3>
-                        <div className="flex items-center gap-1 text-xs text-[#cbc3d7]">
-                          <MapPin className="w-3 h-3" /> {event.location}
-                        </div>
+                        <div className="flex items-center gap-1 text-xs text-[#cbc3d7]"><MapPin className="w-3 h-3" /> {event.location}</div>
                       </div>
                     </motion.div>
                   ))}
                 </div>
-              ) : (
-                <div className="space-y-3">{[1,2].map(i => <Skeleton key={i} className="h-20 bg-[#131313]" />)}</div>
-              )}
+              ) : <div className="space-y-3">{[1,2].map(i => <Skeleton key={i} className="h-20 bg-[#131313]" />)}</div>}
             </div>
 
-            {/* Articles */}
             <div className="lg:col-span-7">
               <FadeIn delay={0.1}>
                 <div className="editorial-line mb-8" />
@@ -305,14 +323,11 @@ export default function Home() {
                 <div className="border-t border-[#262626]">
                   {previewArticles.map((article, i) => (
                     <motion.div key={article.id}
-                      initial={{ opacity: 0, x: 16 }}
-                      whileInView={{ opacity: 1, x: 0 }}
+                      initial={{ opacity: 0, x: 16 }} whileInView={{ opacity: 1, x: 0 }}
                       viewport={{ once: true, margin: "-30px" }}
-                      transition={{ delay: i * 0.1, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                    >
+                      transition={{ delay: i * 0.1, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}>
                       <Link href={`/articles/${article.id}`}
-                        className="group block border-b border-[#262626] py-6 hover:bg-[#0a0a0a] transition-colors px-2"
-                      >
+                        className="group block border-b border-[#262626] py-6 hover:bg-[#0a0a0a] transition-colors px-2">
                         <div className="flex flex-col md:flex-row md:items-center gap-4">
                           <div className="md:w-1/4 shrink-0">
                             <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#8B5CF6]">{article.category}</span>
@@ -327,18 +342,14 @@ export default function Home() {
                     </motion.div>
                   ))}
                 </div>
-              ) : (
-                <div className="space-y-3">{[1,2].map(i => <Skeleton key={i} className="h-20 bg-[#131313]" />)}</div>
-              )}
+              ) : <div className="space-y-3">{[1,2].map(i => <Skeleton key={i} className="h-20 bg-[#131313]" />)}</div>}
             </div>
           </div>
         </section>
 
         {/* ── CTA STRIP ────────────────────────────────────── */}
-        <motion.section
-          className="py-14 md:py-20 px-6 md:px-16 border-t border-b border-[#262626] relative overflow-hidden"
-          initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ duration: 0.7 }}
-        >
+        <motion.section className="py-14 md:py-20 px-6 md:px-16 border-t border-b border-[#262626] relative overflow-hidden"
+          initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ duration: 0.7 }}>
           <div className="absolute inset-0 pointer-events-none"
             style={{ background: "radial-gradient(ellipse at 50% 50%, rgba(139,92,246,0.05) 0%, transparent 70%)" }} />
           <div className="max-w-[1440px] mx-auto flex flex-col md:flex-row items-center justify-between gap-8 relative z-10">
@@ -346,8 +357,7 @@ export default function Home() {
               Ready to transform your digital employee experience?
             </h2>
             <Link href="/contact"
-              className="shrink-0 px-10 py-3.5 bg-[#8B5CF6] text-white text-[11px] font-semibold uppercase tracking-[0.2em] hover:bg-[#7C3AED] transition-colors duration-200"
-            >
+              className="shrink-0 px-10 py-3.5 bg-[#8B5CF6] text-white text-[11px] font-semibold uppercase tracking-[0.2em] hover:bg-[#7C3AED] transition-colors duration-200">
               Let's Talk
             </Link>
           </div>
