@@ -6,7 +6,41 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { format } from "date-fns";
 import { ArrowLeft, ArrowRight, Clock } from "lucide-react";
 import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
+
+/* ── Reading progress bar — DOM-direct, zero re-renders ─────── */
+function ReadingProgress() {
+  const barRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const bar = barRef.current;
+    if (!bar) return;
+    const onScroll = () => {
+      const el = document.documentElement;
+      const scrolled = el.scrollTop;
+      const total = el.scrollHeight - el.clientHeight;
+      const pct = total > 0 ? (scrolled / total) * 100 : 0;
+      bar.style.width = `${pct}%`;
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  return (
+    <div className="fixed top-0 left-0 right-0 z-[60] h-[2px] bg-transparent pointer-events-none">
+      <div
+        ref={barRef}
+        className="h-full will-change-[width]"
+        style={{
+          width: "0%",
+          background: "linear-gradient(90deg, #7C3AED, #a78bfa, #8B5CF6)",
+          boxShadow: "0 0 8px rgba(139,92,246,0.7)",
+          transition: "width 0.05s linear",
+        }}
+      />
+    </div>
+  );
+}
 
 function readingTime(text: string) {
   return Math.max(1, Math.round(text.trim().split(/\s+/).length / 200));
@@ -59,6 +93,7 @@ export default function ArticleDetail() {
 
         {article && (
           <article data-testid="article-detail">
+            <ReadingProgress />
 
             {/* ── HEADER ─────────────────────────────────── */}
             <div className="pt-24 md:pt-28 px-6 md:px-16 max-w-[1440px] mx-auto">
