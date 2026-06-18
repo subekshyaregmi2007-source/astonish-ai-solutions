@@ -207,6 +207,52 @@ export default function Home() {
           </motion.div>
         </section>
 
+        {/* ── CLIENT TICKER ────────────────────────────────── */}
+        <div className="border-y border-[#AECFBE] bg-[#EAF5EE] overflow-hidden relative select-none">
+          {/* Left fade */}
+          <div className="absolute left-0 top-0 bottom-0 w-24 z-10 pointer-events-none"
+            style={{ background: "linear-gradient(to right, #EAF5EE, transparent)" }} />
+          {/* Right fade */}
+          <div className="absolute right-0 top-0 bottom-0 w-24 z-10 pointer-events-none"
+            style={{ background: "linear-gradient(to left, #EAF5EE, transparent)" }} />
+
+          <div className="flex" style={{ animation: "ticker 28s linear infinite" }}>
+            {[0, 1].map((copy) => (
+              <div key={copy} className="flex items-center shrink-0" aria-hidden={copy === 1}>
+                {[
+                  { name: "NorthEast NHS Trust", sector: "Healthcare" },
+                  { name: "Meridian Financial Group", sector: "Financial Services" },
+                  { name: "Dept. for Business & Trade", sector: "Public Sector" },
+                  { name: "EuroRetail Holdings", sector: "Retail" },
+                  { name: "TransGlobe Logistics", sector: "Logistics" },
+                  { name: "Beacon Insurance Group", sector: "Insurance" },
+                  { name: "Newcastle City Council", sector: "Local Government" },
+                  { name: "Northern Health Alliance", sector: "Healthcare" },
+                ].map((client, i) => (
+                  <div key={i} className="flex items-center gap-0 shrink-0">
+                    <div className="px-10 py-5 flex flex-col items-center gap-0.5">
+                      <span className="text-[13px] font-semibold text-[#1A3326] whitespace-nowrap tracking-tight">
+                        {client.name}
+                      </span>
+                      <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#2E8B57]">
+                        {client.sector}
+                      </span>
+                    </div>
+                    <div className="w-px h-8 bg-[#AECFBE] shrink-0" />
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
+
+          <style>{`
+            @keyframes ticker {
+              0%   { transform: translateX(0); }
+              100% { transform: translateX(-50%); }
+            }
+          `}</style>
+        </div>
+
         {/* ── SOLUTIONS ────────────────────────────────────── */}
         <section className="py-16 md:py-24 px-6 md:px-16 max-w-[1440px] mx-auto">
           <FadeIn>
