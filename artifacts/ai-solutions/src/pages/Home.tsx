@@ -207,46 +207,61 @@ export default function Home() {
           </motion.div>
         </section>
 
-        {/* ── CLIENT TICKER ────────────────────────────────── */}
-        <div className="border-y border-[#AECFBE] bg-[#EAF5EE] overflow-hidden relative select-none">
-          {/* Left fade */}
-          <div className="absolute left-0 top-0 bottom-0 w-24 z-10 pointer-events-none"
-            style={{ background: "linear-gradient(to right, #EAF5EE, transparent)" }} />
-          {/* Right fade */}
-          <div className="absolute right-0 top-0 bottom-0 w-24 z-10 pointer-events-none"
-            style={{ background: "linear-gradient(to left, #EAF5EE, transparent)" }} />
+        {/* ── TRUSTED BY ───────────────────────────────────── */}
+        <div className="border-y border-[#AECFBE] select-none" style={{ background: "#F4FBF6" }}>
+          <div className="flex items-stretch">
 
-          <div className="flex" style={{ animation: "ticker 28s linear infinite" }}>
-            {[0, 1].map((copy) => (
-              <div key={copy} className="flex items-center shrink-0" aria-hidden={copy === 1}>
-                {[
-                  { name: "NorthEast NHS Trust", sector: "Healthcare" },
-                  { name: "Meridian Financial Group", sector: "Financial Services" },
-                  { name: "Dept. for Business & Trade", sector: "Public Sector" },
-                  { name: "EuroRetail Holdings", sector: "Retail" },
-                  { name: "TransGlobe Logistics", sector: "Logistics" },
-                  { name: "Beacon Insurance Group", sector: "Insurance" },
-                  { name: "Newcastle City Council", sector: "Local Government" },
-                  { name: "Northern Health Alliance", sector: "Healthcare" },
-                ].map((client, i) => (
-                  <div key={i} className="flex items-center gap-0 shrink-0">
-                    <div className="px-10 py-5 flex flex-col items-center gap-0.5">
-                      <span className="text-[13px] font-semibold text-[#1A3326] whitespace-nowrap tracking-tight">
-                        {client.name}
-                      </span>
-                      <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#2E8B57]">
-                        {client.sector}
-                      </span>
-                    </div>
-                    <div className="w-px h-8 bg-[#AECFBE] shrink-0" />
+            {/* Fixed left label */}
+            <div className="shrink-0 flex items-center px-8 md:px-14 border-r border-[#AECFBE] py-5 gap-3">
+              <motion.span className="w-1.5 h-1.5 bg-[#2E8B57] rounded-full inline-block"
+                animate={{ opacity: [1, 0.3, 1] }} transition={{ duration: 2.4, repeat: Infinity }} />
+              <span className="text-[10px] font-semibold uppercase tracking-[0.28em] text-[#3D6B52] whitespace-nowrap">
+                Trusted by
+              </span>
+            </div>
+
+            {/* Scrolling track */}
+            <div className="flex-1 overflow-hidden relative">
+              <div className="absolute left-0 top-0 bottom-0 w-20 z-10 pointer-events-none"
+                style={{ background: "linear-gradient(to right, #F4FBF6 30%, transparent)" }} />
+              <div className="absolute right-0 top-0 bottom-0 w-20 z-10 pointer-events-none"
+                style={{ background: "linear-gradient(to left, #F4FBF6 30%, transparent)" }} />
+
+              <div className="flex items-center" style={{ animation: "trustedTicker 36s linear infinite" }}>
+                {[0, 1].map((copy) => (
+                  <div key={copy} className="flex items-center shrink-0" aria-hidden={copy === 1}>
+                    {[
+                      { name: "NorthEast NHS Trust",       initials: "NH" },
+                      { name: "Meridian Financial Group",  initials: "MF" },
+                      { name: "Dept. for Business & Trade",initials: "DB" },
+                      { name: "EuroRetail Holdings",       initials: "ER" },
+                      { name: "TransGlobe Logistics",      initials: "TG" },
+                      { name: "Beacon Insurance Group",    initials: "BI" },
+                      { name: "Newcastle City Council",    initials: "NC" },
+                      { name: "Northern Health Alliance",  initials: "NH" },
+                    ].map((client, i) => (
+                      <div key={i} className="flex items-center shrink-0">
+                        <div className="flex items-center gap-3 px-8 py-5">
+                          <div className="w-7 h-7 rounded-full bg-[#D8EDE0] flex items-center justify-center shrink-0">
+                            <span className="text-[9px] font-bold text-[#2E8B57] tracking-wide">
+                              {client.initials}
+                            </span>
+                          </div>
+                          <span className="text-[13px] font-medium text-[#1A3326] whitespace-nowrap tracking-tight">
+                            {client.name}
+                          </span>
+                        </div>
+                        <span className="w-[3px] h-[3px] rounded-full bg-[#AECFBE] shrink-0 mx-1" />
+                      </div>
+                    ))}
                   </div>
                 ))}
               </div>
-            ))}
+            </div>
           </div>
 
           <style>{`
-            @keyframes ticker {
+            @keyframes trustedTicker {
               0%   { transform: translateX(0); }
               100% { transform: translateX(-50%); }
             }
