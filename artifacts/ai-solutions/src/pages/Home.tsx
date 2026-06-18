@@ -208,11 +208,11 @@ export default function Home() {
         </section>
 
         {/* ── TRUSTED BY ───────────────────────────────────── */}
-        <div className="border-y border-[#AECFBE] select-none" style={{ background: "#F4FBF6" }}>
+        <div className="select-none" style={{ background: "#F4FBF6" }}>
           <div className="flex items-stretch">
 
             {/* Fixed left label */}
-            <div className="shrink-0 flex items-center px-8 md:px-14 border-r border-[#AECFBE] py-5 gap-3">
+            <div className="shrink-0 flex items-center px-8 md:px-14 py-5 gap-3">
               <motion.span className="w-1.5 h-1.5 bg-[#2E8B57] rounded-full inline-block"
                 animate={{ opacity: [1, 0.3, 1] }} transition={{ duration: 2.4, repeat: Infinity }} />
               <span className="text-[10px] font-semibold uppercase tracking-[0.28em] text-[#3D6B52] whitespace-nowrap">
