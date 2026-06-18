@@ -315,6 +315,63 @@ export default function Home() {
           </div>
         </section>
 
+        {/* ── HOW IT WORKS ─────────────────────────────────── */}
+        <section className="py-16 md:py-24 px-6 md:px-16 bg-[#EAF5EE] overflow-hidden">
+          <div className="max-w-[1440px] mx-auto">
+            <FadeIn>
+              <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-14 gap-6">
+                <div>
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-[#2E8B57] mb-3">How It Works</p>
+                  <h2 className="text-[28px] md:text-[36px] font-light tracking-[-0.02em] text-[#1A3326] max-w-lg leading-tight">
+                    From first conversation to continuous improvement.
+                  </h2>
+                </div>
+              </div>
+            </FadeIn>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-0 border-l border-t border-[#AECFBE]">
+              {[
+                {
+                  step: "01",
+                  title: "Diagnose",
+                  description: "We analyse your existing digital infrastructure, identify friction points, and map where AI can deliver the highest impact across your workforce.",
+                  detail: "Discovery workshop · Gap analysis · Opportunity mapping",
+                },
+                {
+                  step: "02",
+                  title: "Deploy",
+                  description: "Our engineers integrate purpose-built AI solutions into your environment — from virtual assistants to predictive IT — with zero disruption to live operations.",
+                  detail: "Rapid integration · Change management · Staff enablement",
+                },
+                {
+                  step: "03",
+                  title: "Improve",
+                  description: "Post-deployment, our platform monitors usage, learns from outcomes, and surfaces continuous optimisation recommendations to your team.",
+                  detail: "Real-time analytics · Iterative learning · Quarterly reviews",
+                },
+              ].map((item, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 28 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-40px" }}
+                  transition={{ delay: i * 0.12, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                  className="border-r border-b border-[#AECFBE] p-8 md:p-10 flex flex-col group"
+                >
+                  <span className="text-[72px] font-thin text-[#AECFBE] leading-none mb-6 group-hover:text-[#7DC49A] transition-colors duration-700 select-none">
+                    {item.step}
+                  </span>
+                  <h3 className="text-[22px] font-semibold text-[#1A3326] mb-4 tracking-tight">{item.title}</h3>
+                  <p className="text-[#3D6B52] text-sm leading-relaxed mb-8 flex-grow">{item.description}</p>
+                  <div className="pt-6 border-t border-[#AECFBE]">
+                    <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[#2E8B57]">{item.detail}</p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* ── TESTIMONIAL ──────────────────────────────────── */}
         <section className="py-16 md:py-24 px-6 md:px-16 bg-[#EAF5EE] relative overflow-hidden">
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[300px] opacity-[0.04] pointer-events-none"
