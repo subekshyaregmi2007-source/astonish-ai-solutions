@@ -139,6 +139,26 @@ export default function ArticleDetail() {
               </div>
             </div>
 
+            {/* ── HERO IMAGE ─────────────────────────────── */}
+            {article.imageUrl && (
+              <motion.div
+                className="max-w-[1440px] mx-auto px-6 md:px-16 my-10"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
+              >
+                <div className="max-w-[800px] h-[260px] md:h-[380px] overflow-hidden relative">
+                  <img
+                    src={article.imageUrl}
+                    alt={article.title}
+                    className="w-full h-full object-cover opacity-70"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#050505]/60" />
+                  <div className="absolute inset-0 border border-[#262626]" />
+                </div>
+              </motion.div>
+            )}
+
             {/* ── PULL QUOTE ─────────────────────────────── */}
             <FadeIn className="px-6 md:px-16 max-w-[1440px] mx-auto my-10 md:my-14" delay={0.05}>
               <div className="max-w-[800px] border-l-2 border-[#8B5CF6] pl-7 py-2">
@@ -210,13 +230,25 @@ export default function ArticleDetail() {
                 <div className="grid grid-cols-1 md:grid-cols-2 border-l border-t border-[#262626]">
                   {related.map((rel) => (
                     <Link key={rel.id} href={`/articles/${rel.id}`}
-                      className="group border-r border-b border-[#262626] p-8 hover:bg-[#0a0a0a] transition-colors block">
-                      <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#8B5CF6] mb-3 block">{rel.category}</span>
-                      <h3 className="text-base font-semibold text-[#e5e2e1] mb-2 group-hover:text-[#8B5CF6] transition-colors leading-snug">{rel.title}</h3>
-                      <p className="text-[#cbc3d7] text-sm line-clamp-2 leading-relaxed mb-4">{rel.summary}</p>
-                      <span className="inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#cbc3d7] group-hover:text-[#8B5CF6] group-hover:gap-3 transition-all">
-                        Read <ArrowRight className="w-3.5 h-3.5" />
-                      </span>
+                      className="group border-r border-b border-[#262626] overflow-hidden hover:bg-[#0a0a0a] transition-colors block">
+                      {rel.imageUrl && (
+                        <div className="h-[140px] overflow-hidden relative">
+                          <img
+                            src={rel.imageUrl}
+                            alt={rel.title}
+                            className="w-full h-full object-cover grayscale opacity-50 group-hover:opacity-75 group-hover:grayscale-0 transition-all duration-700"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#0a0a0a]" />
+                        </div>
+                      )}
+                      <div className="p-8">
+                        <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#8B5CF6] mb-3 block">{rel.category}</span>
+                        <h3 className="text-base font-semibold text-[#e5e2e1] mb-2 group-hover:text-[#8B5CF6] transition-colors leading-snug">{rel.title}</h3>
+                        <p className="text-[#cbc3d7] text-sm line-clamp-2 leading-relaxed mb-4">{rel.summary}</p>
+                        <span className="inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#cbc3d7] group-hover:text-[#8B5CF6] group-hover:gap-3 transition-all">
+                          Read <ArrowRight className="w-3.5 h-3.5" />
+                        </span>
+                      </div>
                     </Link>
                   ))}
                 </div>

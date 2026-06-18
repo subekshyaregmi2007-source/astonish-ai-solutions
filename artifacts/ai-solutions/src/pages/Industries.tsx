@@ -32,6 +32,7 @@ export default function Industries() {
                     <Skeleton className="h-5 w-48 bg-[#131313] mb-3" />
                     <Skeleton className="h-20 bg-[#131313]" />
                   </div>
+                  <Skeleton className="hidden md:block h-[140px] w-[220px] bg-[#131313] shrink-0" />
                 </div>
               ))}
             </div>
@@ -61,13 +62,25 @@ export default function Industries() {
                     </div>
                     <h2 className="text-xl font-semibold text-[#e5e2e1]">{industry.name}</h2>
                   </div>
-                  <div className="md:col-span-8 flex flex-col gap-6">
+                  <div className="md:col-span-5 flex flex-col gap-6">
                     <p className="text-[16px] text-[#cbc3d7] leading-relaxed">{industry.description}</p>
                     <div className="border-t border-[#262626] pt-5">
                       <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#cbc3d7] mb-1.5">The Outcome</div>
                       <div className="text-[#e5e2e1] font-medium">{industry.outcome}</div>
                     </div>
                   </div>
+                  {industry.imageUrl && (
+                    <div className="md:col-span-3 overflow-hidden shrink-0 self-start">
+                      <div className="h-[180px] overflow-hidden relative">
+                        <img
+                          src={industry.imageUrl}
+                          alt={industry.name}
+                          className="w-full h-full object-cover grayscale opacity-50 group-hover:opacity-75 group-hover:grayscale-0 transition-all duration-700"
+                        />
+                        <div className="absolute inset-0 border border-[#262626]" />
+                      </div>
+                    </div>
+                  )}
                 </motion.div>
               ))}
             </div>

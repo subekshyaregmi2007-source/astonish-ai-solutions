@@ -29,8 +29,9 @@ export default function Articles() {
           {isLoading ? (
             <div className="border-t border-[#262626]">
               {[...Array(4)].map((_, i) => (
-                <div key={i} className="border-b border-[#262626] py-8">
-                  <Skeleton className="h-5 w-full bg-[#131313]" />
+                <div key={i} className="border-b border-[#262626] py-8 flex gap-6">
+                  <Skeleton className="hidden md:block h-[90px] w-[140px] bg-[#131313] shrink-0" />
+                  <Skeleton className="h-5 flex-grow bg-[#131313]" />
                 </div>
               ))}
             </div>
@@ -45,10 +46,20 @@ export default function Articles() {
                 >
                   <Link
                     href={`/articles/${article.id}`}
-                    className="group flex flex-col md:flex-row md:items-center gap-5 md:gap-10 border-b border-[#262626] py-8 hover:bg-[#0a0a0a] transition-colors px-1"
+                    className="group flex flex-col md:flex-row md:items-center gap-5 md:gap-8 border-b border-[#262626] py-7 hover:bg-[#0a0a0a] transition-colors px-1"
                     data-testid={`card-article-${article.id}`}
                   >
-                    <div className="md:w-[140px] shrink-0">
+                    {article.imageUrl && (
+                      <div className="hidden md:block w-[140px] h-[90px] shrink-0 overflow-hidden relative">
+                        <img
+                          src={article.imageUrl}
+                          alt={article.title}
+                          className="w-full h-full object-cover grayscale opacity-60 group-hover:opacity-90 group-hover:grayscale-0 transition-all duration-500"
+                        />
+                        <div className="absolute inset-0 border border-[#262626]" />
+                      </div>
+                    )}
+                    <div className="md:w-[120px] shrink-0">
                       <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#8B5CF6] mb-1.5">{article.category}</div>
                       <div className="text-xs text-[#cbc3d7]">{format(new Date(article.publishedAt), "MMM dd, yyyy")}</div>
                     </div>

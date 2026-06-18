@@ -1,0 +1,62 @@
+uploads = []
+outputs = []
+
+[[generated]]
+id = "PdcamgZ_pPuOuLX2YAOhP"
+uri = "file://artifacts/ai-solutions/public/images/solution-virtual-assistant.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "T47TXyGH7gEOpXQCVgh55"
+uri = "file://artifacts/ai-solutions/public/images/solution-digital-experience.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "y0-CVAXZgPhN-UIvRWhT1"
+uri = "file://artifacts/ai-solutions/public/images/solution-predictive-it.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "XxitGgeXO4XV51IWbQbs5"
+uri = "file://artifacts/ai-solutions/public/images/solution-knowledge.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "3YvFlip_XCryTRdY1ltv2"
+uri = "file://artifacts/ai-solutions/public/images/solution-analytics.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "HT11LuOeZEyT9TxUE0p3C"
+uri = "file://artifacts/ai-solutions/public/images/solution-service-desk.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "H8S-B-B7fsMS2hA2EZFFk"
+uri = "file://artifacts/ai-solutions/public/images/industry-healthcare.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "wTKD31FwOo4_G6dq2_jJc"
+uri = "file://artifacts/ai-solutions/public/images/industry-finance.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "KntJrVEN_8dBfQoajlsFL"
+uri = "file://artifacts/ai-solutions/public/images/industry-public-sector.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "PB69XECgpV5cAeAfn08xL"
+uri = "file://artifacts/ai-solutions/public/images/industry-retail.png"
+type = "image"
+title = "generated_image"

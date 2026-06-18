@@ -27,10 +27,12 @@ export default function Solutions() {
           {isLoading ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 border-l border-t border-[#262626]">
               {[...Array(6)].map((_, i) => (
-                <div key={i} className="border-r border-b border-[#262626] p-8">
-                  <Skeleton className="h-12 w-16 bg-[#131313] mb-5" />
-                  <Skeleton className="h-5 w-3/4 bg-[#131313] mb-3" />
-                  <Skeleton className="h-24 bg-[#131313]" />
+                <div key={i} className="border-r border-b border-[#262626]">
+                  <Skeleton className="h-[160px] w-full bg-[#131313]" />
+                  <div className="p-8">
+                    <Skeleton className="h-5 w-3/4 bg-[#131313] mb-3" />
+                    <Skeleton className="h-24 bg-[#131313]" />
+                  </div>
                 </div>
               ))}
             </div>
@@ -44,27 +46,39 @@ export default function Solutions() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: i * 0.07, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                    className="group border-r border-b border-[#262626] p-8 flex flex-col hover:bg-[#0d0d0d] transition-colors"
+                    className="group border-r border-b border-[#262626] flex flex-col hover:bg-[#0d0d0d] transition-colors overflow-hidden"
                     data-testid={`card-solution-${solution.id}`}
                   >
-                    <div className="flex items-center justify-between mb-6">
-                      <span className="text-[60px] font-thin text-[#262626] leading-none group-hover:text-[#8B5CF6] transition-colors duration-700">
-                        {String(i + 1).padStart(2, "0")}
-                      </span>
-                      <span className="text-[10px] font-semibold uppercase tracking-[0.15em] text-[#8B5CF6] border border-[#8B5CF6]/30 px-2.5 py-1 leading-none">
-                        {solution.category}
-                      </span>
+                    {solution.imageUrl && (
+                      <div className="h-[160px] overflow-hidden shrink-0 relative">
+                        <img
+                          src={solution.imageUrl}
+                          alt={solution.title}
+                          className="w-full h-full object-cover opacity-50 grayscale group-hover:opacity-70 group-hover:grayscale-0 transition-all duration-700"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#0d0d0d]" />
+                      </div>
+                    )}
+                    <div className="p-8 flex flex-col flex-grow">
+                      <div className="flex items-center justify-between mb-6">
+                        <span className="text-[60px] font-thin text-[#262626] leading-none group-hover:text-[#8B5CF6] transition-colors duration-700">
+                          {String(i + 1).padStart(2, "0")}
+                        </span>
+                        <span className="text-[10px] font-semibold uppercase tracking-[0.15em] text-[#8B5CF6] border border-[#8B5CF6]/30 px-2.5 py-1 leading-none">
+                          {solution.category}
+                        </span>
+                      </div>
+                      <h3 className="text-lg font-semibold text-[#e5e2e1] mb-3">{solution.title}</h3>
+                      <p className="text-[#cbc3d7] text-sm mb-6 leading-relaxed flex-grow">{solution.description}</p>
+                      <ul className="space-y-2.5 border-t border-[#262626] pt-5">
+                        {solution.features.map((feature, idx) => (
+                          <li key={idx} className="flex items-start gap-2.5 text-sm text-[#cbc3d7]">
+                            <span className="text-[#8B5CF6] shrink-0 text-xs mt-0.5">—</span>
+                            <span>{feature}</span>
+                          </li>
+                        ))}
+                      </ul>
                     </div>
-                    <h3 className="text-lg font-semibold text-[#e5e2e1] mb-3">{solution.title}</h3>
-                    <p className="text-[#cbc3d7] text-sm mb-6 leading-relaxed flex-grow">{solution.description}</p>
-                    <ul className="space-y-2.5 border-t border-[#262626] pt-5">
-                      {solution.features.map((feature, idx) => (
-                        <li key={idx} className="flex items-start gap-2.5 text-sm text-[#cbc3d7]">
-                          <span className="text-[#8B5CF6] shrink-0 text-xs mt-0.5">—</span>
-                          <span>{feature}</span>
-                        </li>
-                      ))}
-                    </ul>
                   </motion.div>
                 );
               })}

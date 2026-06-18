@@ -37,6 +37,7 @@ async function seed() {
         "Custom knowledge base builder",
         "Multilingual support",
       ],
+      imageUrl: "/images/solution-virtual-assistant.png",
     },
     {
       title: "Digital Employee Experience",
@@ -52,6 +53,7 @@ async function seed() {
         "Self-service request management",
         "Sentiment analysis",
       ],
+      imageUrl: "/images/solution-digital-experience.png",
     },
     {
       title: "Predictive IT Operations",
@@ -67,6 +69,7 @@ async function seed() {
         "SLA monitoring",
         "Integration with ServiceNow & Jira",
       ],
+      imageUrl: "/images/solution-predictive-it.png",
     },
     {
       title: "Knowledge Management AI",
@@ -82,6 +85,7 @@ async function seed() {
         "Search intent understanding",
         "SharePoint & Confluence connectors",
       ],
+      imageUrl: "/images/solution-knowledge.png",
     },
     {
       title: "Workforce Analytics Suite",
@@ -97,6 +101,7 @@ async function seed() {
         "Benchmarking against industry peers",
         "GDPR-compliant data handling",
       ],
+      imageUrl: "/images/solution-analytics.png",
     },
     {
       title: "Conversational Service Desk",
@@ -112,6 +117,7 @@ async function seed() {
         "Omnichannel support (chat, email, voice)",
         "AI-powered triage",
       ],
+      imageUrl: "/images/solution-service-desk.png",
     },
   ]);
 
@@ -124,6 +130,7 @@ async function seed() {
       outcome:
         "Reduced HR query resolution time by 74% and saved an estimated 4,200 staff hours per month.",
       year: 2023,
+      imageUrl: "/images/industry-healthcare.png",
     },
     {
       name: "Global Financial Services Group",
@@ -133,6 +140,7 @@ async function seed() {
       outcome:
         "Employee satisfaction scores increased by 31% within six months of launch.",
       year: 2022,
+      imageUrl: "/images/industry-finance.png",
     },
     {
       name: "UK Central Government Department",
@@ -142,6 +150,7 @@ async function seed() {
       outcome:
         "IT incidents down 58%; mean time to resolution improved from 4.2 hours to under 40 minutes.",
       year: 2023,
+      imageUrl: "/images/industry-public-sector.png",
     },
     {
       name: "European Retail Conglomerate",
@@ -151,6 +160,7 @@ async function seed() {
       outcome:
         "First-contact resolution rate rose from 34% to 81%, cutting helpdesk costs by £2.1m annually.",
       year: 2024,
+      imageUrl: "/images/industry-retail.png",
     },
     {
       name: "International Logistics Operator",
@@ -160,6 +170,7 @@ async function seed() {
       outcome:
         "Attrition reduced by 22% in the first year, saving £3.8m in recruitment and training costs.",
       year: 2024,
+      imageUrl: "/images/solution-predictive-it.png",
     },
   ]);
 
@@ -171,6 +182,7 @@ async function seed() {
       rating: 5,
       message:
         "AI-Solutions transformed how our staff access HR support. The virtual assistant handles thousands of queries a week without any human intervention — it's been a game changer for our overworked HR teams.",
+      avatarUrl: null,
     },
     {
       clientName: "James Thornton",
@@ -179,6 +191,7 @@ async function seed() {
       rating: 5,
       message:
         "Rolling out the Digital Employee Experience platform globally was seamless. The team at AI-Solutions understood our complexity and delivered on time. Our employees genuinely love using it.",
+      avatarUrl: null,
     },
     {
       clientName: "Priya Nair",
@@ -187,6 +200,7 @@ async function seed() {
       rating: 5,
       message:
         "The predictive IT operations capability has fundamentally changed how we manage infrastructure. We're fixing problems before users even notice them — that's the standard we always aspired to.",
+      avatarUrl: null,
     },
     {
       clientName: "Marco Delgado",
@@ -195,6 +209,7 @@ async function seed() {
       rating: 4,
       message:
         "Implementation was fast and the ROI was clear within three months. Our service desk agents now handle only the complex cases — everything routine is handled automatically. Highly recommended.",
+      avatarUrl: null,
     },
     {
       clientName: "Fiona Callahan",
@@ -203,6 +218,7 @@ async function seed() {
       rating: 5,
       message:
         "The workforce analytics gave us insights we simply couldn't get before. We can now act on engagement signals early, which has meaningfully reduced attrition. The AI-Solutions team are true partners.",
+      avatarUrl: null,
     },
     {
       clientName: "David Okafor",
@@ -211,6 +227,7 @@ async function seed() {
       rating: 4,
       message:
         "We evaluated four vendors and AI-Solutions stood out for their depth of understanding of the insurance sector. The knowledge management AI has made our compliance teams far more efficient.",
+      avatarUrl: null,
     },
   ]);
 
@@ -224,6 +241,7 @@ async function seed() {
       author: "Dr. Amara Osei",
       publishedAt: new Date("2024-10-14"),
       category: "Thought Leadership",
+      imageUrl: "/images/solution-virtual-assistant.png",
     },
     {
       title: "AI-Solutions Recognised in Gartner's 2024 Digital Workplace Report",
@@ -234,6 +252,7 @@ async function seed() {
       author: "Callum Reid",
       publishedAt: new Date("2024-09-03"),
       category: "Company News",
+      imageUrl: "/images/solution-analytics.png",
     },
     {
       title: "Five Signs Your Service Desk is Holding Back Your Business",
@@ -244,6 +263,7 @@ async function seed() {
       author: "Niamh Gallagher",
       publishedAt: new Date("2024-07-22"),
       category: "Insights",
+      imageUrl: "/images/solution-service-desk.png",
     },
     {
       title: "AI-Solutions Opens New Engineering Hub in Newcastle",
@@ -254,6 +274,7 @@ async function seed() {
       author: "Communications Team",
       publishedAt: new Date("2024-05-16"),
       category: "Company News",
+      imageUrl: "/images/industry-public-sector.png",
     },
     {
       title: "Understanding the ROI of Employee Experience Technology",
@@ -264,6 +285,7 @@ async function seed() {
       author: "Dr. Amara Osei",
       publishedAt: new Date("2024-03-08"),
       category: "Insights",
+      imageUrl: "/images/solution-knowledge.png",
     },
   ]);
 
@@ -277,6 +299,7 @@ async function seed() {
       type: "Conference",
       isUpcoming: true,
       photos: [],
+      coverImageUrl: "/images/solution-digital-experience.png",
     },
     {
       title: "Public Sector AI Roundtable — London",
@@ -287,6 +310,7 @@ async function seed() {
       type: "Roundtable",
       isUpcoming: true,
       photos: [],
+      coverImageUrl: "/images/industry-public-sector.png",
     },
     {
       title: "HR Technology Expo 2024",
@@ -297,6 +321,7 @@ async function seed() {
       type: "Exhibition",
       isUpcoming: false,
       photos: [],
+      coverImageUrl: "/images/solution-analytics.png",
     },
     {
       title: "Northeast Tech Festival 2024",
@@ -307,6 +332,7 @@ async function seed() {
       type: "Festival",
       isUpcoming: false,
       photos: [],
+      coverImageUrl: "/images/solution-knowledge.png",
     },
     {
       title: "Customer Success Day — Manchester",
@@ -317,6 +343,7 @@ async function seed() {
       type: "Customer Event",
       isUpcoming: false,
       photos: [],
+      coverImageUrl: "/images/industry-finance.png",
     },
   ]);
 

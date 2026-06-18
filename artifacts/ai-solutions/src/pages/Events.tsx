@@ -48,27 +48,46 @@ export default function Events() {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: "-30px" }}
                         transition={{ delay: i * 0.08, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                        className="border-b border-[#262626] py-10 grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8 group hover:bg-[#0a0a0a] transition-colors"
+                        className="border-b border-[#262626] py-0 overflow-hidden group hover:bg-[#0a0a0a] transition-colors"
                         data-testid={`card-event-${event.id}`}
                       >
-                        <div className="md:col-span-1 shrink-0">
-                          <span className="block text-[10px] font-semibold uppercase tracking-[0.2em] text-[#cbc3d7]">{format(new Date(event.date), "MMM")}</span>
-                          <span className="block text-3xl font-thin text-[#8B5CF6] leading-none mt-0.5">{format(new Date(event.date), "dd")}</span>
-                        </div>
-                        <div className="md:col-span-8 flex flex-col gap-3">
-                          <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#8B5CF6] border border-[#8B5CF6]/30 px-2.5 py-1 w-fit">
-                            {event.type}
+                        {event.coverImageUrl && (
+                          <div className="h-[200px] overflow-hidden relative">
+                            <img
+                              src={event.coverImageUrl}
+                              alt={event.title}
+                              className="w-full h-full object-cover opacity-40 grayscale group-hover:opacity-60 group-hover:grayscale-0 transition-all duration-700"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#050505]" />
+                            <div className="absolute bottom-4 left-6">
+                              <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#8B5CF6] border border-[#8B5CF6]/40 bg-[#050505]/60 px-2.5 py-1 w-fit backdrop-blur-sm">
+                                {event.type}
+                              </div>
+                            </div>
                           </div>
-                          <h3 className="text-xl font-semibold text-[#e5e2e1]">{event.title}</h3>
-                          <p className="text-[#cbc3d7] text-sm leading-relaxed">{event.description}</p>
-                          <div className="flex items-center gap-1.5 text-sm text-[#cbc3d7]">
-                            <MapPin className="w-3.5 h-3.5" /> {event.location}
+                        )}
+                        <div className="py-8 grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8 px-0">
+                          <div className="md:col-span-1 shrink-0">
+                            <span className="block text-[10px] font-semibold uppercase tracking-[0.2em] text-[#cbc3d7]">{format(new Date(event.date), "MMM")}</span>
+                            <span className="block text-3xl font-thin text-[#8B5CF6] leading-none mt-0.5">{format(new Date(event.date), "dd")}</span>
                           </div>
-                        </div>
-                        <div className="md:col-span-3 flex items-start md:justify-end">
-                          <button className="px-7 py-3 border border-[#8B5CF6] text-[#8B5CF6] text-[11px] font-semibold uppercase tracking-[0.2em] hover:bg-[#8B5CF6] hover:text-white transition-colors">
-                            Register
-                          </button>
+                          <div className="md:col-span-8 flex flex-col gap-3">
+                            {!event.coverImageUrl && (
+                              <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#8B5CF6] border border-[#8B5CF6]/30 px-2.5 py-1 w-fit">
+                                {event.type}
+                              </div>
+                            )}
+                            <h3 className="text-xl font-semibold text-[#e5e2e1]">{event.title}</h3>
+                            <p className="text-[#cbc3d7] text-sm leading-relaxed">{event.description}</p>
+                            <div className="flex items-center gap-1.5 text-sm text-[#cbc3d7]">
+                              <MapPin className="w-3.5 h-3.5" /> {event.location}
+                            </div>
+                          </div>
+                          <div className="md:col-span-3 flex items-start md:justify-end">
+                            <button className="px-7 py-3 border border-[#8B5CF6] text-[#8B5CF6] text-[11px] font-semibold uppercase tracking-[0.2em] hover:bg-[#8B5CF6] hover:text-white transition-colors">
+                              Register
+                            </button>
+                          </div>
                         </div>
                       </motion.div>
                     ))}
@@ -90,14 +109,26 @@ export default function Events() {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: "-30px" }}
                         transition={{ delay: i * 0.07, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                        className="border-r border-b border-[#262626] p-7 hover:bg-[#0a0a0a] transition-colors"
+                        className="group border-r border-b border-[#262626] overflow-hidden hover:bg-[#0a0a0a] transition-colors"
                         data-testid={`card-event-past-${event.id}`}
                       >
-                        <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#cbc3d7] mb-3">
-                          {format(new Date(event.date), "MMM yyyy")} · {event.location}
+                        {event.coverImageUrl && (
+                          <div className="h-[150px] overflow-hidden relative">
+                            <img
+                              src={event.coverImageUrl}
+                              alt={event.title}
+                              className="w-full h-full object-cover grayscale opacity-50 group-hover:opacity-75 group-hover:grayscale-0 transition-all duration-700"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#0a0a0a]" />
+                          </div>
+                        )}
+                        <div className="p-7">
+                          <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#cbc3d7] mb-3">
+                            {format(new Date(event.date), "MMM yyyy")} · {event.location}
+                          </div>
+                          <h3 className="text-base font-semibold text-[#e5e2e1] mb-2.5">{event.title}</h3>
+                          <p className="text-[#cbc3d7] text-sm line-clamp-3 leading-relaxed">{event.description}</p>
                         </div>
-                        <h3 className="text-base font-semibold text-[#e5e2e1] mb-2.5">{event.title}</h3>
-                        <p className="text-[#cbc3d7] text-sm line-clamp-3 leading-relaxed">{event.description}</p>
                       </motion.div>
                     ))}
                   </div>
