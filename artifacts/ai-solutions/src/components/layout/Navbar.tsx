@@ -44,7 +44,7 @@ export function Navbar() {
             backdropFilter: scrolled ? "blur(28px) saturate(180%) brightness(0.9)" : "none",
             WebkitBackdropFilter: scrolled ? "blur(28px) saturate(180%) brightness(0.9)" : "none",
             boxShadow: scrolled
-              ? "0 0 0 1px rgba(255,255,255,0.06), 0 8px 32px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.08), inset 0 -1px 0 rgba(110,231,183,0.08)"
+              ? "0 0 0 1px rgba(255,255,255,0.06), 0 8px 32px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.08), inset 0 -1px 0 rgba(139,92,246,0.08)"
               : "none",
           }}
         >
@@ -59,7 +59,7 @@ export function Navbar() {
                 className="absolute top-0 left-[10%] right-[10%] h-px pointer-events-none"
                 style={{
                   background:
-                    "linear-gradient(90deg, transparent 0%, rgba(110,231,183,0.5) 20%, rgba(200,160,255,0.9) 40%, rgba(110,231,183,0.7) 55%, rgba(100,200,255,0.4) 75%, transparent 100%)",
+                    "linear-gradient(90deg, transparent 0%, rgba(139,92,246,0.5) 20%, rgba(200,160,255,0.9) 40%, rgba(139,92,246,0.7) 55%, rgba(100,200,255,0.4) 75%, transparent 100%)",
                   filter: "blur(0.5px)",
                 }}
               />
@@ -90,7 +90,7 @@ export function Navbar() {
                     className={`relative text-[11px] font-semibold uppercase tracking-[0.2em] transition-colors duration-200 ${
                       location === link.href
                         ? "text-[#c4b5fd]"
-                        : "text-[#a8c4b0] hover:text-[#e5e2e1]"
+                        : "text-[#cbc3d7] hover:text-[#e5e2e1]"
                     }`}
                     data-testid={`link-${link.name.toLowerCase()}`}
                   >
@@ -100,7 +100,7 @@ export function Navbar() {
                         layoutId="nav-indicator"
                         className="absolute -bottom-1 left-0 right-0 h-px"
                         style={{
-                          background: "linear-gradient(90deg, transparent, #a7f3d0, transparent)",
+                          background: "linear-gradient(90deg, transparent, #a78bfa, transparent)",
                         }}
                       />
                     )}
@@ -125,7 +125,7 @@ export function Navbar() {
                     : "rgba(139, 92, 246, 1)",
                   backdropFilter: "blur(12px)",
                   borderRadius: "9999px",
-                  boxShadow: "0 0 0 1px rgba(167,243,208,0.3), inset 0 1px 0 rgba(255,255,255,0.15), 0 4px 16px rgba(110,231,183,0.25)",
+                  boxShadow: "0 0 0 1px rgba(167,139,250,0.3), inset 0 1px 0 rgba(255,255,255,0.15), 0 4px 16px rgba(139,92,246,0.25)",
                 }}
                 data-testid="button-contact"
               >
@@ -135,7 +135,7 @@ export function Navbar() {
 
             {/* Mobile toggle */}
             <button
-              className="md:hidden p-2 text-[#a8c4b0]"
+              className="md:hidden p-2 text-[#cbc3d7]"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             >
               {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -165,7 +165,7 @@ export function Navbar() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="block text-[11px] font-semibold uppercase tracking-[0.2em] text-[#a8c4b0] py-2 hover:text-[#a7f3d0] transition-colors"
+                  className="block text-[11px] font-semibold uppercase tracking-[0.2em] text-[#cbc3d7] py-2 hover:text-[#a78bfa] transition-colors"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   {link.name}
@@ -176,7 +176,7 @@ export function Navbar() {
                 className="block text-center mt-4 px-8 py-3 text-white text-[11px] font-semibold uppercase tracking-[0.2em] rounded-full"
                 style={{
                   background: "rgba(139, 92, 246, 0.85)",
-                  boxShadow: "0 0 0 1px rgba(167,243,208,0.3), inset 0 1px 0 rgba(255,255,255,0.12)",
+                  boxShadow: "0 0 0 1px rgba(167,139,250,0.3), inset 0 1px 0 rgba(255,255,255,0.12)",
                 }}
                 onClick={() => setIsMobileMenuOpen(false)}
               >

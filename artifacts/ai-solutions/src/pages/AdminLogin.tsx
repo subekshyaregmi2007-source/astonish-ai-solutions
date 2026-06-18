@@ -52,24 +52,24 @@ export default function AdminLogin() {
         className="w-full max-w-sm border border-[#262626] p-10"
       >
         <div className="flex justify-center mb-8">
-          <div className="w-12 h-12 border border-[#262626] flex items-center justify-center text-[#6ee7b7]">
+          <div className="w-12 h-12 border border-[#262626] flex items-center justify-center text-[#8B5CF6]">
             <Lock className="w-5 h-5" />
           </div>
         </div>
 
         <h1 className="text-2xl font-light tracking-tight text-center text-[#e5e2e1] mb-1">Admin Portal</h1>
-        <p className="text-[#a8c4b0] text-center text-sm mb-10">Sign in to manage AI-Solutions</p>
+        <p className="text-[#cbc3d7] text-center text-sm mb-10">Sign in to manage AI-Solutions</p>
 
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6" data-testid="form-admin-login">
             <FormField control={form.control} name="password" render={({ field }) => (
               <FormItem>
-                <FormLabel className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#a8c4b0]">Passphrase</FormLabel>
+                <FormLabel className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#cbc3d7]">Passphrase</FormLabel>
                 <FormControl>
                   <input
                     type="password"
                     placeholder="••••••••"
-                    className="w-full bg-[#0d0d0d] border border-[#262626] text-[#e5e2e1] placeholder-[#6b7280] h-12 px-4 text-[15px] focus:outline-none focus:border-[#6ee7b7] transition-colors"
+                    className="w-full bg-[#0d0d0d] border border-[#262626] text-[#e5e2e1] placeholder-[#6b7280] h-12 px-4 text-[15px] focus:outline-none focus:border-[#8B5CF6] transition-colors"
                     {...field}
                     data-testid="input-password"
                   />
@@ -80,7 +80,7 @@ export default function AdminLogin() {
             <button
               type="submit"
               disabled={adminLogin.isPending}
-              className="w-full py-3.5 bg-[#6ee7b7] text-white text-[11px] font-semibold uppercase tracking-[0.2em] hover:bg-[#34d399] disabled:opacity-50 transition-colors"
+              className="w-full py-3.5 bg-[#8B5CF6] text-white text-[11px] font-semibold uppercase tracking-[0.2em] hover:bg-[#7C3AED] disabled:opacity-50 transition-colors"
               data-testid="button-submit-login"
             >
               {adminLogin.isPending ? "Authenticating..." : "Sign In"}

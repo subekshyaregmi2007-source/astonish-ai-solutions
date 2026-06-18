@@ -17,11 +17,11 @@ export default function Articles() {
         <div className="pt-24 md:pt-28 pb-16 md:pb-24 px-6 md:px-16 max-w-[1440px] mx-auto">
           <div className="editorial-line mb-8" />
           <div className="mb-12">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-[#6ee7b7] mb-4">Insights & News</p>
+            <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-[#8B5CF6] mb-4">Insights & News</p>
             <h1 className="text-[40px] md:text-[60px] font-extralight tracking-[-0.03em] text-[#e5e2e1] leading-none mb-5">
               Insights & News
             </h1>
-            <p className="text-[#a8c4b0] text-base max-w-xl leading-relaxed">
+            <p className="text-[#cbc3d7] text-base max-w-xl leading-relaxed">
               The latest on AI, digital employee experience, and the future of work.
             </p>
           </div>
@@ -60,17 +60,17 @@ export default function Articles() {
                       </div>
                     )}
                     <div className="md:w-[120px] shrink-0">
-                      <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#6ee7b7] mb-1.5">{article.category}</div>
-                      <div className="text-xs text-[#a8c4b0]">{format(new Date(article.publishedAt), "MMM dd, yyyy")}</div>
+                      <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#8B5CF6] mb-1.5">{article.category}</div>
+                      <div className="text-xs text-[#cbc3d7]">{format(new Date(article.publishedAt), "MMM dd, yyyy")}</div>
                     </div>
                     <div className="flex-grow min-w-0">
-                      <h3 className="text-lg font-semibold text-[#e5e2e1] mb-1.5 group-hover:text-[#6ee7b7] transition-colors">
+                      <h3 className="text-lg font-semibold text-[#e5e2e1] mb-1.5 group-hover:text-[#8B5CF6] transition-colors">
                         {article.title}
                       </h3>
-                      <p className="text-[#a8c4b0] text-sm line-clamp-2 leading-relaxed">{article.summary}</p>
+                      <p className="text-[#cbc3d7] text-sm line-clamp-2 leading-relaxed">{article.summary}</p>
                     </div>
                     <div className="shrink-0">
-                      <div className="flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#a8c4b0] group-hover:text-[#6ee7b7] transition-colors">
+                      <div className="flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#cbc3d7] group-hover:text-[#8B5CF6] transition-colors">
                         Read <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                       </div>
                     </div>

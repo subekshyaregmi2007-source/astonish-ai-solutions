@@ -33,8 +33,8 @@ function ReadingProgress() {
         className="h-full will-change-[width]"
         style={{
           width: "0%",
-          background: "linear-gradient(90deg, #34d399, #a7f3d0, #6ee7b7)",
-          boxShadow: "0 0 8px rgba(110,231,183,0.7)",
+          background: "linear-gradient(90deg, #7C3AED, #a78bfa, #8B5CF6)",
+          boxShadow: "0 0 8px rgba(139,92,246,0.7)",
           transition: "width 0.05s linear",
         }}
       />
@@ -86,8 +86,8 @@ export default function ArticleDetail() {
 
         {isError && (
           <div className="pt-28 pb-20 px-6 md:px-16 text-center">
-            <p className="text-[#a8c4b0] mb-4">Article not found.</p>
-            <Link href="/articles" className="text-[#6ee7b7] text-sm hover:underline">← Back to Articles</Link>
+            <p className="text-[#cbc3d7] mb-4">Article not found.</p>
+            <Link href="/articles" className="text-[#8B5CF6] text-sm hover:underline">← Back to Articles</Link>
           </div>
         )}
 
@@ -101,7 +101,7 @@ export default function ArticleDetail() {
 
               <motion.div initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.4 }} className="mb-8">
                 <Link href="/articles" data-testid="link-back-articles"
-                  className="inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#a8c4b0] hover:text-[#6ee7b7] transition-colors">
+                  className="inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#cbc3d7] hover:text-[#8B5CF6] transition-colors">
                   <ArrowLeft className="w-3.5 h-3.5" /> All Articles
                 </Link>
               </motion.div>
@@ -109,11 +109,11 @@ export default function ArticleDetail() {
               <div className="max-w-[800px]">
                 <motion.div className="flex flex-wrap items-center gap-3 mb-5"
                   initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.45, delay: 0.1 }}>
-                  <span className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[#6ee7b7] border border-[#6ee7b7]/30 px-3 py-1">
+                  <span className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[#8B5CF6] border border-[#8B5CF6]/30 px-3 py-1">
                     {article.category}
                   </span>
-                  <span className="text-[#a8c4b0] text-xs">{format(new Date(article.publishedAt), "MMMM d, yyyy")}</span>
-                  <span className="flex items-center gap-1.5 text-[#a8c4b0] text-xs">
+                  <span className="text-[#cbc3d7] text-xs">{format(new Date(article.publishedAt), "MMMM d, yyyy")}</span>
+                  <span className="flex items-center gap-1.5 text-[#cbc3d7] text-xs">
                     <Clock className="w-3 h-3" /> {mins} min read
                   </span>
                 </motion.div>
@@ -128,12 +128,12 @@ export default function ArticleDetail() {
 
                 <motion.div className="flex items-center gap-4 pb-10 border-b border-[#262626]"
                   initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.35, duration: 0.5 }}>
-                  <div className="w-10 h-10 bg-[#0a1f10] border border-[#6ee7b7]/30 flex items-center justify-center text-[#6ee7b7] font-semibold text-sm shrink-0">
+                  <div className="w-10 h-10 bg-[#1a1025] border border-[#8B5CF6]/30 flex items-center justify-center text-[#8B5CF6] font-semibold text-sm shrink-0">
                     {article.author.charAt(0)}
                   </div>
                   <div>
                     <div className="text-[#e5e2e1] font-semibold text-sm">{article.author}</div>
-                    <div className="text-[#a8c4b0] text-xs">AI-Solutions</div>
+                    <div className="text-[#cbc3d7] text-xs">AI-Solutions</div>
                   </div>
                 </motion.div>
               </div>
@@ -161,8 +161,8 @@ export default function ArticleDetail() {
 
             {/* ── PULL QUOTE ─────────────────────────────── */}
             <FadeIn className="px-6 md:px-16 max-w-[1440px] mx-auto my-10 md:my-14" delay={0.05}>
-              <div className="max-w-[800px] border-l-2 border-[#6ee7b7] pl-7 py-2">
-                <p className="text-[17px] md:text-[21px] font-extralight italic text-[#a8c4b0] leading-relaxed">
+              <div className="max-w-[800px] border-l-2 border-[#8B5CF6] pl-7 py-2">
+                <p className="text-[17px] md:text-[21px] font-extralight italic text-[#cbc3d7] leading-relaxed">
                   "{article.summary}"
                 </p>
               </div>
@@ -184,8 +184,8 @@ export default function ArticleDetail() {
                     return (
                       <FadeIn key={i} delay={0.03} className="my-8">
                         <div className="bg-[#0a0a0a] border border-[#262626] p-7 relative overflow-hidden">
-                          <span className="absolute top-2 left-5 text-[72px] font-thin text-[#6ee7b7]/15 leading-none select-none">"</span>
-                          <p className="text-[15px] text-[#a8c4b0] leading-relaxed italic pt-5 relative z-10">
+                          <span className="absolute top-2 left-5 text-[72px] font-thin text-[#8B5CF6]/15 leading-none select-none">"</span>
+                          <p className="text-[15px] text-[#cbc3d7] leading-relaxed italic pt-5 relative z-10">
                             {para.length > 220 ? para.slice(0, 220) + "…" : para}
                           </p>
                         </div>
@@ -194,7 +194,7 @@ export default function ArticleDetail() {
                   }
                   return (
                     <FadeIn key={i} delay={0.02}>
-                      <p className="text-[15px] md:text-[16px] text-[#a8c4b0] leading-[1.9]">{para}</p>
+                      <p className="text-[15px] md:text-[16px] text-[#cbc3d7] leading-[1.9]">{para}</p>
                     </FadeIn>
                   );
                 })}
@@ -205,13 +205,13 @@ export default function ArticleDetail() {
             <FadeIn className="px-6 md:px-16 max-w-[1440px] mx-auto mt-14" delay={0.05}>
               <div className="max-w-[660px] border-t border-[#262626] pt-10">
                 <div className="flex items-center gap-5">
-                  <div className="w-14 h-14 bg-[#0a1f10] border border-[#6ee7b7]/30 flex items-center justify-center text-[#6ee7b7] font-semibold text-xl shrink-0">
+                  <div className="w-14 h-14 bg-[#1a1025] border border-[#8B5CF6]/30 flex items-center justify-center text-[#8B5CF6] font-semibold text-xl shrink-0">
                     {article.author.charAt(0)}
                   </div>
                   <div>
-                    <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#a8c4b0] mb-1">Written by</div>
+                    <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#cbc3d7] mb-1">Written by</div>
                     <div className="text-[#e5e2e1] font-semibold">{article.author}</div>
-                    <div className="text-[#a8c4b0] text-sm">AI-Solutions Editorial Team</div>
+                    <div className="text-[#cbc3d7] text-sm">AI-Solutions Editorial Team</div>
                   </div>
                 </div>
               </div>
@@ -223,7 +223,7 @@ export default function ArticleDetail() {
                 <div className="editorial-line mb-10" />
                 <div className="flex items-center justify-between mb-10">
                   <h2 className="text-[20px] font-light uppercase tracking-tight text-[#e5e2e1]">More Reading</h2>
-                  <Link href="/articles" className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#a8c4b0] hover:text-[#6ee7b7] transition-colors flex items-center gap-1">
+                  <Link href="/articles" className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#cbc3d7] hover:text-[#8B5CF6] transition-colors flex items-center gap-1">
                     All articles <ArrowRight className="w-3 h-3" />
                   </Link>
                 </div>
@@ -242,10 +242,10 @@ export default function ArticleDetail() {
                         </div>
                       )}
                       <div className="p-8">
-                        <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#6ee7b7] mb-3 block">{rel.category}</span>
-                        <h3 className="text-base font-semibold text-[#e5e2e1] mb-2 group-hover:text-[#6ee7b7] transition-colors leading-snug">{rel.title}</h3>
-                        <p className="text-[#a8c4b0] text-sm line-clamp-2 leading-relaxed mb-4">{rel.summary}</p>
-                        <span className="inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#a8c4b0] group-hover:text-[#6ee7b7] group-hover:gap-3 transition-all">
+                        <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#8B5CF6] mb-3 block">{rel.category}</span>
+                        <h3 className="text-base font-semibold text-[#e5e2e1] mb-2 group-hover:text-[#8B5CF6] transition-colors leading-snug">{rel.title}</h3>
+                        <p className="text-[#cbc3d7] text-sm line-clamp-2 leading-relaxed mb-4">{rel.summary}</p>
+                        <span className="inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#cbc3d7] group-hover:text-[#8B5CF6] group-hover:gap-3 transition-all">
                           Read <ArrowRight className="w-3.5 h-3.5" />
                         </span>
                       </div>

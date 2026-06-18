@@ -211,8 +211,8 @@ export function ChatWidget() {
       {/* Floating button */}
       <button
         onClick={() => setOpen((v) => !v)}
-        className="fixed bottom-6 right-6 z-50 w-14 h-14 flex items-center justify-center bg-[#6ee7b7] text-white shadow-lg hover:bg-[#34d399] transition-colors"
-        style={{ boxShadow: "0 8px 32px rgba(110,231,183,0.35)" }}
+        className="fixed bottom-6 right-6 z-50 w-14 h-14 flex items-center justify-center bg-[#8B5CF6] text-white shadow-lg hover:bg-[#7C3AED] transition-colors"
+        style={{ boxShadow: "0 8px 32px rgba(139,92,246,0.35)" }}
         aria-label="Open chat"
         data-testid="button-chat-toggle"
       >
@@ -241,19 +241,19 @@ export function ChatWidget() {
             style={{
               background: "rgba(10, 10, 10, 0.95)",
               backdropFilter: "blur(16px)",
-              boxShadow: "0 20px 60px rgba(0,0,0,0.6), 0 0 30px rgba(110,231,183,0.08)",
+              boxShadow: "0 20px 60px rgba(0,0,0,0.6), 0 0 30px rgba(139,92,246,0.08)",
               fontFamily: "'Plus Jakarta Sans', sans-serif",
             }}
             data-testid="panel-chat"
           >
             {/* Header */}
             <div className="px-5 py-4 border-b border-[#262626] flex items-center gap-3 shrink-0">
-              <div className="w-8 h-8 bg-[#6ee7b7] flex items-center justify-center shrink-0">
+              <div className="w-8 h-8 bg-[#8B5CF6] flex items-center justify-center shrink-0">
                 <Bot className="w-4 h-4 text-white" />
               </div>
               <div>
                 <div className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#e5e2e1]">AI-Solutions Assistant</div>
-                <div className="text-[10px] text-[#a8c4b0] flex items-center gap-1.5 mt-0.5">
+                <div className="text-[10px] text-[#cbc3d7] flex items-center gap-1.5 mt-0.5">
                   <span className="w-1.5 h-1.5 bg-green-400 inline-block" />
                   Online
                 </div>
@@ -266,14 +266,14 @@ export function ChatWidget() {
             >
               {messages.map((msg) => (
                 <div key={msg.id} className={`flex items-start gap-2.5 ${msg.role === "user" ? "flex-row-reverse" : ""}`}>
-                  <div className={`w-6 h-6 shrink-0 flex items-center justify-center ${msg.role === "assistant" ? "bg-[#6ee7b7]/20 text-[#6ee7b7]" : "bg-[#262626] text-[#e5e2e1]"}`}>
+                  <div className={`w-6 h-6 shrink-0 flex items-center justify-center ${msg.role === "assistant" ? "bg-[#8B5CF6]/20 text-[#8B5CF6]" : "bg-[#262626] text-[#e5e2e1]"}`}>
                     {msg.role === "assistant" ? <Bot className="w-3 h-3" /> : <User className="w-3 h-3" />}
                   </div>
                   <div
                     className={`max-w-[82%] px-4 py-3 text-[13px] leading-relaxed ${
                       msg.role === "assistant"
                         ? "bg-[#131313] border border-[#262626] text-[#e5e2e1]"
-                        : "bg-[#6ee7b7] text-white"
+                        : "bg-[#8B5CF6] text-white"
                     }`}
                     data-testid={`message-${msg.role}-${msg.id}`}
                   >
@@ -284,7 +284,7 @@ export function ChatWidget() {
 
               {typing && (
                 <div className="flex items-start gap-2.5">
-                  <div className="w-6 h-6 bg-[#6ee7b7]/20 text-[#6ee7b7] flex items-center justify-center shrink-0">
+                  <div className="w-6 h-6 bg-[#8B5CF6]/20 text-[#8B5CF6] flex items-center justify-center shrink-0">
                     <Bot className="w-3 h-3" />
                   </div>
                   <div className="bg-[#131313] border border-[#262626] px-4 py-3">
@@ -292,7 +292,7 @@ export function ChatWidget() {
                       {[0, 1, 2].map((i) => (
                         <motion.span
                           key={i}
-                          className="w-1.5 h-1.5 bg-[#6ee7b7] inline-block"
+                          className="w-1.5 h-1.5 bg-[#8B5CF6] inline-block"
                           animate={{ y: [0, -4, 0] }}
                           transition={{ repeat: Infinity, duration: 0.8, delay: i * 0.15 }}
                         />
@@ -313,13 +313,13 @@ export function ChatWidget() {
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={handleKey}
                 placeholder="Ask a question..."
-                className="flex-1 text-[13px] px-3 py-2 bg-[#131313] border border-[#262626] text-[#e5e2e1] placeholder-[#6b7280] focus:outline-none focus:border-[#6ee7b7] transition-colors"
+                className="flex-1 text-[13px] px-3 py-2 bg-[#131313] border border-[#262626] text-[#e5e2e1] placeholder-[#6b7280] focus:outline-none focus:border-[#8B5CF6] transition-colors"
                 data-testid="input-chat"
               />
               <button
                 onClick={sendMessage}
                 disabled={!input.trim() || typing}
-                className="w-9 h-9 bg-[#6ee7b7] text-white flex items-center justify-center hover:bg-[#34d399] disabled:opacity-40 disabled:cursor-not-allowed transition-colors shrink-0"
+                className="w-9 h-9 bg-[#8B5CF6] text-white flex items-center justify-center hover:bg-[#7C3AED] disabled:opacity-40 disabled:cursor-not-allowed transition-colors shrink-0"
                 data-testid="button-chat-send"
               >
                 <Send className="w-3.5 h-3.5" />
