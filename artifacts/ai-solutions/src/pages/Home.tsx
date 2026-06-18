@@ -269,9 +269,9 @@ export default function Home() {
         </div>
 
         {/* ── SOLUTIONS ────────────────────────────────────── */}
-        <section className="py-16 md:py-24 px-6 md:px-16 max-w-[1440px] mx-auto">
+        <section className="pt-10 pb-16 md:pt-14 md:pb-24 px-6 md:px-16 max-w-[1440px] mx-auto">
           <FadeIn>
-            <div className="editorial-line mb-10" />
+            <div className="editorial-line mb-8" />
             <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-14 gap-6">
               <div>
                 <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-[#2E8B57] mb-3">Our Solutions</p>
