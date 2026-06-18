@@ -95,7 +95,7 @@ export function ParticleMesh({ className = "" }: Props) {
             ctx!.beginPath();
             ctx!.moveTo(a.x, a.y);
             ctx!.lineTo(b.x, b.y);
-            ctx!.strokeStyle = `rgba(139, 92, 246, ${alpha})`;
+            ctx!.strokeStyle = `rgba(46, 139, 87, ${alpha})`;
             ctx!.lineWidth = 0.8;
             ctx!.stroke();
           }
@@ -113,7 +113,7 @@ export function ParticleMesh({ className = "" }: Props) {
 
         ctx!.beginPath();
         ctx!.arc(p.x, p.y, p.size + proximity, 0, Math.PI * 2);
-        ctx!.fillStyle = `rgba(167, 139, 250, ${p.opacity + glow})`;
+        ctx!.fillStyle = `rgba(91, 168, 122, ${p.opacity + glow})`;
         ctx!.fill();
       }
 

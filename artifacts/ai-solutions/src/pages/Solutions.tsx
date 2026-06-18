@@ -9,35 +9,35 @@ export default function Solutions() {
   const { data: solutions, isLoading } = useListSolutions();
 
   return (
-    <div className="min-h-screen bg-[#050505] text-[#e5e2e1]" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+    <div className="min-h-screen bg-[#F4FBF6] text-[#1A3326]" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
       <Navbar />
       <PageTransition>
         <div className="pt-24 md:pt-28 pb-16 md:pb-24 px-6 md:px-16 max-w-[1440px] mx-auto">
           <div className="editorial-line mb-8" />
           <div className="mb-12">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-[#8B5CF6] mb-4">Software Solutions</p>
-            <h1 className="text-[40px] md:text-[60px] font-extralight tracking-[-0.03em] text-[#e5e2e1] leading-none mb-5">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-[#2E8B57] mb-4">Software Solutions</p>
+            <h1 className="text-[40px] md:text-[60px] font-extralight tracking-[-0.03em] text-[#1A3326] leading-none mb-5">
               Software Solutions
             </h1>
-            <p className="text-[#cbc3d7] text-base max-w-xl leading-relaxed">
+            <p className="text-[#3D6B52] text-base max-w-xl leading-relaxed">
               Proactive digital employee experience software designed to anticipate and resolve issues before they impact your workforce.
             </p>
           </div>
 
           {isLoading ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 border-l border-t border-[#262626]">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 border-l border-t border-[#AECFBE]">
               {[...Array(6)].map((_, i) => (
-                <div key={i} className="border-r border-b border-[#262626]">
-                  <Skeleton className="h-[160px] w-full bg-[#131313]" />
+                <div key={i} className="border-r border-b border-[#AECFBE]">
+                  <Skeleton className="h-[160px] w-full bg-[#D8EDE0]" />
                   <div className="p-8">
-                    <Skeleton className="h-5 w-3/4 bg-[#131313] mb-3" />
-                    <Skeleton className="h-24 bg-[#131313]" />
+                    <Skeleton className="h-5 w-3/4 bg-[#D8EDE0] mb-3" />
+                    <Skeleton className="h-24 bg-[#D8EDE0]" />
                   </div>
                 </div>
               ))}
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 border-l border-t border-[#262626]">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 border-l border-t border-[#AECFBE]">
               {solutions?.map((solution, i) => {
                 const Icon = (Icons as any)[solution.icon] || Icons.Box;
                 return (
@@ -46,7 +46,7 @@ export default function Solutions() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: i * 0.07, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                    className="group border-r border-b border-[#262626] flex flex-col hover:bg-[#0d0d0d] transition-colors overflow-hidden"
+                    className="group border-r border-b border-[#AECFBE] flex flex-col hover:bg-[#E5F2EB] transition-colors overflow-hidden"
                     data-testid={`card-solution-${solution.id}`}
                   >
                     {solution.imageUrl && (
@@ -56,24 +56,24 @@ export default function Solutions() {
                           alt={solution.title}
                           className="w-full h-full object-cover opacity-50 grayscale group-hover:opacity-70 group-hover:grayscale-0 transition-all duration-700"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#0d0d0d]" />
+                        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#E5F2EB]" />
                       </div>
                     )}
                     <div className="p-8 flex flex-col flex-grow">
                       <div className="flex items-center justify-between mb-6">
-                        <span className="text-[60px] font-thin text-[#262626] leading-none group-hover:text-[#8B5CF6] transition-colors duration-700">
+                        <span className="text-[60px] font-thin text-[#AECFBE] leading-none group-hover:text-[#2E8B57] transition-colors duration-700">
                           {String(i + 1).padStart(2, "0")}
                         </span>
-                        <span className="text-[10px] font-semibold uppercase tracking-[0.15em] text-[#8B5CF6] border border-[#8B5CF6]/30 px-2.5 py-1 leading-none">
+                        <span className="text-[10px] font-semibold uppercase tracking-[0.15em] text-[#2E8B57] border border-[#2E8B57]/30 px-2.5 py-1 leading-none">
                           {solution.category}
                         </span>
                       </div>
-                      <h3 className="text-lg font-semibold text-[#e5e2e1] mb-3">{solution.title}</h3>
-                      <p className="text-[#cbc3d7] text-sm mb-6 leading-relaxed flex-grow">{solution.description}</p>
-                      <ul className="space-y-2.5 border-t border-[#262626] pt-5">
+                      <h3 className="text-lg font-semibold text-[#1A3326] mb-3">{solution.title}</h3>
+                      <p className="text-[#3D6B52] text-sm mb-6 leading-relaxed flex-grow">{solution.description}</p>
+                      <ul className="space-y-2.5 border-t border-[#AECFBE] pt-5">
                         {solution.features.map((feature, idx) => (
-                          <li key={idx} className="flex items-start gap-2.5 text-sm text-[#cbc3d7]">
-                            <span className="text-[#8B5CF6] shrink-0 text-xs mt-0.5">—</span>
+                          <li key={idx} className="flex items-start gap-2.5 text-sm text-[#3D6B52]">
+                            <span className="text-[#2E8B57] shrink-0 text-xs mt-0.5">—</span>
                             <span>{feature}</span>
                           </li>
                         ))}

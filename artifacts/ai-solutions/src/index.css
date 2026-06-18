@@ -56,27 +56,27 @@
 }
 
 :root {
-  --background: 0 0% 2%;
-  --foreground: 20 4% 89%;
-  --card: 0 0% 7%;
-  --card-foreground: 20 4% 89%;
-  --card-border: 0 0% 15%;
-  --popover: 0 0% 7%;
-  --popover-foreground: 20 4% 89%;
-  --popover-border: 0 0% 15%;
-  --primary: 262 87% 64%;
+  --background: 138 57% 97%;           /* #F4FBF6 */
+  --foreground: 150 33% 15%;           /* #1A3326 */
+  --card: 138 42% 93%;                 /* #EAF5EE */
+  --card-foreground: 150 33% 15%;
+  --card-border: 148 27% 75%;          /* #AECFBE */
+  --popover: 138 42% 93%;
+  --popover-foreground: 150 33% 15%;
+  --popover-border: 148 27% 75%;
+  --primary: 146 50% 36%;             /* #2E8B57 sea green */
   --primary-foreground: 0 0% 100%;
-  --secondary: 0 0% 10%;
-  --secondary-foreground: 20 4% 89%;
-  --muted: 0 0% 10%;
-  --muted-foreground: 271 15% 80%;
-  --accent: 262 87% 64%;
+  --secondary: 138 40% 91%;           /* #E5F2EB */
+  --secondary-foreground: 150 33% 15%;
+  --muted: 138 35% 88%;               /* #D8EDE0 */
+  --muted-foreground: 148 27% 33%;    /* #3D6B52 */
+  --accent: 146 50% 36%;
   --accent-foreground: 0 0% 100%;
   --destructive: 0 84% 60%;
   --destructive-foreground: 0 0% 100%;
-  --border: 0 0% 15%;
-  --input: 0 0% 15%;
-  --ring: 262 87% 64%;
+  --border: 148 27% 75%;
+  --input: 148 27% 75%;
+  --ring: 146 50% 36%;
   --radius: 0rem;
   --app-font-sans: 'Plus Jakarta Sans', sans-serif;
   --app-font-serif: Georgia, serif;
@@ -95,7 +95,7 @@
 
 .editorial-line {
   height: 1px;
-  background-color: #262626;
+  background-color: #AECFBE;
   width: 100%;
 }
 
@@ -149,7 +149,7 @@
   width: 200%;
   height: 200%;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
-  opacity: 0.04;
+  opacity: 0.03;
   animation: grain 0.4s steps(1) infinite;
   pointer-events: none;
   z-index: 1;
@@ -166,7 +166,7 @@
   left: 0;
   right: 0;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(139,92,246,0.15), transparent);
+  background: linear-gradient(90deg, transparent, rgba(46,139,87,0.2), transparent);
   animation: scan 8s linear infinite;
   pointer-events: none;
 }
@@ -181,13 +181,13 @@
   display: inline-block;
 }
 
-/* Shimmer on violet elements */
+/* Green shimmer (replaces violet-shimmer) */
 @keyframes shimmer {
   0%   { background-position: -200% center; }
   100% { background-position: 200% center; }
 }
 .violet-shimmer {
-  background: linear-gradient(90deg, #8B5CF6 0%, #a78bfa 40%, #8B5CF6 60%, #7C3AED 100%);
+  background: linear-gradient(90deg, #2E8B57 0%, #5BA87A 40%, #2E8B57 60%, #1E7045 100%);
   background-size: 200% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;

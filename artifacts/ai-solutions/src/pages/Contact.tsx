@@ -19,9 +19,9 @@ const contactSchema = z.object({
 
 type ContactFormValues = z.infer<typeof contactSchema>;
 
-const inputClass = "w-full bg-[#0d0d0d] border border-[#262626] text-[#e5e2e1] placeholder-[#6b7280] h-11 px-4 text-sm focus:outline-none focus:border-[#8B5CF6] transition-colors";
-const textareaClass = "w-full bg-[#0d0d0d] border border-[#262626] text-[#e5e2e1] placeholder-[#6b7280] px-4 py-3 text-sm focus:outline-none focus:border-[#8B5CF6] transition-colors resize-y min-h-[120px]";
-const labelClass = "text-[10px] font-semibold uppercase tracking-[0.2em] text-[#cbc3d7]";
+const inputClass = "w-full bg-[#E5F2EB] border border-[#AECFBE] text-[#1A3326] placeholder-[#8AAF9A] h-11 px-4 text-sm focus:outline-none focus:border-[#2E8B57] transition-colors";
+const textareaClass = "w-full bg-[#E5F2EB] border border-[#AECFBE] text-[#1A3326] placeholder-[#8AAF9A] px-4 py-3 text-sm focus:outline-none focus:border-[#2E8B57] transition-colors resize-y min-h-[120px]";
+const labelClass = "text-[10px] font-semibold uppercase tracking-[0.2em] text-[#3D6B52]";
 
 export default function Contact() {
   const { toast } = useToast();
@@ -40,7 +40,7 @@ export default function Contact() {
   }
 
   return (
-    <div className="min-h-screen bg-[#050505] text-[#e5e2e1]" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+    <div className="min-h-screen bg-[#F4FBF6] text-[#1A3326]" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
       <Navbar />
       <PageTransition>
         <div className="pt-24 md:pt-28 pb-16 md:pb-24 px-6 md:px-16 max-w-[1440px] mx-auto">
@@ -49,28 +49,28 @@ export default function Contact() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 xl:gap-16 items-start">
             {/* Left */}
             <div>
-              <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-[#8B5CF6] mb-4">Contact</p>
-              <h1 className="text-[40px] md:text-[56px] font-extralight tracking-[-0.03em] text-[#e5e2e1] leading-none mb-6">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-[#2E8B57] mb-4">Contact</p>
+              <h1 className="text-[40px] md:text-[56px] font-extralight tracking-[-0.03em] text-[#1A3326] leading-none mb-6">
                 Let's Talk Future.
               </h1>
-              <p className="text-[#cbc3d7] text-base leading-relaxed mb-10">
+              <p className="text-[#3D6B52] text-base leading-relaxed mb-10">
                 Ready to transform your digital employee experience? Reach out to our global team of experts.
               </p>
 
-              <div className="border-t border-[#262626]">
-                <div className="border-b border-[#262626] py-6">
-                  <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#cbc3d7] mb-1.5">Global Headquarters</div>
-                  <div className="text-[#e5e2e1]">Sunderland, UK</div>
+              <div className="border-t border-[#AECFBE]">
+                <div className="border-b border-[#AECFBE] py-6">
+                  <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#3D6B52] mb-1.5">Global Headquarters</div>
+                  <div className="text-[#1A3326]">Sunderland, UK</div>
                 </div>
-                <div className="border-b border-[#262626] py-6">
-                  <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#cbc3d7] mb-1.5">Email</div>
-                  <div className="text-[#e5e2e1]">future@ai-solutions.com</div>
+                <div className="border-b border-[#AECFBE] py-6">
+                  <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#3D6B52] mb-1.5">Email</div>
+                  <div className="text-[#1A3326]">future@ai-solutions.com</div>
                 </div>
               </div>
             </div>
 
             {/* Right — Form */}
-            <div className="border border-[#262626] p-7 md:p-10">
+            <div className="border border-[#AECFBE] p-7 md:p-10">
               <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5" data-testid="form-contact">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
@@ -131,7 +131,7 @@ export default function Contact() {
                   <button
                     type="submit"
                     disabled={createInquiry.isPending}
-                    className="w-full py-3.5 bg-[#8B5CF6] text-white text-[11px] font-semibold uppercase tracking-[0.2em] hover:bg-[#7C3AED] disabled:opacity-50 transition-colors"
+                    className="w-full py-3.5 bg-[#2E8B57] text-white text-[11px] font-semibold uppercase tracking-[0.2em] hover:bg-[#1E7045] disabled:opacity-50 transition-colors"
                     data-testid="button-submit-contact"
                   >
                     {createInquiry.isPending ? "Submitting..." : "Send Message"}

@@ -11,32 +11,32 @@ export default function Articles() {
   const { data: articles, isLoading } = useListArticles();
 
   return (
-    <div className="min-h-screen bg-[#050505] text-[#e5e2e1]" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+    <div className="min-h-screen bg-[#F4FBF6] text-[#1A3326]" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
       <Navbar />
       <PageTransition>
         <div className="pt-24 md:pt-28 pb-16 md:pb-24 px-6 md:px-16 max-w-[1440px] mx-auto">
           <div className="editorial-line mb-8" />
           <div className="mb-12">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-[#8B5CF6] mb-4">Insights & News</p>
-            <h1 className="text-[40px] md:text-[60px] font-extralight tracking-[-0.03em] text-[#e5e2e1] leading-none mb-5">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-[#2E8B57] mb-4">Insights & News</p>
+            <h1 className="text-[40px] md:text-[60px] font-extralight tracking-[-0.03em] text-[#1A3326] leading-none mb-5">
               Insights & News
             </h1>
-            <p className="text-[#cbc3d7] text-base max-w-xl leading-relaxed">
+            <p className="text-[#3D6B52] text-base max-w-xl leading-relaxed">
               The latest on AI, digital employee experience, and the future of work.
             </p>
           </div>
 
           {isLoading ? (
-            <div className="border-t border-[#262626]">
+            <div className="border-t border-[#AECFBE]">
               {[...Array(4)].map((_, i) => (
-                <div key={i} className="border-b border-[#262626] py-8 flex gap-6">
-                  <Skeleton className="hidden md:block h-[90px] w-[140px] bg-[#131313] shrink-0" />
-                  <Skeleton className="h-5 flex-grow bg-[#131313]" />
+                <div key={i} className="border-b border-[#AECFBE] py-8 flex gap-6">
+                  <Skeleton className="hidden md:block h-[90px] w-[140px] bg-[#D8EDE0] shrink-0" />
+                  <Skeleton className="h-5 flex-grow bg-[#D8EDE0]" />
                 </div>
               ))}
             </div>
           ) : (
-            <div className="border-t border-[#262626]">
+            <div className="border-t border-[#AECFBE]">
               {articles?.map((article, i) => (
                 <motion.div
                   key={article.id}
@@ -46,7 +46,7 @@ export default function Articles() {
                 >
                   <Link
                     href={`/articles/${article.id}`}
-                    className="group flex flex-col md:flex-row md:items-center gap-5 md:gap-8 border-b border-[#262626] py-7 hover:bg-[#0a0a0a] transition-colors px-1"
+                    className="group flex flex-col md:flex-row md:items-center gap-5 md:gap-8 border-b border-[#AECFBE] py-7 hover:bg-[#EAF5EE] transition-colors px-1"
                     data-testid={`card-article-${article.id}`}
                   >
                     {article.imageUrl && (
@@ -56,21 +56,21 @@ export default function Articles() {
                           alt={article.title}
                           className="w-full h-full object-cover grayscale opacity-60 group-hover:opacity-90 group-hover:grayscale-0 transition-all duration-500"
                         />
-                        <div className="absolute inset-0 border border-[#262626]" />
+                        <div className="absolute inset-0 border border-[#AECFBE]" />
                       </div>
                     )}
                     <div className="md:w-[120px] shrink-0">
-                      <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#8B5CF6] mb-1.5">{article.category}</div>
-                      <div className="text-xs text-[#cbc3d7]">{format(new Date(article.publishedAt), "MMM dd, yyyy")}</div>
+                      <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#2E8B57] mb-1.5">{article.category}</div>
+                      <div className="text-xs text-[#3D6B52]">{format(new Date(article.publishedAt), "MMM dd, yyyy")}</div>
                     </div>
                     <div className="flex-grow min-w-0">
-                      <h3 className="text-lg font-semibold text-[#e5e2e1] mb-1.5 group-hover:text-[#8B5CF6] transition-colors">
+                      <h3 className="text-lg font-semibold text-[#1A3326] mb-1.5 group-hover:text-[#2E8B57] transition-colors">
                         {article.title}
                       </h3>
-                      <p className="text-[#cbc3d7] text-sm line-clamp-2 leading-relaxed">{article.summary}</p>
+                      <p className="text-[#3D6B52] text-sm line-clamp-2 leading-relaxed">{article.summary}</p>
                     </div>
                     <div className="shrink-0">
-                      <div className="flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#cbc3d7] group-hover:text-[#8B5CF6] transition-colors">
+                      <div className="flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#3D6B52] group-hover:text-[#2E8B57] transition-colors">
                         Read <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                       </div>
                     </div>
