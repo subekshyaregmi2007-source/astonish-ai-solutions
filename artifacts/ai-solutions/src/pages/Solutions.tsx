@@ -15,11 +15,11 @@ export default function Solutions() {
         <div className="pt-24 md:pt-28 pb-16 md:pb-24 px-6 md:px-16 max-w-[1440px] mx-auto">
           <div className="editorial-line mb-8" />
           <div className="mb-12">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-[#8B5CF6] mb-4">Software Solutions</p>
+            <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-[#6ee7b7] mb-4">Software Solutions</p>
             <h1 className="text-[40px] md:text-[60px] font-extralight tracking-[-0.03em] text-[#e5e2e1] leading-none mb-5">
               Software Solutions
             </h1>
-            <p className="text-[#cbc3d7] text-base max-w-xl leading-relaxed">
+            <p className="text-[#a8c4b0] text-base max-w-xl leading-relaxed">
               Proactive digital employee experience software designed to anticipate and resolve issues before they impact your workforce.
             </p>
           </div>
@@ -61,19 +61,19 @@ export default function Solutions() {
                     )}
                     <div className="p-8 flex flex-col flex-grow">
                       <div className="flex items-center justify-between mb-6">
-                        <span className="text-[60px] font-thin text-[#262626] leading-none group-hover:text-[#8B5CF6] transition-colors duration-700">
+                        <span className="text-[60px] font-thin text-[#262626] leading-none group-hover:text-[#6ee7b7] transition-colors duration-700">
                           {String(i + 1).padStart(2, "0")}
                         </span>
-                        <span className="text-[10px] font-semibold uppercase tracking-[0.15em] text-[#8B5CF6] border border-[#8B5CF6]/30 px-2.5 py-1 leading-none">
+                        <span className="text-[10px] font-semibold uppercase tracking-[0.15em] text-[#6ee7b7] border border-[#6ee7b7]/30 px-2.5 py-1 leading-none">
                           {solution.category}
                         </span>
                       </div>
                       <h3 className="text-lg font-semibold text-[#e5e2e1] mb-3">{solution.title}</h3>
-                      <p className="text-[#cbc3d7] text-sm mb-6 leading-relaxed flex-grow">{solution.description}</p>
+                      <p className="text-[#a8c4b0] text-sm mb-6 leading-relaxed flex-grow">{solution.description}</p>
                       <ul className="space-y-2.5 border-t border-[#262626] pt-5">
                         {solution.features.map((feature, idx) => (
-                          <li key={idx} className="flex items-start gap-2.5 text-sm text-[#cbc3d7]">
-                            <span className="text-[#8B5CF6] shrink-0 text-xs mt-0.5">—</span>
+                          <li key={idx} className="flex items-start gap-2.5 text-sm text-[#a8c4b0]">
+                            <span className="text-[#6ee7b7] shrink-0 text-xs mt-0.5">—</span>
                             <span>{feature}</span>
                           </li>
                         ))}

@@ -19,11 +19,11 @@ export default function Events() {
         <div className="pt-24 md:pt-28 pb-16 md:pb-24 px-6 md:px-16 max-w-[1440px] mx-auto">
           <div className="editorial-line mb-8" />
           <div className="mb-12">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-[#8B5CF6] mb-4">Global Events</p>
+            <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-[#6ee7b7] mb-4">Global Events</p>
             <h1 className="text-[40px] md:text-[60px] font-extralight tracking-[-0.03em] text-[#e5e2e1] leading-none mb-5">
               Global Events
             </h1>
-            <p className="text-[#cbc3d7] text-base max-w-xl leading-relaxed">
+            <p className="text-[#a8c4b0] text-base max-w-xl leading-relaxed">
               Connect with us at industry summits, webinars, and product launches worldwide.
             </p>
           </div>
@@ -60,7 +60,7 @@ export default function Events() {
                             />
                             <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#050505]" />
                             <div className="absolute bottom-4 left-6">
-                              <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#8B5CF6] border border-[#8B5CF6]/40 bg-[#050505]/60 px-2.5 py-1 w-fit backdrop-blur-sm">
+                              <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#6ee7b7] border border-[#6ee7b7]/40 bg-[#050505]/60 px-2.5 py-1 w-fit backdrop-blur-sm">
                                 {event.type}
                               </div>
                             </div>
@@ -68,23 +68,23 @@ export default function Events() {
                         )}
                         <div className="py-8 grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8 px-0">
                           <div className="md:col-span-1 shrink-0">
-                            <span className="block text-[10px] font-semibold uppercase tracking-[0.2em] text-[#cbc3d7]">{format(new Date(event.date), "MMM")}</span>
-                            <span className="block text-3xl font-thin text-[#8B5CF6] leading-none mt-0.5">{format(new Date(event.date), "dd")}</span>
+                            <span className="block text-[10px] font-semibold uppercase tracking-[0.2em] text-[#a8c4b0]">{format(new Date(event.date), "MMM")}</span>
+                            <span className="block text-3xl font-thin text-[#6ee7b7] leading-none mt-0.5">{format(new Date(event.date), "dd")}</span>
                           </div>
                           <div className="md:col-span-8 flex flex-col gap-3">
                             {!event.coverImageUrl && (
-                              <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#8B5CF6] border border-[#8B5CF6]/30 px-2.5 py-1 w-fit">
+                              <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#6ee7b7] border border-[#6ee7b7]/30 px-2.5 py-1 w-fit">
                                 {event.type}
                               </div>
                             )}
                             <h3 className="text-xl font-semibold text-[#e5e2e1]">{event.title}</h3>
-                            <p className="text-[#cbc3d7] text-sm leading-relaxed">{event.description}</p>
-                            <div className="flex items-center gap-1.5 text-sm text-[#cbc3d7]">
+                            <p className="text-[#a8c4b0] text-sm leading-relaxed">{event.description}</p>
+                            <div className="flex items-center gap-1.5 text-sm text-[#a8c4b0]">
                               <MapPin className="w-3.5 h-3.5" /> {event.location}
                             </div>
                           </div>
                           <div className="md:col-span-3 flex items-start md:justify-end">
-                            <button className="px-7 py-3 border border-[#8B5CF6] text-[#8B5CF6] text-[11px] font-semibold uppercase tracking-[0.2em] hover:bg-[#8B5CF6] hover:text-white transition-colors">
+                            <button className="px-7 py-3 border border-[#6ee7b7] text-[#6ee7b7] text-[11px] font-semibold uppercase tracking-[0.2em] hover:bg-[#6ee7b7] hover:text-white transition-colors">
                               Register
                             </button>
                           </div>
@@ -98,7 +98,7 @@ export default function Events() {
               {pastEvents.length > 0 && (
                 <section>
                   <div className="flex items-center gap-5 mb-8">
-                    <span className="text-[11px] font-semibold uppercase tracking-[0.3em] text-[#cbc3d7] whitespace-nowrap">Past Events</span>
+                    <span className="text-[11px] font-semibold uppercase tracking-[0.3em] text-[#a8c4b0] whitespace-nowrap">Past Events</span>
                     <div className="flex-grow editorial-line" />
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 border-l border-t border-[#262626]">
@@ -123,11 +123,11 @@ export default function Events() {
                           </div>
                         )}
                         <div className="p-7">
-                          <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#cbc3d7] mb-3">
+                          <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#a8c4b0] mb-3">
                             {format(new Date(event.date), "MMM yyyy")} · {event.location}
                           </div>
                           <h3 className="text-base font-semibold text-[#e5e2e1] mb-2.5">{event.title}</h3>
-                          <p className="text-[#cbc3d7] text-sm line-clamp-3 leading-relaxed">{event.description}</p>
+                          <p className="text-[#a8c4b0] text-sm line-clamp-3 leading-relaxed">{event.description}</p>
                         </div>
                       </motion.div>
                     ))}

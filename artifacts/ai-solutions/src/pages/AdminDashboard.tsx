@@ -25,7 +25,7 @@ export default function AdminDashboard() {
           <div className="text-[11px] font-semibold uppercase tracking-[0.3em] text-[#e5e2e1]">Admin Panel</div>
           <button
             onClick={() => { localStorage.removeItem("admin_token"); setLocation("/admin"); }}
-            className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#cbc3d7] hover:text-[#8B5CF6] transition-colors"
+            className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#a8c4b0] hover:text-[#6ee7b7] transition-colors"
           >
             <LogOut className="w-3.5 h-3.5" /> Sign Out
           </button>
@@ -48,11 +48,11 @@ export default function AdminDashboard() {
               { icon: Briefcase, label: "Unique Roles", value: stats.inquiriesByJobTitle.length },
             ].map(({ icon: Icon, label, value }) => (
               <div key={label} className="border-r border-b border-[#262626] p-10">
-                <div className="flex items-center gap-2 mb-6 text-[#cbc3d7]">
+                <div className="flex items-center gap-2 mb-6 text-[#a8c4b0]">
                   <Icon className="w-4 h-4" />
                   <span className="text-[10px] font-semibold uppercase tracking-[0.2em]">{label}</span>
                 </div>
-                <div className="text-[48px] font-thin text-[#8B5CF6] leading-none">{value}</div>
+                <div className="text-[48px] font-thin text-[#6ee7b7] leading-none">{value}</div>
               </div>
             ))}
           </div>
@@ -68,7 +68,7 @@ export default function AdminDashboard() {
               <thead className="border-b border-[#262626]">
                 <tr>
                   {["Date", "Name", "Company", "Role", "Country"].map(h => (
-                    <th key={h} className="px-6 py-4 text-[10px] font-semibold uppercase tracking-[0.2em] text-[#cbc3d7]">{h}</th>
+                    <th key={h} className="px-6 py-4 text-[10px] font-semibold uppercase tracking-[0.2em] text-[#a8c4b0]">{h}</th>
                   ))}
                 </tr>
               </thead>
@@ -84,19 +84,19 @@ export default function AdminDashboard() {
                 ) : inquiries && inquiries.length > 0 ? (
                   inquiries.map(inquiry => (
                     <tr key={inquiry.id} className="border-b border-[#262626] hover:bg-[#0a0a0a] transition-colors">
-                      <td className="px-6 py-4 text-[#cbc3d7] whitespace-nowrap text-xs">{format(new Date(inquiry.createdAt), 'MMM dd, HH:mm')}</td>
+                      <td className="px-6 py-4 text-[#a8c4b0] whitespace-nowrap text-xs">{format(new Date(inquiry.createdAt), 'MMM dd, HH:mm')}</td>
                       <td className="px-6 py-4">
                         <div className="font-medium text-[#e5e2e1]">{inquiry.name}</div>
-                        <div className="text-xs text-[#cbc3d7] mt-0.5">{inquiry.email}</div>
+                        <div className="text-xs text-[#a8c4b0] mt-0.5">{inquiry.email}</div>
                       </td>
-                      <td className="px-6 py-4 text-[#cbc3d7]">{inquiry.companyName}</td>
-                      <td className="px-6 py-4 text-[#cbc3d7]">{inquiry.jobTitle}</td>
-                      <td className="px-6 py-4 text-[#cbc3d7]">{inquiry.country}</td>
+                      <td className="px-6 py-4 text-[#a8c4b0]">{inquiry.companyName}</td>
+                      <td className="px-6 py-4 text-[#a8c4b0]">{inquiry.jobTitle}</td>
+                      <td className="px-6 py-4 text-[#a8c4b0]">{inquiry.country}</td>
                     </tr>
                   ))
                 ) : (
                   <tr>
-                    <td colSpan={5} className="px-6 py-12 text-center text-[#cbc3d7] text-sm">No inquiries found.</td>
+                    <td colSpan={5} className="px-6 py-12 text-center text-[#a8c4b0] text-sm">No inquiries found.</td>
                   </tr>
                 )}
               </tbody>

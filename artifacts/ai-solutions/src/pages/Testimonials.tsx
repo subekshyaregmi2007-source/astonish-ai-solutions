@@ -17,7 +17,7 @@ export default function Testimonials() {
         <div className="pt-24 md:pt-28 pb-16 md:pb-24 px-6 md:px-16 max-w-[1440px] mx-auto">
           <div className="editorial-line mb-8" />
           <div className="mb-12">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-[#8B5CF6] mb-4">Client Stories</p>
+            <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-[#6ee7b7] mb-4">Client Stories</p>
             <h1 className="text-[40px] md:text-[60px] font-extralight tracking-[-0.03em] text-[#e5e2e1] leading-none">
               Trusted by Leaders
             </h1>
@@ -41,8 +41,8 @@ export default function Testimonials() {
                     "{featured.message}"
                   </blockquote>
                   <div className="flex flex-col gap-1">
-                    <span className="text-[11px] font-semibold uppercase tracking-[0.3em] text-[#8B5CF6]">— {featured.clientName}</span>
-                    <span className="text-[#cbc3d7] text-sm">{featured.role}, {featured.company}</span>
+                    <span className="text-[11px] font-semibold uppercase tracking-[0.3em] text-[#6ee7b7]">— {featured.clientName}</span>
+                    <span className="text-[#a8c4b0] text-sm">{featured.role}, {featured.company}</span>
                   </div>
                 </motion.div>
               )}
@@ -60,11 +60,11 @@ export default function Testimonials() {
                   >
                     <div className="md:col-span-3">
                       <div className="font-semibold text-[#e5e2e1] text-sm mb-1">{testimonial.clientName}</div>
-                      <div className="text-[11px] text-[#8B5CF6] uppercase tracking-[0.15em]">{testimonial.company}</div>
-                      <div className="text-xs text-[#cbc3d7] mt-0.5">{testimonial.role}</div>
+                      <div className="text-[11px] text-[#6ee7b7] uppercase tracking-[0.15em]">{testimonial.company}</div>
+                      <div className="text-xs text-[#a8c4b0] mt-0.5">{testimonial.role}</div>
                     </div>
                     <div className="md:col-span-9">
-                      <p className="text-[#cbc3d7] text-[15px] leading-relaxed italic">"{testimonial.message}"</p>
+                      <p className="text-[#a8c4b0] text-[15px] leading-relaxed italic">"{testimonial.message}"</p>
                     </div>
                   </motion.div>
                 ))}
