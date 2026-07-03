@@ -30,13 +30,13 @@ graph TD
     E --> F
     F --> G
     
-    style A fill:#e1f5ff
-    style B fill:#fff3cd
-    style C fill:#d4edda
-    style D fill:#f8d7da
-    style E fill:#e2e3e5
-    style F fill:#d1ecf1
-    style G fill:#d6d8db
+    style A fill:#f5f5f5,stroke:#333,stroke-width:1px
+    style B fill:#ffffff,stroke:#333,stroke-width:1px
+    style C fill:#ffffff,stroke:#333,stroke-width:1px
+    style D fill:#ffffff,stroke:#333,stroke-width:1px
+    style E fill:#ffffff,stroke:#333,stroke-width:1px
+    style F fill:#e0e0e0,stroke:#333,stroke-width:1px
+    style G fill:#f5f5f5,stroke:#333,stroke-width:1px
 ```
 
 ### 2. Contact Page Wireframe
@@ -72,11 +72,11 @@ graph TD
     K --> L
     L --> M
     
-    style A fill:#e1f5ff
-    style C fill:#fff3cd
-    style K fill:#28a745
-    style L fill:#f8d7da
-    style M fill:#d6d8db
+    style A fill:#f5f5f5,stroke:#333,stroke-width:1px
+    style C fill:#ffffff,stroke:#333,stroke-width:1px
+    style K fill:#e0e0e0,stroke:#333,stroke-width:1px
+    style L fill:#ffffff,stroke:#333,stroke-width:1px
+    style M fill:#f5f5f5,stroke:#333,stroke-width:1px
 ```
 
 ### 3. Admin Dashboard Wireframe
@@ -106,12 +106,12 @@ graph TD
     G --> I
     I --> J
     
-    style A fill:#007bff
-    style B fill:#28a745
-    style C fill:#ffc107
-    style F fill:#e1f5ff
-    style H fill:#fff3cd
-    style I fill:#f8d7da
+    style A fill:#e0e0e0,stroke:#333,stroke-width:1px
+    style B fill:#ffffff,stroke:#333,stroke-width:1px
+    style C fill:#ffffff,stroke:#333,stroke-width:1px
+    style F fill:#ffffff,stroke:#333,stroke-width:1px
+    style H fill:#f5f5f5,stroke:#333,stroke-width:1px
+    style I fill:#e0e0e0,stroke:#333,stroke-width:1px
 ```
 
 ---
