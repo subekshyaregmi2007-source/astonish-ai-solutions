@@ -1,11 +1,11 @@
 import pg from "pg";
 import { drizzle } from "drizzle-orm/node-postgres";
-import { solutionsTable } from "../../lib/db/src/schema/solutions.ts";
-import { industriesTable } from "../../lib/db/src/schema/industries.ts";
-import { testimonialsTable } from "../../lib/db/src/schema/testimonials.ts";
-import { articlesTable } from "../../lib/db/src/schema/articles.ts";
-import { eventsTable } from "../../lib/db/src/schema/events.ts";
-import { inquiriesTable } from "../../lib/db/src/schema/inquiries.ts";
+import { solutionsTable } from "../../database/src/schema/solutions.ts";
+import { industriesTable } from "../../database/src/schema/industries.ts";
+import { testimonialsTable } from "../../database/src/schema/testimonials.ts";
+import { articlesTable } from "../../database/src/schema/articles.ts";
+import { eventsTable } from "../../database/src/schema/events.ts";
+import { inquiriesTable } from "../../database/src/schema/inquiries.ts";
 
 const { Pool } = pg;
 
