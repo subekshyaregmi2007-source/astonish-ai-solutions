@@ -236,5 +236,5 @@ MIT
 ## Author
 
 CET333 Product Development Project  
-Rohan Khadka  
+Subekshya Regmi  
 © 2026
